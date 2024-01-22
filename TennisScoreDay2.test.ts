@@ -47,6 +47,7 @@ describe('Tennis score', function () {
         ).toEqual('love thirty')
 
     });
+
     it('should be fifteen thirty', () => {
         const tennis = new Tennis();
         tennis.firstPlayerScore(1)
@@ -54,8 +55,17 @@ describe('Tennis score', function () {
         expect(
             tennis.score()
         ).toEqual('fifteen thirty')
-
     });
+
+    it('should be fifteen forty', () => {
+        const tennis = new Tennis();
+        tennis.firstPlayerScore(1)
+        tennis.secondPlayerScore(3)
+        expect(
+            tennis.score()
+        ).toEqual('fifteen forty')
+    });
+
     it('should be love forty', () => {
         const tennis = new Tennis();
         tennis.firstPlayerScore(0)
