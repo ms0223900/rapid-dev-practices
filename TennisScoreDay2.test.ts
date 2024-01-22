@@ -73,6 +73,6 @@ describe('Tennis score', function () {
         expect(
             tennis.score()
         ).toEqual('love forty')
-
     });
+
 });
