@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/ms0223900/rapid-dev-practices/issues"
   },
-  "homepage": "https://github.com/ms0223900/rapid-dev-practices#readme"
+  "homepage": "https://github.com/ms0223900/rapid-dev-practices#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
 }
