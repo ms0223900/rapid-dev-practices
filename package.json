@@ -1,0 +1,19 @@
+{
+  "name": "rapid-dev-practices",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ms0223900/rapid-dev-practices.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ms0223900/rapid-dev-practices/issues"
+  },
+  "homepage": "https://github.com/ms0223900/rapid-dev-practices#readme"
+}
