@@ -4,6 +4,7 @@ const scoreLookup = {
     2: 'thirty',
     3: 'forty'
 }
+
 class Tennis {
     private _firstPlayerScore = 0;
 
@@ -21,8 +22,21 @@ class Tennis {
 describe('Tennis Score', function () {
     it('should be love fifteen', () => {
         const tennis = new Tennis();
-       tennis.firstPlayerScore(1)
+        tennis.firstPlayerScore(3)
         expect(tennis.getScore()).toEqual('love fifteen')
+    });
+
+    it('should be love thirty', () => {
+        const tennis = new Tennis();
+        tennis.firstPlayerScore(2)
+        expect(tennis.getScore()).toEqual('love thirty')
+    });
+
+
+    it('should be love thirty', () => {
+        const tennis = new Tennis();
+        tennis.firstPlayerScore(2)
+        expect(tennis.getScore()).toEqual('love thirty')
     });
 
     it('should be love thirty', () => {
