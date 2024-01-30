@@ -11,17 +11,8 @@ class Tennis {
     getScore() {
         console.log(this._firstPlayerScore, this._secondPlayerScore)
         if (this._firstPlayerScore === this._secondPlayerScore) {
-            if (this._firstPlayerScore === 0) {
-                return 'love all'
-            }
-            if (this._firstPlayerScore === 1) {
-                return 'fifteen all'
-            }
-            if (this._firstPlayerScore === 2) {
-                return 'thirty all'
-            }
-            if (this._firstPlayerScore === 1) {
-                return 'fifteen all'
+            if (this._firstPlayerScore === 0 || this._firstPlayerScore === 1 || this._firstPlayerScore === 2) {
+                return `${this.scoreLookUp[this._firstPlayerScore]} all`
             }
         }
         if (this._firstPlayerScore === 1 || this._firstPlayerScore === 2 || this._firstPlayerScore === 3) {
@@ -82,6 +73,13 @@ describe('Tennis Score', function () {
         firstPlayerScoreTimes(2)
         secondPlayerScoreTimes(1)
         expect(tennis.getScore()).toEqual('thirty fifteen')
+    });
+
+
+    it('should be thirty all', () => {
+        firstPlayerScoreTimes(2)
+        secondPlayerScoreTimes(2)
+        expect(tennis.getScore()).toEqual('thirty all')
     });
 
 
