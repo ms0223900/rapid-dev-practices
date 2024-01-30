@@ -19,20 +19,14 @@ class Tennis {
 
     getScore() {
         if (this.isSameScore()) {
-            if (this.under3()) {
-                return `${this.scoreLookUp[this._firstPlayerScore]} all`
-            }
-            return 'deuce'
+            return this.under3() ? `${this.scoreLookUp[this._firstPlayerScore]} all` : 'deuce';
         }
         if (this.firstScoreUnderOrEqualTo3() && this.secondScoreUnderOrEqualTo3()) {
             return `${this.scoreLookUp[this._firstPlayerScore]} ${this.scoreLookUp[this._secondPlayerScore]}`
         }
-        const advPlayer = this._firstPlayerScore > this._secondPlayerScore ? this._firstPlayerName : this._secondPlayerName;
 
-        if (this.isPlayerWin()) {
-            return `${advPlayer} win`
-        }
-        return `${advPlayer} adv`
+        const advPlayer = this._firstPlayerScore > this._secondPlayerScore ? this._firstPlayerName : this._secondPlayerName;
+        return this.isPlayerWin() ? `${advPlayer} win` : `${advPlayer} adv`;
     }
 
     addFirstPlayerScore() {
