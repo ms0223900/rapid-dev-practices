@@ -19,7 +19,7 @@ class Tennis {
 
     getScore() {
         if (this.isSameScore()) {
-            if (this._firstPlayerScore === 0 || this._firstPlayerScore === 1 || this._firstPlayerScore === 2) {
+            if (this.under3()) {
                 return `${this.scoreLookUp[this._firstPlayerScore]} all`
             }
             return 'deuce'
@@ -41,6 +41,10 @@ class Tennis {
 
     addSecondPlayerScore() {
         this._secondPlayerScore++
+    }
+
+    private under3() {
+        return this._firstPlayerScore < 3
     }
 
     private isPlayerWin() {
