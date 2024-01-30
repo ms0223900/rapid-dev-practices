@@ -24,7 +24,7 @@ class Tennis {
             }
             return 'deuce'
         }
-        if (this.firstScoreUnder3() && this.secondScoreUnder3()) {
+        if (this.firstScoreUnderOrEqualTo3() && this.secondScoreUnderOrEqualTo3()) {
             return `${this.scoreLookUp[this._firstPlayerScore]} ${this.scoreLookUp[this._secondPlayerScore]}`
         }
         const advPlayer = this._firstPlayerScore > this._secondPlayerScore ? this._firstPlayerName : this._secondPlayerName;
@@ -55,11 +55,11 @@ class Tennis {
         return this._firstPlayerScore === this._secondPlayerScore;
     }
 
-    private firstScoreUnder3() {
+    private firstScoreUnderOrEqualTo3() {
         return this._firstPlayerScore <= 3
     }
 
-    private secondScoreUnder3() {
+    private secondScoreUnderOrEqualTo3() {
         return this._secondPlayerScore <= 3
     }
 }
