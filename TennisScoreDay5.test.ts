@@ -7,7 +7,8 @@ class Tennis {
     }
     private _firstPlayerScore = 0;
     private _secondPlayerScore = 0;
-    private _firstPlayerName: string | string;
+
+    private _firstPlayerName: string;
     private _secondPlayerName: string;
 
 
@@ -17,7 +18,6 @@ class Tennis {
     }
 
     getScore() {
-        // console.log(this._firstPlayerScore, this._secondPlayerScore)
         if (this.isSameScore()) {
             if (this._firstPlayerScore === 0 || this._firstPlayerScore === 1 || this._firstPlayerScore === 2) {
                 return `${this.scoreLookUp[this._firstPlayerScore]} all`
