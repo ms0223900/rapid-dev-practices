@@ -36,7 +36,7 @@ describe('Tennis Score', function () {
     it('should be love all', () => {
         expect(
             tennis.getScore()
-        ).toEqual('love all')
+        ).toEqual('love')
     });
 
     function addFirstPlayerScore(times: number) {

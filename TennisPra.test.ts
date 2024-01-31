@@ -10,6 +10,9 @@ class Tennis {
 
     getScore() {
         if (this.isSameScore()) {
+            if (this._firstPlayerScore >= 3) {
+                return 'deuce';
+            }
             return `${this.scoreLookUp[this._firstPlayerScore]} all`;
         }
         if (this.isUnderOrEqual3()) {
@@ -105,6 +108,13 @@ describe('Tennis', function () {
         addFirstPlayerScore(3);
         addSecondPlayerScore(3);
         expect(tennis.getScore()).toEqual('forty all')
+    });
+
+
+    it('should be deuce', () => {
+        addFirstPlayerScore(4);
+        addSecondPlayerScore(4);
+        expect(tennis.getScore()).toEqual('deuce')
     });
 
 
