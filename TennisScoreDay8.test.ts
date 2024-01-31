@@ -1,12 +1,14 @@
 class Tennis {
-    private _firstPlayerScore = 0;
     private scoreLookUp = {
         0: 'love',
         1: 'fifteen',
         2: 'thirty',
         3: 'forty',
     };
+    
+    private _firstPlayerScore = 0;
     private _secondPlayerScore = 0;
+
     private firstPlayerName: string;
     private secondPlayerName: string;
 
