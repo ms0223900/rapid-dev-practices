@@ -5,7 +5,7 @@ class Tennis {
         2: 'thirty',
         3: 'forty',
     };
-    
+
     private _firstPlayerScore = 0;
     private _secondPlayerScore = 0;
 
@@ -19,6 +19,12 @@ class Tennis {
     }
 
     getScore() {
+        if (this._firstPlayerScore >= 4 && this._secondPlayerScore < 3) {
+            return `${this.firstPlayerName} win`;
+        }
+        if (this._secondPlayerScore >= 4 && this._firstPlayerScore < 3) {
+            return `${this.secondPlayerName} win`;
+        }
         if (this.isSameScore()) {
             return this._firstPlayerScore >= 3 ? 'deuce' : `${this.scoreLookUp[this._secondPlayerScore]} all`;
         }
@@ -50,10 +56,6 @@ class Tennis {
 
     private isWin() {
         return Math.abs(this._firstPlayerScore - this._secondPlayerScore) == 2;
-    }
-
-    private underOrEqual3() {
-        return this._firstPlayerScore === 0 || this._firstPlayerScore === 1 || this._firstPlayerScore === 2 || this._firstPlayerScore === 3;
     }
 }
 
@@ -100,6 +102,11 @@ describe('Tennis Score', function () {
         expect(tennis.getScore()).toEqual('forty love')
     });
 
+    it('should be Tom win', () => {
+        firstPlayerScoreTimes(4);
+        expect(tennis.getScore()).toEqual('Tom win')
+    });
+
 
     it('should be fifteen thirty', () => {
         firstPlayerScoreTimes(1);
@@ -112,6 +119,13 @@ describe('Tennis Score', function () {
         secondPlayerScoreTimes(3);
         expect(tennis.getScore()).toEqual('fifteen forty')
     });
+
+    it('should be Pen win', () => {
+        firstPlayerScoreTimes(1);
+        secondPlayerScoreTimes(4);
+        expect(tennis.getScore()).toEqual('Pen win')
+    });
+
 
     it('should be thirty forty', () => {
         firstPlayerScoreTimes(2);
