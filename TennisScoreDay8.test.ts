@@ -28,16 +28,15 @@ class Tennis {
             return this.isWin() ? `${advPlayer} win` : `${advPlayer} adv`;
 
         }
-        if (this._firstPlayerScore < 3 || this._secondPlayerScore < 3) {
-            if (this._firstPlayerScore === 4) {
-                return `${this.firstPlayerName} win`;
-            }
-            if (this._secondPlayerScore === 4) {
-                return `${this.secondPlayerName} win`;
-            }
-            return `${this.scoreLookUp[this._firstPlayerScore]} ${this.scoreLookUp[this._secondPlayerScore]}`;
 
+        if (this._firstPlayerScore === 4) {
+            return `${this.firstPlayerName} win`;
         }
+        if (this._secondPlayerScore === 4) {
+            return `${this.secondPlayerName} win`;
+        }
+
+        return `${this.scoreLookUp[this._firstPlayerScore]} ${this.scoreLookUp[this._secondPlayerScore]}`;
     }
 
     firstPlayerScore() {
