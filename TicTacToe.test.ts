@@ -22,7 +22,8 @@ class TicTacToe {
 
     getResult() {
         if (this._pos[0][0] === this._pos[0][1] &&
-            this._pos[0][1] === this._pos[0][2]) {
+            this._pos[0][1] === this._pos[0][2] || this._pos[0][0] === this._pos[1][0] &&
+            this._pos[1][0] === this._pos[2][0]) {
             return `${this._pos[0][0]} win`;
         }
         return null;
@@ -75,6 +76,18 @@ describe('Tic Tac Toe', function () {
         ticTacToe.firstPlayer([0, 1])
         ticTacToe.secondPlayer([2, 0])
         ticTacToe.firstPlayer([0, 2])
+
+        expect(ticTacToe.getResult()).toEqual(`${firstPlayer} win`)
+    });
+
+
+    it('should firstPlayer win', () => {
+        const ticTacToe = new TicTacToe(firstPlayer, secondPlayer);
+        ticTacToe.firstPlayer([0, 0])
+        ticTacToe.secondPlayer([0, 1])
+        ticTacToe.firstPlayer([1, 0])
+        ticTacToe.secondPlayer([0, 2])
+        ticTacToe.firstPlayer([2, 0])
 
         expect(ticTacToe.getResult()).toEqual(`${firstPlayer} win`)
     });
