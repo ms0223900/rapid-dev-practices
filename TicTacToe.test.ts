@@ -4,7 +4,7 @@ class TicTacToe {
     private _secondPlayer: string;
 
     constructor(firstPlayer: string, secondPlayer: string) {
-        this._pos = Array(3).fill(0).map(arr => ['', '', ''])
+        this.initTicTacToe();
         this._firstPlayer = firstPlayer;
         this._secondPlayer = secondPlayer;
     }
@@ -14,18 +14,23 @@ class TicTacToe {
     }
 
     secondPlayer(pos: number[]) {
-
+        if (this._pos[pos[0]][pos[1]]) {
+            throw new Error('Not Same !')
+        }
         return this._pos[pos[0]][pos[1]] = this._secondPlayer
     }
 
     getResult() {
         return null;
-
     }
 
     getPos() {
         return this._pos;
 
+    }
+
+    private initTicTacToe() {
+        this._pos = Array(3).fill(0).map(arr => ['', '', ''])
     }
 }
 
@@ -50,11 +55,12 @@ describe('Tic Tac Toe', function () {
         expect(ticTacToe.getPos()[0][0]).toEqual(firstPlayer)
     });
 
-    // TODO
     it('should not player be same pos', () => {
         const ticTacToe = new TicTacToe(firstPlayer, secondPlayer);
         ticTacToe.firstPlayer([0, 0])
-        ticTacToe.secondPlayer([0, 0])
+        expect(() =>
+            ticTacToe.secondPlayer([0, 0])
+        ).toThrow('Not Same !')
         expect(ticTacToe.getResult()).toBeNull()
     });
 
