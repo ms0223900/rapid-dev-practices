@@ -92,6 +92,17 @@ describe('Tic Tac Toe', function () {
         expect(ticTacToe.getResult()).toEqual(`${firstPlayer} win`)
     });
 
+    it('should firstPlayer win', () => {
+        const ticTacToe = new TicTacToe(firstPlayer, secondPlayer);
+        ticTacToe.firstPlayer([0, 0])
+        ticTacToe.secondPlayer([0, 1])
+        ticTacToe.firstPlayer([1, 1])
+        ticTacToe.secondPlayer([0, 2])
+        ticTacToe.firstPlayer([2, 0])
+
+        expect(ticTacToe.getResult()).toEqual(`${firstPlayer} win`)
+    });
+
 
     it('should not player be same pos', () => {
         const ticTacToe = new TicTacToe(firstPlayer, secondPlayer);
