@@ -2,6 +2,7 @@ class TicTacToe {
     private _pos: string[][]
     private _firstPlayer: string;
     private _secondPlayer: string;
+    private _winner: string;
 
     constructor(firstPlayer: string, secondPlayer: string) {
         this.initTicTacToe();
@@ -21,10 +22,8 @@ class TicTacToe {
     }
 
     getResult() {
-        if (this._pos[0][0] === this._pos[0][1] &&
-            this._pos[0][1] === this._pos[0][2] || this._pos[0][0] === this._pos[1][0] &&
-            this._pos[1][0] === this._pos[2][0]) {
-            return `${this._pos[0][0]} win`;
+        if (this.checkIsWin()) {
+            return `${this._winner} win`;
         }
         return null;
     }
@@ -32,6 +31,32 @@ class TicTacToe {
     getPos() {
         return this._pos;
 
+    }
+
+    private checkIsWin() {
+        for (let i = 0; i < 3; i++) {
+            // row
+            if (!this._pos[0][i]) {
+                continue
+            }
+            if (!this._pos[1][i]) {
+                continue
+            }
+            if (!this._pos[2][i]) {
+                continue
+            }
+            if (this._pos[0][i] === this._pos[1][i] &&
+                this._pos[1][i] === this._pos[2][i]) {
+                this._winner = this._pos[0][i]
+                return true;
+            }
+        }
+        if (this._pos[0][0] === this._pos[0][1] &&
+            this._pos[0][1] === this._pos[0][2] || this._pos[0][0] === this._pos[1][0] &&
+            this._pos[1][0] === this._pos[2][0] || this._pos[0][0] === this._pos[1][1] && this._pos[1][1] === this._pos[2][2]) {
+            this._winner = this._pos[0][0]
+            return true;
+        }
     }
 
     private initTicTacToe() {
@@ -81,7 +106,7 @@ describe('Tic Tac Toe', function () {
     });
 
 
-    it('should firstPlayer win', () => {
+    it('should firstPlayer win (row)', () => {
         const ticTacToe = new TicTacToe(firstPlayer, secondPlayer);
         ticTacToe.firstPlayer([0, 0])
         ticTacToe.secondPlayer([0, 1])
@@ -92,13 +117,36 @@ describe('Tic Tac Toe', function () {
         expect(ticTacToe.getResult()).toEqual(`${firstPlayer} win`)
     });
 
-    it('should firstPlayer win', () => {
+    it('should firstPlayer win (column 1)', () => {
+        const ticTacToe = new TicTacToe(firstPlayer, secondPlayer);
+        ticTacToe.firstPlayer([0, 0])
+        ticTacToe.secondPlayer([0, 1])
+        ticTacToe.firstPlayer([1, 0])
+        ticTacToe.secondPlayer([0, 2])
+        ticTacToe.firstPlayer([2, 0])
+
+        expect(ticTacToe.getResult()).toEqual(`${firstPlayer} win`)
+    });
+
+    it('should firstPlayer win (row 2)', () => {
+        const ticTacToe = new TicTacToe(firstPlayer, secondPlayer);
+        ticTacToe.firstPlayer([0, 1])
+        ticTacToe.secondPlayer([0, 0])
+        ticTacToe.firstPlayer([1, 1])
+        ticTacToe.secondPlayer([0, 2])
+        ticTacToe.firstPlayer([2, 1])
+
+        expect(ticTacToe.getResult()).toEqual(`${firstPlayer} win`)
+    });
+
+
+    it('should firstPlayer win (slash)', () => {
         const ticTacToe = new TicTacToe(firstPlayer, secondPlayer);
         ticTacToe.firstPlayer([0, 0])
         ticTacToe.secondPlayer([0, 1])
         ticTacToe.firstPlayer([1, 1])
         ticTacToe.secondPlayer([0, 2])
-        ticTacToe.firstPlayer([2, 0])
+        ticTacToe.firstPlayer([2, 2])
 
         expect(ticTacToe.getResult()).toEqual(`${firstPlayer} win`)
     });
