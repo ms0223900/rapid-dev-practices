@@ -11,10 +11,15 @@ class TicTacToe {
     }
 
     firstPlayer(pos: number[]) {
+        this.checkIsWin()
         return this._pos[pos[0]][pos[1]] = this._firstPlayer
     }
 
     secondPlayer(pos: number[]) {
+        this.checkIsWin()
+        if (this._winner) {
+            throw new Error('Game Over')
+        }
         if (this._pos[pos[0]][pos[1]]) {
             throw new Error('Not Same !')
         }
@@ -36,27 +41,31 @@ class TicTacToe {
     private checkIsWin() {
         for (let i = 0; i < 3; i++) {
             // row
-            if (!this._pos[0][i]) {
-                continue
-            }
-            if (!this._pos[1][i]) {
-                continue
-            }
-            if (!this._pos[2][i]) {
-                continue
-            }
-            if (this._pos[0][i] === this._pos[1][i] &&
-                this._pos[1][i] === this._pos[2][i]) {
+            if (this.checkPosSame([this._pos[0][i], this._pos[1][i]
+                , this._pos[2][i]])) {
                 this._winner = this._pos[0][i]
                 return true;
             }
+
+            if (this.checkPosSame([this._pos[i][0], this._pos[i][1]
+                , this._pos[i][2]])) {
+                this._winner = this._pos[i][0]
+                return true;
+            }
+
         }
-        if (this._pos[0][0] === this._pos[0][1] &&
-            this._pos[0][1] === this._pos[0][2] || this._pos[0][0] === this._pos[1][0] &&
-            this._pos[1][0] === this._pos[2][0] || this._pos[0][0] === this._pos[1][1] && this._pos[1][1] === this._pos[2][2]) {
+        if (this.checkPosSame([this._pos[0][0], this._pos[1][1], this._pos[2][2]])) {
             this._winner = this._pos[0][0]
             return true;
         }
+        if (this.checkPosSame([this._pos[2][0], this._pos[1][1], this._pos[0][2]])) {
+            this._winner = this._pos[2][0]
+            return true;
+        }
+    }
+
+    private checkPosSame(positions: string[]) {
+        return positions.every(val => val === positions[0] && !!val);
     }
 
     private initTicTacToe() {
@@ -117,6 +126,22 @@ describe('Tic Tac Toe', function () {
         expect(ticTacToe.getResult()).toEqual(`${firstPlayer} win`)
     });
 
+    it('should not continue if someone win', () => {
+        const ticTacToe = new TicTacToe(firstPlayer, secondPlayer);
+        ticTacToe.firstPlayer([0, 0])
+        ticTacToe.secondPlayer([0, 1])
+        ticTacToe.firstPlayer([1, 0])
+        ticTacToe.secondPlayer([0, 2])
+        ticTacToe.firstPlayer([2, 0])
+        expect(() =>
+            ticTacToe.secondPlayer([1, 2])
+        ).toThrow('Game Over')
+
+        expect(ticTacToe.getResult()).toEqual(`${firstPlayer} win`)
+        expect(ticTacToe.getPos()[1][2]).not.toEqual(secondPlayer)
+    });
+
+
     it('should firstPlayer win (column 1)', () => {
         const ticTacToe = new TicTacToe(firstPlayer, secondPlayer);
         ticTacToe.firstPlayer([0, 0])
@@ -137,6 +162,18 @@ describe('Tic Tac Toe', function () {
         ticTacToe.firstPlayer([2, 1])
 
         expect(ticTacToe.getResult()).toEqual(`${firstPlayer} win`)
+    });
+
+    it('should secondPlayer win', () => {
+        const ticTacToe = new TicTacToe(firstPlayer, secondPlayer);
+        ticTacToe.firstPlayer([0, 1])
+        ticTacToe.secondPlayer([0, 0])
+        ticTacToe.firstPlayer([1, 1])
+        ticTacToe.secondPlayer([1, 0])
+        ticTacToe.firstPlayer([2, 2])
+        ticTacToe.secondPlayer([2, 0])
+
+        expect(ticTacToe.getResult()).toEqual(`${secondPlayer} win`)
     });
 
 
