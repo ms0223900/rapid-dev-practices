@@ -10,12 +10,7 @@ class Tennis {
 
     getScore() {
         if (this._firstPlayerScore !== this._secondPlayerScore) {
-            if (this._firstPlayerScore === 1 || this._firstPlayerScore === 2 || this._firstPlayerScore === 3) {
-                return `${this.scoreLookUp[this._firstPlayerScore]} love`;
-            }
-            if (this._secondPlayerScore === 1 || this._secondPlayerScore === 2 || this._secondPlayerScore === 3) {
-                return `love ${this.scoreLookUp[this._secondPlayerScore]}`;
-            }
+            return `${this.scoreLookUp[this._firstPlayerScore]} ${this.scoreLookUp[this._secondPlayerScore]}`;
         }
         return `${this.scoreLookUp[this._firstPlayerScore]} all`;
     }
