@@ -17,11 +17,15 @@ class HappyBirthdayService {
     execute() {
         const datas = this.fileReader.readDatas();
         for (let i = 0; i < datas.length; i++) {
-            this.sender.send(`
-            Subject: Happy birthday!
-            Happy birthday, dear ${datas[i]}!
-        `)
+            this.sender.send(this.getMessage(datas[i]))
         }
+    }
+
+    private getMessage(firstName: string) {
+        return `
+            Subject: Happy birthday!
+            Happy birthday, dear ${firstName}!
+        `;
     }
 }
 
@@ -29,6 +33,7 @@ class Sender {
 
     send(message: string) {
 
+        console.log(message)
     }
 }
 
@@ -41,9 +46,13 @@ class FileReaderImpl implements CsvFileReader {
     }
 
     readDatas(): string[] {
-        const handledData = this.csvData.split('\n').map(rowData => rowData.split(', '));
-        console.log(handledData)
+        const handledData = this.getDataRows().map(rowData => rowData.split(', '));
+        // console.log(handledData)
         return handledData.slice(1).map(data => data[1]);
+    }
+
+    private getDataRows() {
+        return this.csvData.split('\n');
     }
 }
 
