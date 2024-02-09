@@ -10,20 +10,22 @@ class Tennis {
     private firstPlayerName: string;
     private secondPlayerName: string;
 
-
     constructor(firstPlayerName: string, secondPlayerName: string) {
         this.firstPlayerName = firstPlayerName;
         this.secondPlayerName = secondPlayerName;
     }
 
     getScore() {
-        if (this.scoreDiff()) {
+        if (this.isScoreDiff()) {
             if (this.isCheckPoint()) {
                 return this.isAdv() ? `${this.getAdvPlayer()} adv` : `${this.getAdvPlayer()} win`;
             }
-            return this.getDiffResult();
+            return `${this.scoreLookUp[this._firstPlayerScore]} ${this.scoreLookUp[this._secondPlayerScore]}`;
         }
-        return this.isDeuce() ? this.getDeuce() : this.getSameAll();
+        if (this._firstPlayerScore > 2) {
+            return 'deuce';
+        }
+        return `${this.scoreLookUp[this._firstPlayerScore]} all`;
     }
 
     firstPlayerScore() {
@@ -34,45 +36,29 @@ class Tennis {
         this._secondPlayerScore++
     }
 
-    private getSameAll() {
-        return `${this.scoreLookUp[this._firstPlayerScore]} all`;
-    }
-
-    private getDeuce() {
-        return 'deuce';
-    }
-
-    private isDeuce() {
-        return this._firstPlayerScore > 2;
+    private getAdvPlayer() {
+        return this._firstPlayerScore > this._secondPlayerScore ? this.firstPlayerName : this.secondPlayerName;
     }
 
     private isAdv() {
         return Math.abs(this._firstPlayerScore - this._secondPlayerScore) === 1;
     }
 
-    private getAdvPlayer() {
-        return this._firstPlayerScore > this._secondPlayerScore ? this.firstPlayerName : this.secondPlayerName;
-    }
-
     private isCheckPoint() {
         return this._firstPlayerScore > 3 || this._secondPlayerScore > 3;
     }
 
-    private getDiffResult() {
-        return `${this.scoreLookUp[this._firstPlayerScore]} ${this.scoreLookUp[this._secondPlayerScore]}`;
-    }
-
-    private scoreDiff() {
+    private isScoreDiff() {
         return this._firstPlayerScore !== this._secondPlayerScore;
     }
 }
 
 describe('Tennis Score', function () {
-    let tennis: Tennis
+    let tennis: Tennis;
     beforeEach(() => {
-        tennis = new Tennis('Tom', 'David');
-
+        tennis = new Tennis('Tom', 'Joe')
     });
+
     it('should be love all', () => {
         expect(tennis.getScore()).toEqual('love all')
     });
@@ -82,21 +68,20 @@ describe('Tennis Score', function () {
         expect(tennis.getScore()).toEqual('fifteen love')
     });
 
-
-    function givenFirstPlayerScores(times: number) {
+    function givenFirstPlayer(times: number) {
         for (let i = 0; i < times; i++) {
             tennis.firstPlayerScore()
         }
     }
 
     it('should be thirty love', () => {
-        givenFirstPlayerScores(2);
+        givenFirstPlayer(2);
         expect(tennis.getScore()).toEqual('thirty love')
     });
 
 
     it('should be forty love', () => {
-        givenFirstPlayerScores(3);
+        givenFirstPlayer(3)
         expect(tennis.getScore()).toEqual('forty love')
     });
 
@@ -106,8 +91,9 @@ describe('Tennis Score', function () {
         expect(tennis.getScore()).toEqual('love fifteen')
     });
 
-    function givenSecondPlayerScores(times: number) {
-        for (let i = 0; i < times; i++) {
+
+    function givenSecondPlayerScores(tims: number) {
+        for (let i = 0; i < tims; i++) {
             tennis.secondPlayerScore()
         }
     }
@@ -125,48 +111,52 @@ describe('Tennis Score', function () {
 
 
     it('should be fifteen all', () => {
-        givenFirstPlayerScores(1)
+        givenFirstPlayer(1)
         givenSecondPlayerScores(1)
         expect(tennis.getScore()).toEqual('fifteen all')
     });
 
 
     it('should be thirty all', () => {
-        givenFirstPlayerScores(2)
+        givenFirstPlayer(2)
         givenSecondPlayerScores(2)
         expect(tennis.getScore()).toEqual('thirty all')
     });
 
+
     it('should be deuce', () => {
-        givenFirstPlayerScores(3)
+        givenFirstPlayer(3)
         givenSecondPlayerScores(3)
         expect(tennis.getScore()).toEqual('deuce')
     });
 
 
-    it('should David adv', () => {
-        givenFirstPlayerScores(3)
-        givenSecondPlayerScores(4)
-        expect(tennis.getScore()).toEqual('David adv')
-    });
-
-
-    it('should David win', () => {
-        givenFirstPlayerScores(3)
-        givenSecondPlayerScores(5)
-        expect(tennis.getScore()).toEqual('David win')
-    });
-
-
     it('should be Tom adv', () => {
-        givenFirstPlayerScores(4)
+        givenFirstPlayer(4)
         givenSecondPlayerScores(3)
         expect(tennis.getScore()).toEqual('Tom adv')
     });
 
+
     it('should be Tom win', () => {
-        givenFirstPlayerScores(5)
+        givenFirstPlayer(5)
         givenSecondPlayerScores(3)
         expect(tennis.getScore()).toEqual('Tom win')
     });
+
+
+    it('should be Joe adv', () => {
+        givenFirstPlayer(3)
+        givenSecondPlayerScores(4)
+        expect(tennis.getScore()).toEqual('Joe adv')
+    });
+
+
+    it('should be Joe win', () => {
+        givenFirstPlayer(3)
+        givenSecondPlayerScores(5)
+        expect(tennis.getScore()).toEqual('Joe win')
+    });
+
+
 });
