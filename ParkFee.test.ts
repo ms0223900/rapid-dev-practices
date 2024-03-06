@@ -54,5 +54,9 @@ describe('Car Parking Fee', function () {
         expect(parkFeeCalc.getParkingFee()).toEqual(90)
     });
 
+    it('should be $90 if parking time is 150 minutes', () => {
+        parkFeeCalc.addParkTime(150)
+        expect(parkFeeCalc.getParkingFee()).toEqual(90)
+    });
 
 });

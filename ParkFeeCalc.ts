@@ -18,12 +18,6 @@ export class ParkFeeCalc {
         if (this.parkingTime > 120) {
             return 90;
         }
-        if (this.parkingTime > 90) {
-            return 60;
-        }
-        if (this.parkingTime >= 61) {
-            return 40;
-        }
     }
 
     private getSecondHourFee() {
