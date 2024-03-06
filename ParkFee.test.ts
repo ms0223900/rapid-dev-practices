@@ -7,6 +7,10 @@ describe('Car Parking Fee', function () {
         parkFeeCalc = new ParkFeeCalc();
     });
 
+    it('should be free if not parking', () => {
+        expect(parkFeeCalc.getParkingFee()).toEqual(0)
+    });
+
     it('should be free if parking time less than 30 minutes', () => {
         parkFeeCalc.addParkingTimes()
         parkFeeCalc.addParkTime(29)

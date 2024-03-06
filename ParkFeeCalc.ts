@@ -12,7 +12,7 @@ export class ParkFeeCalc {
     }
 
     getParkingFee() {
-        if (this.parkingTimes <= 1 && this.parkingTimeMin < this.oneHourMin / 2) {
+        if (this.checkIsFree()) {
             return 0;
         }
         if (this.parkingTimeMin <= this.oneHourMin) {
@@ -26,6 +26,10 @@ export class ParkFeeCalc {
 
     addParkingTimes() {
         this.parkingTimes++
+    }
+
+    private checkIsFree() {
+        return this.parkingTimes <= 1 && this.parkingTimeMin < this.oneHourMin / 2;
     }
 
     private getThirdHourLaterFee() {
