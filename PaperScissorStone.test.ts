@@ -9,6 +9,14 @@ describe('Paper Scissor Stone', function () {
     });
 
 
+    it('should Joy win (scissor win paper)', () => {
+        let paperScissorStone = new PaperScissorStone();
+        paperScissorStone.firstPlayer('paper')
+        paperScissorStone.secondPlayer('scissor')
+        expect(paperScissorStone.getResult()).toEqual('Joy win')
+    });
+
+
     it('should Tom win (paper win stone)', () => {
         let paperScissorStone = new PaperScissorStone();
         paperScissorStone.firstPlayer('paper')
