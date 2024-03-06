@@ -49,4 +49,28 @@ describe('Paper Scissor Stone', function () {
     });
 
 
+    it('should draw (scissor and scissor)', () => {
+        let paperScissorStone = new PaperScissorStone();
+        paperScissorStone.firstPlayer('scissor')
+        paperScissorStone.secondPlayer('scissor')
+        expect(paperScissorStone.getResult()).toEqual('draw')
+    });
+
+
+    it('should draw (stone and stone)', () => {
+        let paperScissorStone = new PaperScissorStone();
+        paperScissorStone.firstPlayer('stone')
+        paperScissorStone.secondPlayer('stone')
+        expect(paperScissorStone.getResult()).toEqual('draw')
+    });
+
+
+    it('should draw (paper and paper)', () => {
+        let paperScissorStone = new PaperScissorStone();
+        paperScissorStone.firstPlayer('paper')
+        paperScissorStone.secondPlayer('paper')
+        expect(paperScissorStone.getResult()).toEqual('draw')
+    });
+
+
 });

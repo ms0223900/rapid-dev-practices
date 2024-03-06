@@ -12,13 +12,10 @@ export class PaperScissorStone {
     }
 
     getResult() {
-        if (this._secondPlayer === 'stone' && this._firstPlayer === 'scissor') {
-            return 'Joy win';
+        if (this._firstPlayer === this._secondPlayer) {
+            return 'draw';
         }
-        if (this._secondPlayer === 'paper' && this._firstPlayer === 'stone') {
-            return 'Joy win';
-        }
-        if (this._secondPlayer === 'scissor' && this._firstPlayer === 'paper') {
+        if (this._secondPlayer === 'stone' && this._firstPlayer === 'scissor' || this._secondPlayer === 'paper' && this._firstPlayer === 'stone' || this._secondPlayer === 'scissor' && this._firstPlayer === 'paper') {
             return 'Joy win';
         }
         return `${(this.firstPlayerName)} win`;
