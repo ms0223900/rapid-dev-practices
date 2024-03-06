@@ -7,12 +7,26 @@ describe('Car Parking Fee', function () {
         parkFeeCalc = new ParkFeeCalc();
     });
 
+    it('should be free if parking time less than 30 minutes', () => {
+        parkFeeCalc.addParkingTimes()
+        parkFeeCalc.addParkTime(29)
+        expect(parkFeeCalc.getParkingFee()).toEqual(0)
+    });
+
+    function givenParkingTimes(times: number) {
+        for (let i = 0; i < times; i++) {
+            parkFeeCalc.addParkingTimes()
+        }
+    }
+
     it('should be $10 if parking time is 1 minutes', () => {
+        givenParkingTimes(2);
         parkFeeCalc.addParkTime(1)
         expect(parkFeeCalc.getParkingFee()).toEqual(10)
     });
 
     it('should be $10 if parking time is 29 minutes', () => {
+        givenParkingTimes(2);
         parkFeeCalc.addParkTime(29)
         expect(parkFeeCalc.getParkingFee()).toEqual(10)
     });
