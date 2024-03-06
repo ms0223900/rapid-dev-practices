@@ -1,6 +1,8 @@
 export class ParkFeeCalc {
     private parkingTime = 0;
-    private firstHourFee = 10;
+
+    private firstHalfHourFee = 10;
+    private secondHalfHourFee = 20;
 
     addParkTime(min: number) {
         this.parkingTime += min
@@ -8,7 +10,13 @@ export class ParkFeeCalc {
 
     getParkingFee() {
         if (this.parkingTime <= 60) {
-            return this.firstHourFee * this.getHalfHourAmount();
+            return this.getFirstHourFee();
+        }
+        if (this.parkingTime <= 120) {
+            return this.getSecondHourFee() + this.getFirstHourFee();
+        }
+        if (this.parkingTime > 120) {
+            return 90;
         }
         if (this.parkingTime > 90) {
             return 60;
@@ -18,7 +26,16 @@ export class ParkFeeCalc {
         }
     }
 
-    private getHalfHourAmount() {
-        return Math.ceil(this.parkingTime / 30);
+    private getSecondHourFee() {
+        return this.secondHalfHourFee * this.getHalfHourAmount(this.parkingTime - 60);
+    }
+
+    private getFirstHourFee() {
+        const parkingTime = Math.min(60, this.parkingTime);
+        return this.firstHalfHourFee * this.getHalfHourAmount(parkingTime);
+    }
+
+    private getHalfHourAmount(parkingTime: number) {
+        return Math.ceil(parkingTime / 30);
     }
 }
