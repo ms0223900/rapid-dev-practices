@@ -1,5 +1,5 @@
 import * as fns from "./main";
-import {LeftAction, RightAction} from "./main";
+import {DownAction, LeftAction, RightAction, UpAction} from "./main";
 
 describe('main', function () {
     const spyMoveHorizontal = jest.spyOn(fns, 'moveHorizontal');
@@ -15,20 +15,20 @@ describe('main', function () {
         expect(spyMoveHorizontal).toHaveBeenCalledWith(-1)
     });
 
-    xit('should move right', () => {
+    it('should move right', () => {
         fns.handleInput(new RightAction())
         expect(spyMoveHorizontal).toHaveBeenCalledWith(1)
     });
 
-    //
-    // xit('should move up', () => {
-    //     fns.handleInput(new Up())
-    //     expect(spyMoveVertical).toHaveBeenCalledWith(-1)
-    // });
-    //
-    //
-    // xit('should move down', () => {
-    //     fns.handleInput(new Down())
-    //     expect(spyMoveVertical).toHaveBeenCalledWith(1)
-    // });
+
+    it('should move up', () => {
+        fns.handleInput(new UpAction())
+        expect(spyMoveVertical).toHaveBeenCalledWith(-1)
+    });
+
+
+    it('should move down', () => {
+        fns.handleInput(new DownAction())
+        expect(spyMoveVertical).toHaveBeenCalledWith(1)
+    });
 });

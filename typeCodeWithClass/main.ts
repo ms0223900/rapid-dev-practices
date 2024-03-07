@@ -108,3 +108,15 @@ export class RightAction implements InputAction {
         moveHorizontal(1)
     }
 }
+
+export class UpAction implements InputAction {
+    move(): void {
+        moveVertical(-1)
+    }
+}
+
+export class DownAction implements InputAction {
+    move(): void {
+        moveVertical(1)
+    }
+}
