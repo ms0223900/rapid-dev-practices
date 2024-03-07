@@ -50,3 +50,57 @@ export class Left implements Input2 {
         return false;
     }
 }
+
+export class Right implements Input2 {
+    isDown(): boolean {
+        return false;
+    }
+
+    isLeft(): boolean {
+        return false;
+    }
+
+    isRight(): boolean {
+        return true;
+    }
+
+    isUp(): boolean {
+        return false;
+    }
+}
+
+export class Up implements Input2 {
+    isDown(): boolean {
+        return false;
+    }
+
+    isLeft(): boolean {
+        return false;
+    }
+
+    isRight(): boolean {
+        return false;
+    }
+
+    isUp(): boolean {
+        return true;
+    }
+}
+
+export class Down implements Input2 {
+    isDown(): boolean {
+        return true;
+    }
+
+    isLeft(): boolean {
+        return false;
+    }
+
+    isRight(): boolean {
+        return false;
+    }
+
+    isUp(): boolean {
+        return false;
+    }
+}
