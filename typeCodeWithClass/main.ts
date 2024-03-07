@@ -16,21 +16,13 @@ interface Input2 {
     isDown: () => boolean
 }
 
-export function handleInput(input: Input2) {
-    // console.log("input: ", input);
-    if (input.isLeft()) {
-        moveHorizontal(-1)
-    }
-    if (input.isRight()) {
-        moveHorizontal(1)
-    }
-    if (input.isUp()) {
-        moveVertical(-1)
-    }
-    if (input.isDown()) {
-        moveVertical(1)
-    }
+interface InputAction {
+    move: () => void
+}
 
+export function handleInput(input: InputAction) {
+    // console.log("input: ", input);
+    input.move()
 }
 
 export class Left implements Input2 {
@@ -102,5 +94,17 @@ export class Down implements Input2 {
 
     isUp(): boolean {
         return false;
+    }
+}
+
+export class LeftAction implements InputAction {
+    move(): void {
+        moveHorizontal(-1)
+    }
+}
+
+export class RightAction implements InputAction {
+    move(): void {
+        moveHorizontal(1)
     }
 }
