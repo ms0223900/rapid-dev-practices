@@ -12,7 +12,7 @@ export const moveVertical = (y: number) => {
 };
 
 export function handleInput(input: Input) {
-    console.log("input: ", input);
+    // console.log("input: ", input);
     if (input === Input.LEFT) {
         moveHorizontal(-1)
     }
@@ -21,6 +21,9 @@ export function handleInput(input: Input) {
     }
     if (input === Input.UP) {
         moveVertical(-1)
+    }
+    if (input === Input.DOWN) {
+        moveVertical(1)
     }
 
 }

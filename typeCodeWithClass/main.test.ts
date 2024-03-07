@@ -28,4 +28,8 @@ describe('main', function () {
     });
 
 
+    it('should move down', () => {
+        fns.handleInput(Input.DOWN)
+        expect(spyMoveVertical).toHaveBeenCalledWith(1)
+    });
 });
