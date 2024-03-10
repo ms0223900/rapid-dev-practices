@@ -80,4 +80,9 @@ describe('Roman Number Converter', function () {
     });
 
 
+    it('be XIX if 19', () => {
+        expect(romanNumberConverter.convert(19)).toBe('XIX')
+    });
+
+
 });
