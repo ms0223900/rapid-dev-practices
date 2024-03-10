@@ -14,22 +14,23 @@ export class RomanNumberConverter {
         //     res += romanNumLookUpArrs[i].romanStr
         //
         // }
+        if (number < 9) {
+            return this.getNumberUnder10(number);
+        }
+        if (number === 9) {
+            return 'IX';
+        }
+        return 'X' + this.getNumberUnder10(number - 10);
+    }
+
+    private getNumberUnder10(number: number) {
         if (number < 4) {
             return this.getIFromNum(number);
         }
         if (number === 4) {
             return 'IV';
         }
-        if (number < 9) {
-            return 'V' + this.getIFromNum(number - 5);
-        }
-        if (number === 9) {
-            return 'IX';
-        }
-        if (number < 9 + 5) {
-            return 'X' + this.getIFromNum(number - 10);
-        }
-        return 'XIV';
+        return 'V' + this.getIFromNum(number - 5);
     }
 
     private getIFromNum(number: number) {

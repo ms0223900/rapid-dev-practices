@@ -75,4 +75,9 @@ describe('Roman Number Converter', function () {
     });
 
 
+    it('be XV if 15', () => {
+        expect(romanNumberConverter.convert(15)).toBe('XV')
+    });
+
+
 });
