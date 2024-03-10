@@ -45,4 +45,34 @@ describe('Roman Number Converter', function () {
     });
 
 
+    it('be IX if 9', () => {
+        expect(romanNumberConverter.convert(9)).toBe('IX')
+    });
+
+
+    it('be X if 10', () => {
+        expect(romanNumberConverter.convert(10)).toBe('X')
+    });
+
+
+    it('be XI if 11', () => {
+        expect(romanNumberConverter.convert(11)).toBe('XI')
+    });
+
+
+    it('be XII if 12', () => {
+        expect(romanNumberConverter.convert(12)).toBe('XII')
+    });
+
+
+    it('be XIII if 13', () => {
+        expect(romanNumberConverter.convert(13)).toBe('XIII')
+    });
+
+
+    it('be XIV if 14', () => {
+        expect(romanNumberConverter.convert(14)).toBe('XIV')
+    });
+
+
 });

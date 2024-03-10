@@ -23,6 +23,13 @@ export class RomanNumberConverter {
         if (number < 9) {
             return 'V' + this.getIFromNum(number - 5);
         }
+        if (number === 9) {
+            return 'IX';
+        }
+        if (number < 9 + 5) {
+            return 'X' + this.getIFromNum(number - 10);
+        }
+        return 'XIV';
     }
 
     private getIFromNum(number: number) {
