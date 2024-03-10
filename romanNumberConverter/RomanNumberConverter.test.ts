@@ -1,12 +1,4 @@
-class RomanNumberConverter {
-    convert(number: number) {
-        let res = '';
-        for (let i = 0; i < number; i++) {
-            res += 'I'
-        }
-        return res;
-    }
-}
+import {RomanNumberConverter} from "./RomanNumberConverter";
 
 describe('Roman Number Converter', function () {
     let romanNumberConverter = new RomanNumberConverter();
@@ -25,6 +17,31 @@ describe('Roman Number Converter', function () {
 
     it('be III if 3', () => {
         expect(romanNumberConverter.convert(3)).toBe('III')
+    });
+
+
+    it('be IV if 4', () => {
+        expect(romanNumberConverter.convert(4)).toBe('IV')
+    });
+
+
+    it('be V if 5', () => {
+        expect(romanNumberConverter.convert(5)).toBe('V')
+    });
+
+
+    it('be VI if 6', () => {
+        expect(romanNumberConverter.convert(6)).toBe('VI')
+    });
+
+
+    it('be VII if 7', () => {
+        expect(romanNumberConverter.convert(7)).toBe('VII')
+    });
+
+
+    it('be VIII if 8', () => {
+        expect(romanNumberConverter.convert(8)).toBe('VIII')
     });
 
 
