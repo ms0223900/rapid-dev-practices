@@ -1,4 +1,4 @@
-import {RomanNumberConverter} from "./RomanNumberConverter";
+import { RomanNumberConverter } from "./RomanNumberConverter";
 
 describe('Roman Number Converter', function () {
     let romanNumberConverter = new RomanNumberConverter();
@@ -82,6 +82,25 @@ describe('Roman Number Converter', function () {
 
     it('be XIX if 19', () => {
         expect(romanNumberConverter.convert(19)).toBe('XIX')
+    });
+
+    it('be XX if 20', () => {
+        expect(romanNumberConverter.convert(20)).toBe('XX')
+    });
+
+
+    it('be XXI if 21', () => {
+        expect(romanNumberConverter.convert(21)).toBe('XXI')
+    });
+
+
+    it('be XXI if 21', () => {
+        expect(romanNumberConverter.convert(21)).toBe('XXI')
+    });
+
+
+    it('be XL if 40', () => {
+        expect(romanNumberConverter.convert(40)).toBe('XL')
     });
 
 

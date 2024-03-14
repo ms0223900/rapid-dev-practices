@@ -3,38 +3,43 @@ export class RomanNumberConverter {
         4: 'IV',
     }
 
+    private romanNumLookUpArr = [
+        {
+            romanStr: 'XL',
+            num: 40,
+        },
+        {
+            romanStr: 'X',
+            num: 10,
+        },
+        {
+            romanStr: 'IX',
+            num: 9,
+        },
+        {
+            romanStr: 'V',
+            num: 5,
+        },
+        {
+            romanStr: 'IV',
+            num: 4,
+        },
+        {
+            romanStr: 'I',
+            num: 1,
+        },
+    ];
+
     convert(number: number) {
-        // let romanNumLookUpArrs = [{
-        //     num: 4,
-        //     romanStr: 'IV',
-        // }];
-        // let res = ''
-        // for (let i = 0; i < romanNumLookUpArrs.length; i++) {
-        //     const repeatTimes = number / romanNumLookUpArrs[i].num;
-        //     res += romanNumLookUpArrs[i].romanStr
-        //
-        // }
-        if (number < 10) {
-            return this.getNumberUnder10(number);
+        let _num = number;
+        let res = '';
+        for (let i = 0; i < this.romanNumLookUpArr.length; i++) {
+            const {romanStr, num} = this.romanNumLookUpArr[i];
+            while (_num - num >= 0) {
+                res += romanStr
+                _num -= num
+            }
         }
-        return 'X' + this.getNumberUnder10(number - 10);
-    }
-
-    private getNumberUnder10(number: number) {
-        // TODO, refactor from here
-        if (number < 4) {
-            return this.getIFromNum(number);
-        }
-        if (number === 4) {
-            return 'IV';
-        }
-        if (number === 9) {
-            return 'IX';
-        }
-        return 'V' + this.getIFromNum(number - 5);
-    }
-
-    private getIFromNum(number: number) {
-        return Array(number).fill(0).map(() => 'I').join('');
+        return res;
     }
 }
