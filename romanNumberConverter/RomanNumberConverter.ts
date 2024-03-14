@@ -1,8 +1,4 @@
 export class RomanNumberConverter {
-    romanNumLookUp = {
-        4: 'IV',
-    }
-
     private romanNumLookUpArr = [
         {
             romanStr: 'XL',
