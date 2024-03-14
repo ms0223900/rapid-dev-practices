@@ -104,4 +104,9 @@ describe('Roman Number Converter', function () {
     });
 
 
+    it('be L if 50', () => {
+        expect(romanNumberConverter.convert(50)).toBe('L')
+    });
+
+
 });

@@ -1,6 +1,10 @@
 export class RomanNumberConverter {
     private romanNumLookUpArr = [
         {
+            romanStr: 'L',
+            num: 50,
+        },
+        {
             romanStr: 'XL',
             num: 40,
         },
