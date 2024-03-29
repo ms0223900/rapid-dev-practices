@@ -1,5 +1,13 @@
+interface Car {
+    drive(): void
+
+    stop(): void
+}
+
 interface TrafficColor {
     color(): string
+
+    check(car: Car): void
 }
 
 function nextColor(trafficColor: TrafficColor) {
@@ -18,17 +26,29 @@ class Red implements TrafficColor {
     color() {
         return "red";
     }
+
+    check(car: Car): void {
+        car.stop()
+    }
 }
 
 class Green implements TrafficColor {
     color(): string {
         return "green";
     }
+
+    check(car: Car): void {
+        car.drive()
+    }
 }
 
 class Yellow implements TrafficColor {
     color(): string {
         return "yellow";
+    }
+
+    check(car: Car): void {
+        car.stop()
     }
 }
 
