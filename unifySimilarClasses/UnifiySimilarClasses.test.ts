@@ -30,6 +30,15 @@ class Red implements TrafficColor {
     check(car: Car): void {
         if (this.color() === 'red') {
             car.stop()
+            return
+        }
+        if (this.color() === 'green') {
+            car.drive()
+            return
+        }
+        if (this.color() === 'yellow') {
+            car.stop()
+            return
         }
     }
 }
@@ -41,7 +50,7 @@ class Green implements TrafficColor {
 
     check(car: Car): void {
         if (this.color() === 'green') {
-            car.drive
+            car.drive()
         }
     }
 }
@@ -70,6 +79,26 @@ describe('unify similar', function () {
     it('yellow light next is red light', () => {
         expect(nextColor(new Yellow())).toEqual(new Red())
     });
+});
 
+class MyCar implements Car {
+    drive(): void {
+    }
+
+    stop(): void {
+    }
+}
+
+describe('color and car', function () {
+    let myCar = new MyCar();
+    beforeEach(() => {
+        myCar = new MyCar();
+    });
+
+    it('car should drive when light is green', () => {
+        const spyDrive = jest.spyOn(myCar, "drive");
+        new Green().check(myCar)
+        expect(spyDrive).toBeCalled()
+    });
 
 });
