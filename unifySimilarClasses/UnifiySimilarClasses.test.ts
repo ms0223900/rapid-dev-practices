@@ -49,34 +49,6 @@ class TrafficColorImpl implements TrafficColor {
     }
 }
 
-
-class Yellow implements TrafficColor {
-    private _color: string;
-
-    constructor(color: string) {
-        this._color = color;
-    }
-
-    color() {
-        return this._color;
-    }
-
-    check(car: Car): void {
-        if (this.color() === 'red') {
-            car.stop()
-            return
-        }
-        if (this.color() === 'green') {
-            car.drive()
-            return
-        }
-        if (this.color() === 'yellow') {
-            car.stop()
-            return
-        }
-    }
-}
-
 describe('unify similar', function () {
     it('red light next is green light', () => {
         expect(nextColor(new TrafficColorImpl("red"))).toEqual(new TrafficColorImpl("green"))
