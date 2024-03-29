@@ -28,7 +28,7 @@ class Red implements TrafficColor {
     }
 
     check(car: Car): void {
-        if (true) {
+        if (this.color() === 'red') {
             car.stop()
         }
     }
@@ -40,7 +40,7 @@ class Green implements TrafficColor {
     }
 
     check(car: Car): void {
-        if (true) {
+        if (this.color() === 'green') {
             car.drive
         }
     }
@@ -52,7 +52,7 @@ class Yellow implements TrafficColor {
     }
 
     check(car: Car): void {
-        if (true) {
+        if (this.color() === 'yellow') {
             car.stop()
         }
     }
