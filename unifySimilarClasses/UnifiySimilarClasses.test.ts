@@ -18,13 +18,19 @@ function nextColor(trafficColor: TrafficColor) {
         return new Yellow();
     }
     if (trafficColor.color() === 'yellow') {
-        return new Red();
+        return new Red("red");
     }
 }
 
 class Red implements TrafficColor {
+    private _color: string;
+
+    constructor(color: string) {
+        this._color = color;
+    }
+
     color() {
-        return "red";
+        return this._color;
     }
 
     check(car: Car): void {
@@ -69,7 +75,7 @@ class Yellow implements TrafficColor {
 
 describe('unify similar', function () {
     it('red light next is green light', () => {
-        expect(nextColor(new Red())).toEqual(new Green())
+        expect(nextColor(new Red("red"))).toEqual(new Green())
     });
 
     it('green light next is yellow light', () => {
@@ -77,7 +83,7 @@ describe('unify similar', function () {
     });
 
     it('yellow light next is red light', () => {
-        expect(nextColor(new Yellow())).toEqual(new Red())
+        expect(nextColor(new Yellow())).toEqual(new Red("red"))
     });
 });
 
@@ -99,6 +105,18 @@ describe('color and car', function () {
         const spyDrive = jest.spyOn(myCar, "drive");
         new Green().check(myCar)
         expect(spyDrive).toBeCalled()
+    });
+
+    it('car should stop when light is yellow', () => {
+        const spyStop = jest.spyOn(myCar, "stop");
+        new Yellow().check(myCar)
+        expect(spyStop).toBeCalled()
+    });
+
+    it('car should stop when light is red', () => {
+        const spyStop = jest.spyOn(myCar, "stop");
+        new Red("red").check(myCar)
+        expect(spyStop).toBeCalled()
     });
 
 });
