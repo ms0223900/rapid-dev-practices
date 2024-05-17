@@ -1,3 +1,7 @@
+function getRandIdx(min: any, max: any) {
+    return min + ~~((max - min) * Math.random());
+}
+
 export class RandomHashPassword {
     generate({
                  withSpecialChar = false,
@@ -7,7 +11,7 @@ export class RandomHashPassword {
         length: 8,
     }) {
         let hashed: string;
-        hashed = Math.random().toString(36).slice(2) + new Date().getTime().toString(36);
+        hashed = getRandIdx(10, 100) + Math.random().toString(36).slice(4) + new Date().getTime().toString(36);
         hashed = hashed.slice(0, withSpecialChar ? length - 1 : length)
         hashed += withSpecialChar ? this.#getSpecialChar() : ''
         const newHashed = this.makeOneCharacterUppercase(hashed);
@@ -25,7 +29,9 @@ export class RandomHashPassword {
 
     // @ts-ignore
     #getSpecialChar() {
-        return ['&', '.', '_', '-'][0];
+        const specialChars = ['&', '.', '_', '-'];
+        const idx = getRandIdx(0, specialChars.length);
+        return specialChars[idx];
     }
 
     // @ts-ignore
