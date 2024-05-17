@@ -1,6 +1,12 @@
 class RandomHashPassword {
-    generate() {
-        const hashed = Math.random().toString(36).slice(2) + new Date().getTime().toString(36);
+    generate({
+                 withSpecialChar,
+             } = {
+        withSpecialChar: false
+    }) {
+        let hashed: string;
+        hashed = Math.random().toString(36).slice(2) + new Date().getTime().toString(36);
+        hashed += withSpecialChar ? this.getSpecialChar() : ''
         const newHashed = this.makeOneCharacterUppercase(hashed);
         return newHashed;
     }
@@ -8,22 +14,28 @@ class RandomHashPassword {
     makeOneCharacterUppercase(text = '') {
         let res = ''
         let uppercaseCharAmount = 0
+
         for (let i = 0; i < text.length; i++) {
-            let currentOriginChar = text[i];
-            let currentChar: string;
-            if (this.isLowerCaseChar(currentOriginChar) && uppercaseCharAmount === 0) {
-                uppercaseCharAmount++
-                currentChar = currentOriginChar.toUpperCase();
-            } else {
-                currentChar = currentOriginChar;
-            }
+            const currentChar = this.getCurrentChar(text[i], res);
             res += currentChar
         }
         return res;
     }
 
-    isLowerCaseChar(char = '') {
-        return char.match(/[a-z]/);
+    private getSpecialChar() {
+        return ['&', '.', '_', '-'][0];
+    }
+
+    private getCurrentChar(currentOriginChar: string, currentAllText: string) {
+        if (this.isNoneAlphabetUppercased(currentAllText)) {
+            return currentOriginChar.toUpperCase();
+        } else {
+            return currentOriginChar;
+        }
+    }
+
+    private isNoneAlphabetUppercased(currentAllText = '') {
+        return currentAllText.match(/[A-Z]/) === null;
     }
 }
 
@@ -46,7 +58,16 @@ describe('RandomHashPassword', function () {
 
     it('should include at lease one lower case character', () => {
         const generatedPwd = randomHashPassword.generate();
+        console.log("generatedPwd: ", generatedPwd);
         expect(generatedPwd.match(/[a-z]/)).not.toBeNull()
+    });
+
+    it('can have special char', () => {
+        const generatedPwd = randomHashPassword.generate({
+            withSpecialChar: true
+        });
+        console.log("generatedPwd: ", generatedPwd);
+        expect(generatedPwd.match(/[&._-]/)).not.toBeNull()
     });
 
 });
