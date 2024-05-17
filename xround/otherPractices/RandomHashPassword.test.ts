@@ -6,35 +6,36 @@ class RandomHashPassword {
     }) {
         let hashed: string;
         hashed = Math.random().toString(36).slice(2) + new Date().getTime().toString(36);
-        hashed += withSpecialChar ? this.getSpecialChar() : ''
+        hashed += withSpecialChar ? this.#getSpecialChar() : ''
         const newHashed = this.makeOneCharacterUppercase(hashed);
         return newHashed;
     }
 
     makeOneCharacterUppercase(text = '') {
         let res = ''
-        let uppercaseCharAmount = 0
-
         for (let i = 0; i < text.length; i++) {
-            const currentChar = this.getCurrentChar(text[i], res);
+            const currentChar = this.#getCurrentChar(text[i], res);
             res += currentChar
         }
         return res;
     }
 
-    private getSpecialChar() {
+    // @ts-ignore
+    #getSpecialChar() {
         return ['&', '.', '_', '-'][0];
     }
 
-    private getCurrentChar(currentOriginChar: string, currentAllText: string) {
-        if (this.isNoneAlphabetUppercased(currentAllText)) {
+    // @ts-ignore
+    #getCurrentChar(currentOriginChar = '', currentAllText = '') {
+        if (this.#isNoneAlphabetUppercased(currentAllText)) {
             return currentOriginChar.toUpperCase();
         } else {
             return currentOriginChar;
         }
     }
 
-    private isNoneAlphabetUppercased(currentAllText = '') {
+    // @ts-ignore
+    #isNoneAlphabetUppercased(currentAllText = '') {
         return currentAllText.match(/[A-Z]/) === null;
     }
 }
