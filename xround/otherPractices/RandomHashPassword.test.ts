@@ -7,15 +7,22 @@ class RandomHashPassword {
 
     makeOneCharacterUppercase(text = '') {
         let res = ''
+        let uppercaseCharAmount = 0
         for (let i = 0; i < text.length; i++) {
             let currentOriginChar = text[i];
-            const currentChar = this.isLowerCaseChar(currentOriginChar) ? currentOriginChar.toUpperCase() : currentOriginChar;
+            let currentChar: string;
+            if (this.isLowerCaseChar(currentOriginChar) && uppercaseCharAmount === 0) {
+                uppercaseCharAmount++
+                currentChar = currentOriginChar.toUpperCase();
+            } else {
+                currentChar = currentOriginChar;
+            }
             res += currentChar
         }
         return res;
     }
 
-    private isLowerCaseChar(char: string) {
+    isLowerCaseChar(char = '') {
         return char.match(/[a-z]/);
     }
 }
@@ -36,4 +43,10 @@ describe('RandomHashPassword', function () {
         const generatedPwd = randomHashPassword.generate();
         expect(generatedPwd.match(/[A-Z]/)).not.toBeNull()
     });
+
+    it('should include at lease one lower case character', () => {
+        const generatedPwd = randomHashPassword.generate();
+        expect(generatedPwd.match(/[a-z]/)).not.toBeNull()
+    });
+
 });
