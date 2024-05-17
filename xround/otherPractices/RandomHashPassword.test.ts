@@ -1,11 +1,14 @@
 class RandomHashPassword {
     generate({
-                 withSpecialChar,
+                 withSpecialChar = false,
+                 length = 8,
              } = {
-        withSpecialChar: false
+        withSpecialChar: false as boolean,
+        length: 8,
     }) {
         let hashed: string;
         hashed = Math.random().toString(36).slice(2) + new Date().getTime().toString(36);
+        hashed = hashed.slice(0, withSpecialChar ? length - 1 : length)
         hashed += withSpecialChar ? this.#getSpecialChar() : ''
         const newHashed = this.makeOneCharacterUppercase(hashed);
         return newHashed;
@@ -59,7 +62,7 @@ describe('RandomHashPassword', function () {
 
     it('should include at lease one lower case character', () => {
         const generatedPwd = randomHashPassword.generate();
-        console.log("generatedPwd: ", generatedPwd);
+        // console.log("generatedPwd: ", generatedPwd);
         expect(generatedPwd.match(/[a-z]/)).not.toBeNull()
     });
 
@@ -67,8 +70,26 @@ describe('RandomHashPassword', function () {
         const generatedPwd = randomHashPassword.generate({
             withSpecialChar: true
         });
-        console.log("generatedPwd: ", generatedPwd);
+        // console.log("generatedPwd: ", generatedPwd);
         expect(generatedPwd.match(/[&._-]/)).not.toBeNull()
     });
+
+    it('can assign length', () => {
+        const generatedPwd = randomHashPassword.generate({
+            withSpecialChar: true,
+            length: 15,
+        });
+        console.log("generatedPwd: ", generatedPwd);
+        expect(generatedPwd.match(/[&._-]/)).not.toBeNull()
+        expect(generatedPwd).toHaveLength(15)
+    });
+
+    it('can assign small length', () => {
+        const generatedPwd = randomHashPassword.generate({
+            length: 4,
+        });
+        expect(generatedPwd).toHaveLength(4)
+    });
+
 
 });
