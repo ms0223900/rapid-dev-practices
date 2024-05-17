@@ -5,15 +5,18 @@ class RandomHashPassword {
         return newHashed;
     }
 
-    private makeOneCharacterUppercase(hashed: string) {
-        let newHashed = ''
-        for (let i = 0; i < hashed.length; i++) {
-            newHashed += hashed[i]
-            if (hashed[i].match(/[a-z]/)) {
-                newHashed += hashed[i].toUpperCase()
-            }
+    makeOneCharacterUppercase(text = '') {
+        let res = ''
+        for (let i = 0; i < text.length; i++) {
+            let currentOriginChar = text[i];
+            const currentChar = this.isLowerCaseChar(currentOriginChar) ? currentOriginChar.toUpperCase() : currentOriginChar;
+            res += currentChar
         }
-        return newHashed;
+        return res;
+    }
+
+    private isLowerCaseChar(char: string) {
+        return char.match(/[a-z]/);
     }
 }
 
