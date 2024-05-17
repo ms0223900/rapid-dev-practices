@@ -1,42 +1,67 @@
-// @ts-ignore
-function TennisHelper() {
-    const scoreLookUpMap = {
-        1: "fifteen",
-        2: "love fifteen",
-        3: "fifteen",
-    }
-
-    return ({
-        getScore: (score: number) => {
-            return (
-                scoreLookUpMap[score]
-            )
-        }
-    })
-}
+import { Tennis } from "./Tennis";
 
 describe('Tennis Score', function () {
-    let res = ''
+    let tennis = new Tennis();
+    beforeEach(() => {
+        tennis = new Tennis();
+    });
 
-    function given_score(score: number) {
-        res = TennisHelper().getScore(score);
+    it('should be love all', () => {
+        expect(tennis.getScore()).toEqual('love all')
+    });
+
+    it('should be fifteen love', () => {
+        tennis.firstPlayerScore()
+        expect(tennis.getScore()).toEqual('fifteen love')
+    });
+
+
+    function givenFirstPlayerScore(score: number) {
+        for (let i = 0; i < score; i++) {
+            tennis.firstPlayerScore()
+        }
     }
 
-    function score_should_be(expected: string = 'love all') {
-        expect(res).toStrictEqual(expected)
+    it('should be thirty love', () => {
+        givenFirstPlayerScore(2);
+        expect(tennis.getScore()).toEqual('thirty love')
+    });
+
+
+    it('should be forty love', () => {
+        givenFirstPlayerScore(3);
+        expect(tennis.getScore()).toEqual('forty love')
+    });
+
+
+    it('should be love fifteen', () => {
+        tennis.secondPlayerScore()
+        expect(tennis.getScore()).toEqual('love fifteen')
+    });
+
+
+    function givenSecondPlayerScore(score: number) {
+        for (let i = 0; i < score; i++) {
+            tennis.secondPlayerScore()
+        }
     }
 
-    it('fifteen', () => {
-        expect(TennisHelper().getScore(1)).toStrictEqual('fifteen')
+    it('should be love thirty', () => {
+        givenSecondPlayerScore(2);
+        expect(tennis.getScore()).toEqual('love thirty')
     });
 
-    it('love fifteen', () => {
-        given_score(1)
-        score_should_be('love fifteen');
+    it('should be love forty', () => {
+        givenSecondPlayerScore(3);
+        expect(tennis.getScore()).toEqual('love forty')
     });
 
-    it('love thirty', () => {
-        given_score(3)
-        score_should_be('love thirty');
+
+    it('should be fifteen all', () => {
+        givenFirstPlayerScore(1)
+        givenSecondPlayerScore(1)
+        expect(tennis.getScore()).toEqual('fifteen all')
     });
+
+
 });
