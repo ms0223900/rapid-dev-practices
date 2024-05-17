@@ -18,16 +18,19 @@ class RandomHashPassword {
 }
 
 describe('RandomHashPassword', function () {
+    let randomHashPassword: RandomHashPassword;
+    beforeEach(() => {
+        randomHashPassword = new RandomHashPassword();
+    });
+
     it('should get hash and always not same', () => {
-        const randomHashPassword = new RandomHashPassword();
         const generatedPwd1 = randomHashPassword.generate();
         const generatedPwd2 = randomHashPassword.generate();
         expect(generatedPwd1).not.toEqual(generatedPwd2)
     });
 
     it('should include upper case character', () => {
-        const randomHashPassword = new RandomHashPassword();
-        const generatedPwd1 = randomHashPassword.generate();
-        expect(generatedPwd1.match(/[A-Z]/)).not.toBeNull()
+        const generatedPwd = randomHashPassword.generate();
+        expect(generatedPwd.match(/[A-Z]/)).not.toBeNull()
     });
 });
