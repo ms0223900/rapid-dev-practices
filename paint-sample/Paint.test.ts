@@ -12,15 +12,21 @@ class Paint {
     }
 
     mixIn(other: Paint) {
+        this.volume += other.getVolume()
+    }
 
+    getVolume() {
+        return this.volume;
     }
 }
 
 describe('Paint', function () {
     it('should mix paint', () => {
-        const white = new Paint(1, 10, 10, 10);
+        const ourPaint = new Paint(1, 10, 10, 10);
         const blue = new Paint(1, 0, 0, 10);
 
-        white.mixIn(blue)
+        ourPaint.mixIn(blue)
+        // TODO, from here (sample with side effect)
+        expect(ourPaint.getVolume()).toEqual(1 + 1)
     });
 });
