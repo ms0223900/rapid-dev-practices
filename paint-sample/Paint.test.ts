@@ -45,7 +45,8 @@ class Paint {
 
     mixIn(other: Paint) {
         this.volume += other.getVolume()
-        this.pigmentColor = this.pigmentColor.mixWith(other.pigmentColor, this.getOtherVolumeRatio(other.getVolume()))
+        const otherVolumeRatio = this.getOtherVolumeRatio(other.getVolume());
+        this.pigmentColor = this.pigmentColor.mixWith(other.pigmentColor, otherVolumeRatio)
     }
 
     getVolume() {
@@ -57,6 +58,8 @@ class Paint {
     }
 
     private getOtherVolumeRatio(otherVolume: number) {
+        console.log("otherVolume: ", otherVolume);
+        console.log("this.volume: ", this.volume);
         return otherVolume / this.volume;
     }
 }
@@ -87,6 +90,15 @@ class MixedPaint {
     getVolume() {
         return this.paintStocks.reduce((prev, next) => prev + next.getVolume(), 0)
     }
+
+    getColor(): PigmentColor {
+        const paint = this.paintStocks.reduce((prev, next) => {
+            const pigmentColor = prev.getColor().mixWith(next.paint.getColor(), next.getVolume() / (prev.getVolume() + next.getVolume()));
+
+            return new Paint(prev.getVolume() + next.getVolume(), pigmentColor);
+        }, new Paint(0, new PigmentColor(0, 0, 0)));
+        return paint.getColor();
+    }
 }
 
 describe('Paint', function () {
@@ -112,7 +124,11 @@ describe('Paint', function () {
         const mixedPaint = new MixedPaint();
         mixedPaint.mixIn(stockPaint)
         mixedPaint.mixIn(stockPaint2)
+
         expect(mixedPaint.getVolume()).toEqual(1 + 1)
+        expect(mixedPaint.getColor().getRed()).toEqual(255)
+        expect(mixedPaint.getColor().getGreen()).toEqual(127.5)
+        expect(mixedPaint.getColor().getBlue()).toEqual(0)
 
     });
 
