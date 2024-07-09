@@ -13,8 +13,10 @@ class Paint {
 
     mixIn(other: Paint) {
         this.volume += other.getVolume()
+
         this.red = this.mixColor(this.red, other.red)
         this.green = this.mixColor(this.green, other.green)
+        this.blue = this.mixColor(this.blue, other.blue)
     }
 
     getVolume() {
@@ -41,11 +43,12 @@ class Paint {
 describe('Paint', function () {
     it('should mix paint', () => {
         const ourPaint = new Paint(1, 10, 10, 10);
-        const blue = new Paint(1, 0, 0, 10);
+        const blue = new Paint(1, 0, 0, 20);
 
         ourPaint.mixIn(blue)
         expect(ourPaint.getVolume()).toEqual(1 + 1)
         expect(ourPaint.getRed()).toEqual(5)
         expect(ourPaint.getGreen()).toEqual(5)
+        expect(ourPaint.getBlue()).toEqual(15)
     });
 });
