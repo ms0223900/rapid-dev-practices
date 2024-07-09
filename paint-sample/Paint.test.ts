@@ -1,26 +1,12 @@
-class Paint {
-    private volume: number;
+class PigmentColor {
     private red: number;
     private green: number;
     private blue: number;
 
-    constructor(volume: number, red: number, green: number, blue: number) {
-        this.volume = volume
+    constructor(red: number, green: number, blue: number) {
         this.red = red
         this.green = green
         this.blue = blue
-    }
-
-    mixIn(other: Paint) {
-        this.volume += other.getVolume()
-
-        this.red = this.mixColor(this.red, other.red)
-        this.green = this.mixColor(this.green, other.green)
-        this.blue = this.mixColor(this.blue, other.blue)
-    }
-
-    getVolume() {
-        return this.volume;
     }
 
     getRed() {
@@ -35,8 +21,48 @@ class Paint {
         return this.green;
     }
 
+    mixWith(otherPigmentColor: PigmentColor) {
+        return new PigmentColor(
+            this.mixColor(this.red, otherPigmentColor.red),
+            this.mixColor(this.green, otherPigmentColor.green),
+            this.mixColor(this.blue, otherPigmentColor.blue),
+        );
+    }
+
     private mixColor(color: number, otherColor: number) {
         return (color + otherColor) / 2;
+    }
+}
+
+class Paint {
+    pigmentColor: PigmentColor;
+    private volume: number;
+
+    constructor(volume: number, red: number, green: number, blue: number) {
+        this.volume = volume
+        this.pigmentColor = new PigmentColor(red, green, blue)
+    }
+
+    mixIn(other: Paint) {
+        this.volume += other.getVolume()
+
+        this.pigmentColor = this.pigmentColor.mixWith(other.pigmentColor)
+    }
+
+    getVolume() {
+        return this.volume;
+    }
+
+    getRed() {
+        return this.pigmentColor.getRed();
+    }
+
+    getGreen() {
+        return this.pigmentColor.getGreen();
+    }
+
+    getBlue() {
+        return this.pigmentColor.getBlue();
     }
 }
 
