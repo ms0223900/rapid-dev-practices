@@ -21,11 +21,11 @@ class PigmentColor {
         return this.green;
     }
 
-    mixWith(otherPigmentColor: PigmentColor) {
+    mixWith(otherPigmentColor: PigmentColor, ratio: number) {
         return new PigmentColor(
-            this.mixColor(this.red, otherPigmentColor.red, 1 / 2),
-            this.mixColor(this.green, otherPigmentColor.green, 1 / 2),
-            this.mixColor(this.blue, otherPigmentColor.blue, 1 / 2),
+            this.mixColor(this.red, otherPigmentColor.red, ratio),
+            this.mixColor(this.green, otherPigmentColor.green, ratio),
+            this.mixColor(this.blue, otherPigmentColor.blue, ratio),
         );
     }
 
@@ -46,7 +46,8 @@ class Paint {
     mixIn(other: Paint) {
         this.volume += other.getVolume()
 
-        this.pigmentColor = this.pigmentColor.mixWith(other.pigmentColor)
+        const ratio = other.getVolume() / this.volume;
+        this.pigmentColor = this.pigmentColor.mixWith(other.pigmentColor, ratio)
     }
 
     getVolume() {
