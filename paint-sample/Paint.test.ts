@@ -23,14 +23,14 @@ class PigmentColor {
 
     mixWith(otherPigmentColor: PigmentColor) {
         return new PigmentColor(
-            this.mixColor(this.red, otherPigmentColor.red),
-            this.mixColor(this.green, otherPigmentColor.green),
-            this.mixColor(this.blue, otherPigmentColor.blue),
+            this.mixColor(this.red, otherPigmentColor.red, 1 / 2),
+            this.mixColor(this.green, otherPigmentColor.green, 1 / 2),
+            this.mixColor(this.blue, otherPigmentColor.blue, 1 / 2),
         );
     }
 
-    private mixColor(color: number, otherColor: number) {
-        return (color + otherColor) / 2;
+    private mixColor(color: number, otherColor: number, ratio: number) {
+        return color * (1 - ratio) + otherColor * ratio
     }
 }
 
@@ -64,6 +64,7 @@ describe('Paint', function () {
         const otherPaint = new Paint(1, new PigmentColor(0, 0, 20));
 
         paint.mixIn(otherPaint)
+
         expect(paint.getVolume()).toEqual(1 + 1)
         expect(paint.getColor().getRed()).toEqual(5)
         expect(paint.getColor().getGreen()).toEqual(5)
