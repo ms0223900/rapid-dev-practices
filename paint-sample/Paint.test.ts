@@ -33,8 +33,8 @@ class Paint {
         return this.green;
     }
 
-    private mixColor(red: number, otherRed: number) {
-        return (red + otherRed) / 2;
+    private mixColor(color: number, otherColor: number) {
+        return (color + otherColor) / 2;
     }
 }
 
