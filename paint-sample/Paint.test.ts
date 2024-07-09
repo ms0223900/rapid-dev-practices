@@ -61,6 +61,34 @@ class Paint {
     }
 }
 
+class StockPaint {
+    paint: Paint;
+
+    constructor(volume: number, color: PigmentColor) {
+        this.paint = new Paint(volume, color)
+    }
+
+    getVolume() {
+        return this.paint.getVolume();
+    }
+}
+
+class MixedPaint {
+    private paintStocks: StockPaint[];
+
+    constructor() {
+        this.paintStocks = [];
+    }
+
+    mixIn(stockPaint: StockPaint) {
+        this.paintStocks.push(stockPaint)
+    }
+
+    getVolume() {
+        return this.paintStocks.reduce((prev, next) => prev + next.getVolume(), 0)
+    }
+}
+
 describe('Paint', function () {
     it('should mix paint', () => {
         const paint = new Paint(1, new PigmentColor(10, 10, 10));
@@ -73,4 +101,20 @@ describe('Paint', function () {
         expect(paint.getColor().getGreen()).toEqual(5)
         expect(paint.getColor().getBlue()).toEqual(15)
     });
+
+    it('test mixin paint', () => {
+        const yellow = new PigmentColor(255, 255, 0);
+        const red = new PigmentColor(255, 0, 0);
+
+        const stockPaint = new StockPaint(1, yellow);
+        const stockPaint2 = new StockPaint(1, red);
+
+        const mixedPaint = new MixedPaint();
+        mixedPaint.mixIn(stockPaint)
+        mixedPaint.mixIn(stockPaint2)
+        expect(mixedPaint.getVolume()).toEqual(1 + 1)
+
+    });
+
+
 });
