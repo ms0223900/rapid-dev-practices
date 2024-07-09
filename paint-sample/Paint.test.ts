@@ -42,13 +42,13 @@ class Paint {
 
 describe('Paint', function () {
     it('should mix paint', () => {
-        const ourPaint = new Paint(1, 10, 10, 10);
-        const blue = new Paint(1, 0, 0, 20);
+        const paint = new Paint(1, 10, 10, 10);
+        const otherPaint = new Paint(1, 0, 0, 20);
 
-        ourPaint.mixIn(blue)
-        expect(ourPaint.getVolume()).toEqual(1 + 1)
-        expect(ourPaint.getRed()).toEqual(5)
-        expect(ourPaint.getGreen()).toEqual(5)
-        expect(ourPaint.getBlue()).toEqual(15)
+        paint.mixIn(otherPaint)
+        expect(paint.getVolume()).toEqual(1 + 1)
+        expect(paint.getRed()).toEqual(5)
+        expect(paint.getGreen()).toEqual(5)
+        expect(paint.getBlue()).toEqual(15)
     });
 });
