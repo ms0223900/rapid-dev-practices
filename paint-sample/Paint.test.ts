@@ -30,7 +30,7 @@ class PigmentColor {
     }
 
     private mixColor(color: number, otherColor: number, ratio: number) {
-        return color * (1 - ratio) + otherColor * ratio
+        return ~~((color * (1 - ratio) + otherColor * ratio) * 100) / 100
     }
 }
 
@@ -58,8 +58,6 @@ class Paint {
     }
 
     private getOtherVolumeRatio(otherVolume: number) {
-        console.log("otherVolume: ", otherVolume);
-        console.log("this.volume: ", this.volume);
         return otherVolume / this.volume;
     }
 }
@@ -84,6 +82,7 @@ class MixedPaint {
     }
 
     mixIn(stockPaint: StockPaint) {
+        // 直接 mix 的話呢？ => 似乎就不符合其彈性設計？
         this.paintStocks.push(stockPaint)
     }
 
@@ -93,11 +92,16 @@ class MixedPaint {
 
     getColor(): PigmentColor {
         const paint = this.paintStocks.reduce((prev, next) => {
-            const pigmentColor = prev.getColor().mixWith(next.paint.getColor(), next.getVolume() / (prev.getVolume() + next.getVolume()));
+            const totalVolume = prev.getVolume() + next.getVolume();
+            const mixedColor = prev.getColor().mixWith(next.paint.getColor(), next.getVolume() / totalVolume);
 
-            return new Paint(prev.getVolume() + next.getVolume(), pigmentColor);
+            return new Paint(totalVolume, mixedColor);
         }, new Paint(0, new PigmentColor(0, 0, 0)));
         return paint.getColor();
+        // return this.paintStocks[0].paint.getColor().mixWith(
+        //     this.paintStocks[1].paint.getColor(),
+        //     this.paintStocks[0].getVolume() / this.getVolume()
+        // );
     }
 }
 
@@ -129,7 +133,26 @@ describe('Paint', function () {
         expect(mixedPaint.getColor().getRed()).toEqual(255)
         expect(mixedPaint.getColor().getGreen()).toEqual(127.5)
         expect(mixedPaint.getColor().getBlue()).toEqual(0)
+    });
 
+    it('test mixin paint 3 paints', () => {
+        const yellow = new PigmentColor(255, 255, 0);
+        const red = new PigmentColor(255, 0, 0);
+        const blue = new PigmentColor(0, 0, 255);
+
+        const stockPaint = new StockPaint(1, yellow);
+        const stockPaint2 = new StockPaint(1, red);
+        const stockPaint3 = new StockPaint(1, blue);
+
+        const mixedPaint = new MixedPaint();
+        mixedPaint.mixIn(stockPaint)
+        mixedPaint.mixIn(stockPaint2)
+        mixedPaint.mixIn(stockPaint3)
+
+        expect(mixedPaint.getVolume()).toEqual(1 + 1 + 1)
+        expect(mixedPaint.getColor().getRed()).toEqual(170)
+        expect(mixedPaint.getColor().getGreen()).toEqual(85)
+        expect(mixedPaint.getColor().getBlue()).toEqual(85)
     });
 
 
