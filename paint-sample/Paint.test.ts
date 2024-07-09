@@ -38,9 +38,9 @@ class Paint {
     pigmentColor: PigmentColor;
     private volume: number;
 
-    constructor(volume: number, red: number, green: number, blue: number) {
+    constructor(volume: number, pigmentColor: PigmentColor) {
         this.volume = volume
-        this.pigmentColor = new PigmentColor(red, green, blue)
+        this.pigmentColor = pigmentColor
     }
 
     mixIn(other: Paint) {
@@ -56,8 +56,8 @@ class Paint {
 
 describe('Paint', function () {
     it('should mix paint', () => {
-        const paint = new Paint(1, 10, 10, 10);
-        const otherPaint = new Paint(1, 0, 0, 20);
+        const paint = new Paint(1, new PigmentColor(10, 10, 10));
+        const otherPaint = new Paint(1, new PigmentColor(0, 0, 20));
 
         paint.mixIn(otherPaint)
         expect(paint.getVolume()).toEqual(1 + 1)
