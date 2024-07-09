@@ -45,7 +45,7 @@ class Paint {
 
     mixIn(other: Paint) {
         this.volume += other.getVolume()
-        this.pigmentColor = this.pigmentColor.mixWith(other.pigmentColor, this.getRatio(other, this.volume))
+        this.pigmentColor = this.pigmentColor.mixWith(other.pigmentColor, this.getOtherVolumeRatio(other.getVolume()))
     }
 
     getVolume() {
@@ -56,8 +56,8 @@ class Paint {
         return this.pigmentColor;
     }
 
-    private getRatio(other: Paint, totalVolume: number) {
-        return other.getVolume() / totalVolume;
+    private getOtherVolumeRatio(otherVolume: number) {
+        return otherVolume / this.volume;
     }
 }
 
