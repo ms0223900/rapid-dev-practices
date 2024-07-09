@@ -13,10 +13,19 @@ class Paint {
 
     mixIn(other: Paint) {
         this.volume += other.getVolume()
+        this.red = this.mixColor(this.red, other.red)
     }
 
     getVolume() {
         return this.volume;
+    }
+
+    getRed() {
+        return this.red;
+    }
+
+    private mixColor(red: number, otherRed: number) {
+        return (red + otherRed) / 2;
     }
 }
 
@@ -26,7 +35,7 @@ describe('Paint', function () {
         const blue = new Paint(1, 0, 0, 10);
 
         ourPaint.mixIn(blue)
-        // TODO, from here (sample with side effect)
         expect(ourPaint.getVolume()).toEqual(1 + 1)
+        expect(ourPaint.getRed()).toEqual(5)
     });
 });
