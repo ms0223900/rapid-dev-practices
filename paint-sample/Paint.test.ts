@@ -35,7 +35,7 @@ class PigmentColor {
 }
 
 class Paint {
-    pigmentColor: PigmentColor;
+    private pigmentColor: PigmentColor;
     private volume: number;
 
     constructor(volume: number, pigmentColor: PigmentColor) {
@@ -52,6 +52,10 @@ class Paint {
     getVolume() {
         return this.volume;
     }
+
+    getColor() {
+        return this.pigmentColor;
+    }
 }
 
 describe('Paint', function () {
@@ -61,8 +65,8 @@ describe('Paint', function () {
 
         paint.mixIn(otherPaint)
         expect(paint.getVolume()).toEqual(1 + 1)
-        expect(paint.pigmentColor.getRed()).toEqual(5)
-        expect(paint.pigmentColor.getGreen()).toEqual(5)
-        expect(paint.pigmentColor.getBlue()).toEqual(15)
+        expect(paint.getColor().getRed()).toEqual(5)
+        expect(paint.getColor().getGreen()).toEqual(5)
+        expect(paint.getColor().getBlue()).toEqual(15)
     });
 });
