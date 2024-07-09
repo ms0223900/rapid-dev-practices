@@ -52,18 +52,6 @@ class Paint {
     getVolume() {
         return this.volume;
     }
-
-    getRed() {
-        return this.pigmentColor.getRed();
-    }
-
-    getGreen() {
-        return this.pigmentColor.getGreen();
-    }
-
-    getBlue() {
-        return this.pigmentColor.getBlue();
-    }
 }
 
 describe('Paint', function () {
@@ -73,8 +61,8 @@ describe('Paint', function () {
 
         paint.mixIn(otherPaint)
         expect(paint.getVolume()).toEqual(1 + 1)
-        expect(paint.getRed()).toEqual(5)
-        expect(paint.getGreen()).toEqual(5)
-        expect(paint.getBlue()).toEqual(15)
+        expect(paint.pigmentColor.getRed()).toEqual(5)
+        expect(paint.pigmentColor.getGreen()).toEqual(5)
+        expect(paint.pigmentColor.getBlue()).toEqual(15)
     });
 });
