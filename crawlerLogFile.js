@@ -9,10 +9,12 @@ var minOperations = function (logs = []) {
         const log = logs[i];
         if (log === "./") continue
 
-        const toParent = log === "../";
-        layers = toParent ? (
+        layers = log === "../" ? (
             Math.max(0, layers - 1)
         ) : layers + 1
     }
     return layers;
 };
+
+const minOp = minOperations(["d1/", "d2/", "../", "d21/", "./"]);
+console.log("minOp: ", minOp);
