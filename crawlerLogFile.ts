@@ -11,7 +11,7 @@ var minOperations = function (logs = []) {
 
         const toParent = log === "../";
         layers = toParent ? (
-            layers === 0 ? layers : layers - 1
+            Math.max(0, layers - 1)
         ) : layers + 1
     }
     return layers;
