@@ -1,13 +1,15 @@
 function* res400(err) {
     if (err.status !== 400) yield err;
-    console.log("400 :(");
-
+    let errMessage = "400 :(";
+    console.log(errMessage);
+    return errMessage;
 }
 
 function* res401(err) {
     if (err.status !== 401) yield err;
-    console.log("401 :(");
-
+    let errMessage = "401 :(";
+    console.log(errMessage);
+    return errMessage;
 }
 
 function* res403(err) {
