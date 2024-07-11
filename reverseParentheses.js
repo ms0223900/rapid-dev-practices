@@ -16,8 +16,7 @@ var reverseParentheses = function (s = "(ed(et(oc))el)") {
         }
         if (char === ")") {
             const popped = stack.pop();
-            const reversed = reverseStr(popped);
-            stack[stack.length - 1] = (stack[stack.length - 1] || "") + reversed
+            stack[stack.length - 1] = (stack[stack.length - 1] || "") + reverseStr(popped)
             continue
         }
         stack[stack.length - 1] += char
