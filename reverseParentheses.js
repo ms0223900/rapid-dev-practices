@@ -7,7 +7,7 @@ function reverseStr(str = "") {
  * @return {string}
  */
 var reverseParentheses = function (s = "(ed(et(oc))el)") {
-    let stack = [];
+    let stack = [""];
     for (let i = 0; i < s.length; i++) {
         const char = s[i];
         if (char === "(") {
@@ -25,3 +25,4 @@ var reverseParentheses = function (s = "(ed(et(oc))el)") {
     return stack[stack.length - 1];
 };
 console.log("reverseParentheses(): ", reverseParentheses());
+console.log("reverseParentheses(a(bcdefghijkl(mno)p)q): ", reverseParentheses("a(bcdefghijkl(mno)p)q"));
