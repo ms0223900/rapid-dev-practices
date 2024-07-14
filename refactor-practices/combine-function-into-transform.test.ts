@@ -46,11 +46,20 @@ function baseRate(month: number, year: number) {
 }
 
 function taxThreshold(year: number) {
+    if (year > 2020) {
+        return 10;
+    }
     return 0;
 }
 
 describe('combine fns', function () {
-    it('should get client 1 change correctly', () => {
+    it('should get client 1 change correctly.', () => {
         expect(client1()).toEqual(300)
     });
+
+    it('should get client2 taxable change correctly.', () => {
+        expect(client2()).toEqual(290)
+    });
+
+
 });
