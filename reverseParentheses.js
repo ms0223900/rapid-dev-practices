@@ -23,5 +23,14 @@ var reverseParentheses = function (s = "(ed(et(oc))el)") {
     }
     return stack[stack.length - 1];
 };
+var reverseParentheses2 = function (s) {
+    while (s.includes('(')) {
+        s = s.replace(/\(([^()]*)\)/g, match => {
+            return reverseStr(match.slice(1, -1));
+        });
+    }
+    return s;
+};
 console.log("reverseParentheses(): ", reverseParentheses());
 console.log("reverseParentheses(a(bcdefghijkl(mno)p)q): ", reverseParentheses("a(bcdefghijkl(mno)p)q"));
+console.log("reverseParentheses(a(bcdefghijkl(mno)p)q): ", reverseParentheses2("a(bcdefghijkl(mno)p)q"));
