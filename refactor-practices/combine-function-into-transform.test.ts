@@ -34,10 +34,14 @@ function client1() {
 
 client1();
 
+function calculateTaxableCharge(baseCharge: number, year: number) {
+    return Math.max(0, baseCharge - taxThreshold(year));
+}
+
 function client2() {
     const acquiredReading = acquireReading();
     const enrichedReading = enrichReading(acquiredReading);
-    const taxableCharge = Math.max(0, enrichedReading.baseCharge - taxThreshold(acquiredReading.year));
+    const taxableCharge = calculateTaxableCharge(enrichedReading.baseCharge, acquiredReading.year)
     return taxableCharge;
 }
 
