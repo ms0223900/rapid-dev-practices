@@ -17,12 +17,14 @@ function calculateRate(acquiredReading: Reading) {
 }
 
 interface EnrichedReading extends Reading {
+    taxableCharge: number;
     baseCharge: number
 }
 
 function enrichReading(acquiredReading: Reading) {
-    const res: EnrichedReading = { baseCharge: 0, ...structuredClone(acquiredReading) }
+    const res: EnrichedReading = { taxableCharge: 0, baseCharge: 0, ...structuredClone(acquiredReading) }
     res.baseCharge = calculateRate(acquiredReading);
+    res.taxableCharge = calculateTaxableCharge(res.baseCharge, acquiredReading.year)
     return res;
 }
 
@@ -41,8 +43,7 @@ function calculateTaxableCharge(baseCharge: number, year: number) {
 function client2() {
     const acquiredReading = acquireReading();
     const enrichedReading = enrichReading(acquiredReading);
-    const taxableCharge = calculateTaxableCharge(enrichedReading.baseCharge, acquiredReading.year)
-    return taxableCharge;
+    return calculateTaxableCharge(enrichedReading.baseCharge, acquiredReading.year);
 }
 
 client2();
