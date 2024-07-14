@@ -5,28 +5,17 @@ interface Reading {
     year: number
 }
 
+interface EnrichedReading extends Reading {
+    taxableCharge: number;
+    baseCharge: number
+}
+
 const reading: Reading = {
     month: 3,
     quantity: 2,
     year: 2024,
     customer: "PPP"
 };
-
-function calculateRate(acquiredReading: Reading) {
-    return baseRate(acquiredReading.month, acquiredReading.year) * acquiredReading.quantity;
-}
-
-interface EnrichedReading extends Reading {
-    taxableCharge: number;
-    baseCharge: number
-}
-
-function enrichReading(acquiredReading: Reading) {
-    const res: EnrichedReading = { taxableCharge: 0, baseCharge: 0, ...structuredClone(acquiredReading) }
-    res.baseCharge = calculateRate(acquiredReading);
-    res.taxableCharge = calculateTaxableCharge(res.baseCharge, acquiredReading.year)
-    return res;
-}
 
 function client1() {
     const acquiredReading = acquireReading();
@@ -36,10 +25,6 @@ function client1() {
 
 client1();
 
-function calculateTaxableCharge(baseCharge: number, year: number) {
-    return Math.max(0, baseCharge - taxThreshold(year));
-}
-
 function client2() {
     const acquiredReading = acquireReading();
     const enrichedReading = enrichReading(acquiredReading);
@@ -48,6 +33,20 @@ function client2() {
 
 client2();
 
+function calculateRate(acquiredReading: Reading) {
+    return baseRate(acquiredReading.month, acquiredReading.year) * acquiredReading.quantity;
+}
+
+function calculateTaxableCharge(baseCharge: number, year: number) {
+    return Math.max(0, baseCharge - taxThreshold(year));
+}
+
+function enrichReading(acquiredReading: Reading) {
+    const res: EnrichedReading = { taxableCharge: 0, baseCharge: 0, ...structuredClone(acquiredReading) }
+    res.baseCharge = calculateRate(acquiredReading);
+    res.taxableCharge = calculateTaxableCharge(res.baseCharge, acquiredReading.year)
+    return res;
+}
 
 function acquireReading() {
     return reading;
