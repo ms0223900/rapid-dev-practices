@@ -43,7 +43,7 @@ function calculateTaxableCharge(baseCharge: number, year: number) {
 function client2() {
     const acquiredReading = acquireReading();
     const enrichedReading = enrichReading(acquiredReading);
-    return calculateTaxableCharge(enrichedReading.baseCharge, acquiredReading.year);
+    return enrichedReading.taxableCharge
 }
 
 client2();
