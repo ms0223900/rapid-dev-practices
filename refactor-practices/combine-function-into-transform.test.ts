@@ -36,7 +36,8 @@ client1();
 
 function client2() {
     const acquiredReading = acquireReading();
-    const base = calculateRate(acquiredReading)
+    const enrichedReading = enrichReading(acquiredReading);
+    const base = enrichedReading.baseCharge;
     const taxableCharge = Math.max(0, base - taxThreshold(acquiredReading.year));
     return taxableCharge;
 }
