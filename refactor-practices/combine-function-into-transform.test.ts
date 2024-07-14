@@ -16,10 +16,20 @@ function calculateRate(acquiredReading: Reading) {
     return baseRate(acquiredReading.month, acquiredReading.year) * acquiredReading.quantity;
 }
 
+interface EnrichedReading extends Reading {
+    baseCharge: number
+}
+
+function enrichReading(acquiredReading: Reading) {
+    const res: EnrichedReading = { baseCharge: 0, ...structuredClone(acquiredReading) }
+    res.baseCharge = calculateRate(acquiredReading);
+    return res;
+}
+
 function client1() {
     const acquiredReading = acquireReading();
-    const baseCharge = calculateRate(acquiredReading);
-    return baseCharge;
+    const enrichedReading = enrichReading(acquiredReading);
+    return enrichedReading.baseCharge;
 }
 
 client1();
