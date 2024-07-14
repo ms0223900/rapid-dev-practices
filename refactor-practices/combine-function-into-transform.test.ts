@@ -12,9 +12,13 @@ const reading: Reading = {
     customer: "PPP"
 };
 
+function calculateRate(acquiredReading: Reading) {
+    return baseRate(acquiredReading.month, acquiredReading.year) * acquiredReading.quantity;
+}
+
 function client1() {
     const acquiredReading = acquireReading();
-    const baseCharge = baseRate(acquiredReading.month, acquiredReading.year) * acquiredReading.quantity;
+    const baseCharge = calculateRate(acquiredReading);
     return baseCharge;
 }
 
@@ -22,7 +26,7 @@ client1();
 
 function client2() {
     const acquiredReading = acquireReading();
-    const base = baseRate(acquiredReading.month, acquiredReading.year) * acquiredReading.quantity;
+    const base = calculateRate(acquiredReading)
     const taxableCharge = Math.max(0, base - taxThreshold(acquiredReading.year));
     return taxableCharge;
 }
@@ -60,6 +64,4 @@ describe('combine fns', function () {
     it('should get client2 taxable change correctly.', () => {
         expect(client2()).toEqual(290)
     });
-
-
 });
