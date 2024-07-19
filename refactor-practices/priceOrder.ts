@@ -10,19 +10,15 @@ interface ShippingMethod {
     discountThreshold: number;
 }
 
-function getDiscount(product: Product, quantity: number) {
-    return Math.max(quantity - product.discountThreshold, 0)
-        * product.basePrice * product.discountRate;
-}
-
-function getShippingPerCase(basePrice: number, shippingMethod: ShippingMethod) {
-    return (basePrice > shippingMethod.discountThreshold)
-        ? shippingMethod.discountedFee : shippingMethod.feePerCase;
+function applyShipping(basePrice: number, shippingMethod: ShippingMethod, quantity: number, discount: number) {
+    const shippingCost = ((basePrice > shippingMethod.discountThreshold)
+        ? shippingMethod.discountedFee : shippingMethod.feePerCase) * quantity;
+    return basePrice - discount + shippingCost;
 }
 
 export function priceOrder(product: Product, quantity: number, shippingMethod: ShippingMethod) {
     const basePrice = product.basePrice * quantity;
-    const discount = getDiscount(product, quantity);
-    const shippingCost = getShippingPerCase(basePrice, shippingMethod) * quantity;
-    return basePrice - discount + shippingCost;
+    const discount = Math.max(quantity - product.discountThreshold, 0)
+        * product.basePrice * product.discountRate;
+    return applyShipping(basePrice, shippingMethod, quantity, discount);
 }
