@@ -10,8 +10,9 @@ interface ShippingMethod {
     discountThreshold: number;
 }
 
-function applyShipping(shippingMethod: ShippingMethod, quantity: number, discount: number, {basePrice}: {
-    basePrice: number
+function applyShipping(shippingMethod: ShippingMethod, quantity: number, {basePrice, discount}: {
+    basePrice: number;
+    discount: number
 }) {
     const shippingCost = ((basePrice > shippingMethod.discountThreshold)
         ? shippingMethod.discountedFee : shippingMethod.feePerCase) * quantity;
@@ -22,6 +23,6 @@ export function priceOrder(product: Product, quantity: number, shippingMethod: S
     const basePrice = product.basePrice * quantity;
     const discount = Math.max(quantity - product.discountThreshold, 0)
         * product.basePrice * product.discountRate;
-    let priceData = {basePrice};
-    return applyShipping(shippingMethod, quantity, discount, priceData);
+    const priceData = {basePrice, discount};
+    return applyShipping(shippingMethod, quantity, priceData);
 }
