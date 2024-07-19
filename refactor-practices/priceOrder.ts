@@ -10,10 +10,12 @@ interface ShippingMethod {
     discountThreshold: number;
 }
 
-function applyShipping(shippingMethod: ShippingMethod, quantity: number, {basePrice, discount}: {
+interface PriceData {
     basePrice: number;
-    discount: number
-}) {
+    discount: number;
+}
+
+function applyShipping(shippingMethod: ShippingMethod, quantity: number, {basePrice, discount}: PriceData) {
     const shippingCost = ((basePrice > shippingMethod.discountThreshold)
         ? shippingMethod.discountedFee : shippingMethod.feePerCase) * quantity;
     return basePrice - discount + shippingCost;
