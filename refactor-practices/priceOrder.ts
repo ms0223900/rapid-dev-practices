@@ -19,10 +19,15 @@ function applyShipping(shippingMethod: ShippingMethod, quantity: number, {basePr
     return basePrice - discount + shippingCost;
 }
 
-export function priceOrder(product: Product, quantity: number, shippingMethod: ShippingMethod) {
+function calculatePriceData(product: Product, quantity: number) {
     const basePrice = product.basePrice * quantity;
     const discount = Math.max(quantity - product.discountThreshold, 0)
         * product.basePrice * product.discountRate;
     const priceData = {basePrice, discount};
+    return priceData;
+}
+
+export function priceOrder(product: Product, quantity: number, shippingMethod: ShippingMethod) {
+    const priceData = calculatePriceData(product, quantity);
     return applyShipping(shippingMethod, quantity, priceData);
 }
