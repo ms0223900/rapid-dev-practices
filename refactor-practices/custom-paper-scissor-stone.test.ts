@@ -13,6 +13,9 @@ function mora(mora1: MORA, mora2: MORA) {
     if (mora1 === MORA.stone && mora2 === MORA.stone) {
         return MoraResult.DRAW;
     }
+    if (mora1 === MORA.paper && mora2 === MORA.paper) {
+        return MoraResult.DRAW;
+    }
     if (mora1 === MORA.paper && mora2 === MORA.stone) {
         return MoraResult.WIN;
     }
@@ -32,6 +35,10 @@ describe('Custom Paper Scissor Stone', function () {
 
     it('should stone draw stone', () => {
         expect(mora(MORA.stone, MORA.stone,)).toEqual(MoraResult.DRAW)
+    });
+
+    it('should paper draw paper', () => {
+        expect(mora(MORA.paper, MORA.paper,)).toEqual(MoraResult.DRAW)
     });
 
 
