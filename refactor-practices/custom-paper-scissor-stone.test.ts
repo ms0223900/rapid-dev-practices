@@ -10,17 +10,19 @@ enum MORA {
     scissor,
 }
 
+const moraOrderMap = {
+    [MORA.stone]: 0,
+    [MORA.paper]: 1,
+    [MORA.scissor]: 2,
+};
+
 function checkWin(mora1: MORA, mora2: MORA) {
-    const moraOrderMap = {
-        [MORA.stone]: 0,
-        [MORA.paper]: 1,
-        [MORA.scissor]: 2,
-    };
     const orderDiff = moraOrderMap[mora1] - moraOrderMap[mora2];
     if (orderDiff === 1) {
         return true;
     }
-    if (orderDiff === -2) {
+    const loopOrderDiff = moraOrderMap[MORA.stone] - moraOrderMap[MORA.scissor];
+    if (orderDiff === loopOrderDiff) {
         return true;
     }
     return false;
