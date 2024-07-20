@@ -14,10 +14,6 @@ function checkWin(mora1: MORA, mora2: MORA) {
     return mora1 === MORA.paper && mora2 === MORA.stone || mora1 === MORA.stone && mora2 === MORA.scissor;
 }
 
-function checkLose(mora1: MORA, mora2: MORA) {
-    return mora1 === MORA.stone && mora2 === MORA.paper;
-}
-
 function checkDraw(mora1: MORA, mora2: MORA) {
     return mora1 === mora2;
 }
