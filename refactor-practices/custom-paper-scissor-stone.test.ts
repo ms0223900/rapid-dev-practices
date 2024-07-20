@@ -10,8 +10,12 @@ enum MORA {
     scissor,
 }
 
+function checkWin(mora1: MORA, mora2: MORA) {
+    return mora1 === MORA.paper && mora2 === MORA.stone;
+}
+
 function mora(mora1: MORA, mora2: MORA) {
-    if (mora1 === MORA.paper && mora2 === MORA.stone) {
+    if (checkWin(mora1, mora2)) {
         return MoraResult.WIN;
     }
     if (mora1 === MORA.stone && mora2 === MORA.scissor) {
