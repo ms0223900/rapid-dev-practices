@@ -7,6 +7,7 @@ enum MoraResult {
 enum MORA {
     paper,
     stone,
+    scissor,
 }
 
 function mora(mora1: MORA, mora2: MORA) {
@@ -14,6 +15,9 @@ function mora(mora1: MORA, mora2: MORA) {
         return MoraResult.DRAW;
     }
     if (mora1 === MORA.paper && mora2 === MORA.stone) {
+        return MoraResult.WIN;
+    }
+    if (mora1 === MORA.stone && mora2 === MORA.scissor) {
         return MoraResult.WIN;
     }
     if (mora1 === MORA.stone && mora2 === MORA.paper) {
@@ -24,6 +28,10 @@ function mora(mora1: MORA, mora2: MORA) {
 describe('Custom Paper Scissor Stone', function () {
     it('should paper win stone', () => {
         expect(mora(MORA.paper, MORA.stone)).toEqual(MoraResult.WIN)
+    });
+
+    it('should stone win scissor', () => {
+        expect(mora(MORA.stone, MORA.scissor)).toEqual(MoraResult.WIN)
     });
 
     it('should stone lose paper', () => {
