@@ -52,6 +52,10 @@ describe('Custom Paper Scissor Stone', function () {
         expect(mora(MORA.scissor, MORA.stone,)).toEqual(MoraResult.LOSE)
     });
 
+    it('should paper lose scissor', () => {
+        expect(mora(MORA.paper, MORA.scissor,)).toEqual(MoraResult.LOSE)
+    });
+
     it('should stone draw stone', () => {
         expect(mora(MORA.stone, MORA.stone,)).toEqual(MoraResult.DRAW)
     });
