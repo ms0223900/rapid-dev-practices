@@ -8,6 +8,7 @@ enum MORA {
     paper,
     stone,
     scissor,
+    lizard,
 }
 
 const moraOrderMap = {
@@ -30,6 +31,9 @@ function checkWin(mora1: MORA, mora2: MORA) {
 }
 
 function checkDraw(mora1: MORA, mora2: MORA) {
+    if (mora1 === MORA.lizard && mora2 === MORA.scissor) {
+        return true;
+    }
     return mora1 === mora2;
 }
 
@@ -79,5 +83,10 @@ describe('Custom Paper Scissor Stone', function () {
     it('should scissor draw scissor', () => {
         expect(mora(MORA.scissor, MORA.scissor,)).toEqual(MoraResult.DRAW)
     });
+
+    it('should lizard draw scissor', () => {
+        expect(mora(MORA.lizard, MORA.scissor,)).toEqual(MoraResult.DRAW)
+    });
+
 
 });
