@@ -11,10 +11,19 @@ enum MORA {
 }
 
 function checkWin(mora1: MORA, mora2: MORA) {
-    if (mora1 === MORA.scissor && mora2 === MORA.paper) {
+    const moraOrderMap = {
+        [MORA.stone]: 0,
+        [MORA.paper]: 1,
+        [MORA.scissor]: 2,
+    };
+    const orderDiff = moraOrderMap[mora1] - moraOrderMap[mora2];
+    if (orderDiff === 1) {
         return true;
     }
-    return mora1 === MORA.paper && mora2 === MORA.stone || mora1 === MORA.stone && mora2 === MORA.scissor;
+    if (orderDiff === -2) {
+        return true;
+    }
+    return false;
 }
 
 function checkDraw(mora1: MORA, mora2: MORA) {
