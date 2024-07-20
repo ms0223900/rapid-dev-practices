@@ -14,17 +14,22 @@ function checkWin(mora1: MORA, mora2: MORA) {
     return mora1 === MORA.paper && mora2 === MORA.stone || mora1 === MORA.stone && mora2 === MORA.scissor;
 }
 
+function checkLose(mora1: MORA, mora2: MORA) {
+    return mora1 === MORA.stone && mora2 === MORA.paper;
+}
+
+function checkDraw(mora1: MORA, mora2: MORA) {
+    return mora1 === mora2;
+}
+
 function mora(mora1: MORA, mora2: MORA) {
     if (checkWin(mora1, mora2)) {
         return MoraResult.WIN;
     }
-    if (mora1 === MORA.stone && mora2 === MORA.paper) {
-        return MoraResult.LOSE;
+    if (checkDraw(mora1, mora2)) {
+        return MoraResult.DRAW;
     }
-    if (mora1 === MORA.scissor && mora2 === MORA.stone) {
-        return MoraResult.LOSE;
-    }
-    return MoraResult.DRAW;
+    return MoraResult.LOSE;
 }
 
 describe('Custom Paper Scissor Stone', function () {
