@@ -10,10 +10,7 @@ enum MORA {
 }
 
 function mora(mora1: MORA, mora2: MORA) {
-    if (mora1 === MORA.stone && mora2 === MORA.stone) {
-        return MoraResult.DRAW;
-    }
-    if (mora1 === MORA.paper && mora2 === MORA.paper) {
+    if (mora1 === mora2) {
         return MoraResult.DRAW;
     }
     if (mora1 === MORA.paper && mora2 === MORA.stone) {
