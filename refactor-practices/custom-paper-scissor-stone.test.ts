@@ -16,15 +16,16 @@ const moraOrderMap = {
     [MORA.scissor]: 2,
 };
 
+function checkLastOrderWinCase(orderDiff: number) {
+    const loopOrderDiff = moraOrderMap[MORA.stone] - moraOrderMap[MORA.scissor];
+    return orderDiff === loopOrderDiff;
+}
+
 function checkWin(mora1: MORA, mora2: MORA) {
     const orderDiff = moraOrderMap[mora1] - moraOrderMap[mora2];
-    if (orderDiff === 1) {
-        return true;
-    }
-    const loopOrderDiff = moraOrderMap[MORA.stone] - moraOrderMap[MORA.scissor];
-    if (orderDiff === loopOrderDiff) {
-        return true;
-    }
+    if (orderDiff === 1) return true;
+    if (checkLastOrderWinCase(orderDiff)) return true;
+
     return false;
 }
 
