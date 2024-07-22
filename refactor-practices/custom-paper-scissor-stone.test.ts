@@ -11,17 +11,6 @@ enum MORA {
     lizard,
 }
 
-const moraOrderMap = {
-    [MORA.stone]: 0,
-    [MORA.paper]: 1,
-    [MORA.scissor]: 2,
-};
-
-function checkLastOrderWinCase(orderDiff: number) {
-    const loopOrderDiff = moraOrderMap[MORA.stone] - moraOrderMap[MORA.scissor];
-    return orderDiff === loopOrderDiff;
-}
-
 function checkWin(mora1: MORA, mora2: MORA) {
     const moraWinGraph = {
         [MORA.scissor]: MORA.paper,
