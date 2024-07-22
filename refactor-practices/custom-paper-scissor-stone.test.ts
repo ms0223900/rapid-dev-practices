@@ -21,12 +21,6 @@ function checkWin(mora1: MORA, mora2: MORA) {
 }
 
 function checkDraw(mora1: MORA, mora2: MORA) {
-    if (mora1 === MORA.lizard && mora2 === MORA.scissor) {
-        return true;
-    }
-    if (mora1 === MORA.scissor && mora2 === MORA.lizard) {
-        return true;
-    }
     return mora1 === mora2;
 }
 
