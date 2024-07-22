@@ -23,11 +23,12 @@ function checkLastOrderWinCase(orderDiff: number) {
 }
 
 function checkWin(mora1: MORA, mora2: MORA) {
-    const orderDiff = moraOrderMap[mora1] - moraOrderMap[mora2];
-    if (orderDiff === 1) return true;
-    if (checkLastOrderWinCase(orderDiff)) return true;
-
-    return false;
+    const moraWinGraph = {
+        [MORA.scissor]: MORA.paper,
+        [MORA.paper]: MORA.stone,
+        [MORA.stone]: MORA.scissor,
+    };
+    return moraWinGraph[mora1] === mora2;
 }
 
 function checkDraw(mora1: MORA, mora2: MORA) {
