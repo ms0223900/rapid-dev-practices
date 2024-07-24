@@ -114,6 +114,14 @@ function compareUsage(customerId: string, laterYear: string, month: string) {
     };
 }
 
+function setRawDataOfCustomers(rawData: CustomerRawData) {
+
+}
+
+function setUsage(customerId: string, year: string, month: string, amount: number) {
+    getCustomerData()[customerId].usages[year][month] = amount
+}
+
 describe('Encapsulated customer data', function () {
     it("compare usage", () => {
         expect(compareUsage("1920", "2016", "2")).toEqual({
@@ -121,5 +129,14 @@ describe('Encapsulated customer data', function () {
             change: -8,
         })
     });
+
+    it("set usage", () => {
+        setUsage("1920", "2016", "2", 60)
+        expect(compareUsage("1920", "2016", "2")).toEqual({
+            laterAmount: 60,
+            change: -3,
+        })
+    });
+
 
 });
