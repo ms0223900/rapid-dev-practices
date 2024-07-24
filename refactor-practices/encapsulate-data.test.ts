@@ -48,7 +48,7 @@ describe('Encapsulate Data', function () {
     });
 });
 
-let customerData: CustomerRawData = {
+let customerRawData: CustomerRawData = {
     "1920": {
         name: "martin",
         id: "1920",
@@ -97,12 +97,18 @@ class CustomerData {
     }
 
     getRawData() {
-        return this._data;
+        return structuredClone(this._data);
+    }
+
+    setUsage(customerId: string, year: string, month: string, amount: number) {
+        this._data[customerId].usages[year][month] = amount
     }
 }
 
+const customerData = new CustomerData(customerRawData);
+
 function getCustomerData() {
-    return customerData
+    return customerData.getRawData();
 }
 
 function compareUsage(customerId: string, laterYear: string, month: string) {
@@ -119,6 +125,7 @@ function setRawDataOfCustomers(rawData: CustomerRawData) {
 }
 
 function setUsage(customerId: string, year: string, month: string, amount: number) {
+    customerData.setUsage(customerId, year, month, amount)
     getCustomerData()[customerId].usages[year][month] = amount
 }
 
