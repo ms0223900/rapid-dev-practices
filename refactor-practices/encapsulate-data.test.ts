@@ -72,9 +72,25 @@ const customerData = {
     }
 };
 
+interface CustomerRawData {
+}
+
+class CustomerData {
+    private _data: CustomerRawData;
+
+    constructor(customerData: CustomerRawData) {
+        this._data = customerData
+    }
+
+
+    getRawData() {
+        return this._data;
+    }
+}
+
 function compareUsage(customerId: string, laterYear: string, month: string) {
-    const later = customerData[customerId].usages[laterYear][month];
-    const earlier = customerData[customerId].usages[String(Number(laterYear) - 1)][month];
+    const later = new CustomerData(customerData).getRawData()[customerId].usages[laterYear][month];
+    const earlier = new CustomerData(customerData).getRawData()[customerId].usages[String(Number(laterYear) - 1)][month];
     return {
         laterAmount: later,
         change: later - earlier,
