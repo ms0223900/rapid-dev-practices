@@ -126,7 +126,6 @@ function setRawDataOfCustomers(rawData: CustomerRawData) {
 
 function setUsage(customerId: string, year: string, month: string, amount: number) {
     customerData.setUsage(customerId, year, month, amount)
-    getCustomerData()[customerId].usages[year][month] = amount
 }
 
 describe('Encapsulated customer data', function () {
