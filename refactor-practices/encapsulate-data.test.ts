@@ -48,7 +48,7 @@ describe('Encapsulate Data', function () {
     });
 });
 
-const customerData: CustomerRawData = {
+let customerData: CustomerRawData = {
     "1920": {
         name: "martin",
         id: "1920",
@@ -101,9 +101,13 @@ class CustomerData {
     }
 }
 
+function getCustomerData() {
+    return customerData
+}
+
 function compareUsage(customerId: string, laterYear: string, month: string) {
-    const later = new CustomerData(customerData).getRawData()[customerId].usages[laterYear][month];
-    const earlier = new CustomerData(customerData).getRawData()[customerId].usages[String(Number(laterYear) - 1)][month];
+    const later = getCustomerData()[customerId].usages[laterYear][month];
+    const earlier = getCustomerData()[customerId].usages[String(Number(laterYear) - 1)][month];
     return {
         laterAmount: later,
         change: later - earlier,
@@ -117,4 +121,5 @@ describe('Encapsulated customer data', function () {
             change: -8,
         })
     });
+
 });
