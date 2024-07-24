@@ -26,11 +26,11 @@ describe('Encapsulate Data', function () {
         expect(organization1.country).toEqual("GB")
     });
 
-    it('should set data', () => {
+    it('should set name', () => {
         const organization = { name: "Acme Gooseberries", country: "GB" };
         const organization1 = new Organization(organization);
         organization1.name = "hi"
-        expect(organization1._name).toEqual("hi")
+        expect(organization1.name).toEqual("hi")
         expect(organization.name).toEqual("Acme Gooseberries")
     });
 
