@@ -1,9 +1,17 @@
 class Organization {
-    country: string;
-
     constructor(organization: { country: string; name: string }) {
         this._name = organization.name
-        this.country = organization.country
+        this._country = organization.country
+    }
+
+    _country: string;
+
+    get country() {
+        return this._country;
+    }
+
+    set country(__country: string) {
+        this._country = __country
     }
 
     _name: string;
@@ -15,7 +23,6 @@ class Organization {
     set name(__name) {
         this._name = __name
     }
-
 }
 
 describe('Encapsulate Data', function () {
