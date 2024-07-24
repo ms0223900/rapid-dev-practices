@@ -1,10 +1,19 @@
 class Organization {
-    name: string;
     country: string;
 
     constructor(organization: { country: string; name: string }) {
-        this.name = organization.name
+        this._name = organization.name
         this.country = organization.country
+    }
+
+    _name: string;
+
+    get name() {
+        return this._name;
+    }
+
+    set name(__name) {
+        this._name = __name
     }
 
 }
@@ -16,4 +25,14 @@ describe('Encapsulate Data', function () {
         expect(organization1.name).toEqual("Acme Gooseberries")
         expect(organization1.country).toEqual("GB")
     });
+
+    it('should set data', () => {
+        const organization = { name: "Acme Gooseberries", country: "GB" };
+        const organization1 = new Organization(organization);
+        organization1.name = "hi"
+        expect(organization1._name).toEqual("hi")
+        expect(organization.name).toEqual("Acme Gooseberries")
+    });
+
+
 });
