@@ -48,7 +48,7 @@ describe('Encapsulate Data', function () {
     });
 });
 
-const customerData = {
+const customerData: CustomerRawData = {
     "1920": {
         name: "martin",
         id: "1920",
@@ -69,10 +69,24 @@ const customerData = {
         name: "neal",
         id: "38673",
         // more customers in a similar form
+        usages: {}
     }
 };
 
+interface Usage {
+    [year: string]: {
+        [month: string]: number;
+    };
+}
+
+interface Customer {
+    name: string;
+    id: string;
+    usages: Usage;
+}
+
 interface CustomerRawData {
+    [id: string]: Customer;
 }
 
 class CustomerData {
@@ -81,7 +95,6 @@ class CustomerData {
     constructor(customerData: CustomerRawData) {
         this._data = customerData
     }
-
 
     getRawData() {
         return this._data;
