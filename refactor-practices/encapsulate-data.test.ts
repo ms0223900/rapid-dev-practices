@@ -128,6 +128,9 @@ function setUsage(customerId: string, year: string, month: string, amount: numbe
     customerData.setUsage(customerId, year, month, amount)
 }
 
+class Person {
+}
+
 describe('Encapsulated customer data', function () {
     it("compare usage", () => {
         expect(compareUsage("1920", "2016", "2")).toEqual({
@@ -143,6 +146,4 @@ describe('Encapsulated customer data', function () {
             change: -3,
         })
     });
-
-
 });
