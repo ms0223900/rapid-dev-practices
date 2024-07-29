@@ -22,6 +22,9 @@ class Order {
         return this._priority;
     }
 
+    get priorityString() {
+        return this._priority.toString();
+    }
 }
 
 describe('Replace primitive with object', function () {
@@ -30,7 +33,7 @@ describe('Replace primitive with object', function () {
         const order2 = new Order({ priority: "high" });
         const order3 = new Order({ priority: "rush" });
         const orders = [order1, order2, order3];
-        const highPriorityCount = orders.filter(order => order.priority.toString() === "high" || order.priority.toString() === "rush").length;
+        const highPriorityCount = orders.filter(order => order.priorityString === "high" || order.priorityString === "rush").length;
 
         expect(highPriorityCount).toEqual(2)
     });
