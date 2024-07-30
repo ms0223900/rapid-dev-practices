@@ -70,7 +70,6 @@ function getHighPriorityOrdersCount(orders: Order[]) {
 }
 
 function getOrdersByPriceRange(orders: Order[], priceRange: number[]) {
-    return orders.filter(order => order.price.higherOrEqual(new Price(priceRange[0])) && order.price.lowerOrEqual(new Price(priceRange[1])));
     return orders.filter(order => order.price.isBetween(new Price(priceRange[0]), new Price(priceRange[1])));
 }
 
