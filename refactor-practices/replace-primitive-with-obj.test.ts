@@ -32,14 +32,26 @@ class Price {
     toNumber() {
         return this._price;
     }
+
+    higherOrEqual(price: Price) {
+        return this._price >= price.toNumber();
+    }
+
+    lowerOrEqual(price: Price) {
+        return this._price <= price.toNumber();
+    }
 }
 
 class Order {
-    private _price: Price;
-
     constructor(data: { price: number; priority: string }) {
         this._priority = new Priority(data.priority)
         this._price = new Price(data.price)
+    }
+
+    private _price: Price;
+
+    get price() {
+        return this._price;
     }
 
     get priceVal() {
@@ -55,6 +67,10 @@ class Order {
     get priorityString() {
         return this._priority.toString();
     }
+
+    lowerOrEqual(price: Price) {
+        return false;
+    }
 }
 
 function getHighPriorityOrdersCount(orders: Order[]) {
@@ -62,7 +78,7 @@ function getHighPriorityOrdersCount(orders: Order[]) {
 }
 
 function getOrdersByPriceRange(orders: Order[], priceRange: number[]) {
-    return orders.filter(order => order.priceVal >= priceRange[0] && order.priceVal <= priceRange[1]);
+    return orders.filter(order => order.price.higherOrEqual(new Price(priceRange[0])) && order.price.lowerOrEqual(new Price(priceRange[1])));
 }
 
 function orders() {
