@@ -53,25 +53,26 @@ function getOrdersByPriceRange(orders: Order[], priceRange: number[]) {
     return orders.filter(order => order.price >= priceRange[0] && order.price <= priceRange[1]);
 }
 
+function orders() {
+    const order1 = new Order({priority: "normal", price: 100});
+    const order2 = new Order({priority: "high", price: 200});
+    const order3 = new Order({priority: "rush", price: 300});
+
+    const orders = [order1, order2, order3];
+    return orders;
+}
+
 describe('Replace primitive with object', function () {
     it('should filter by priority', () => {
-        const order1 = new Order({priority: "normal", price: 100});
-        const order2 = new Order({priority: "high", price: 200});
-        const order3 = new Order({priority: "rush", price: 300});
-
-        const orders = [order1, order2, order3];
-        const highPriorityCount = getHighPriorityOrdersCount(orders);
+        const orders1 = orders();
+        const highPriorityCount = getHighPriorityOrdersCount(orders1);
 
         expect(highPriorityCount).toEqual(2)
     });
 
     it('should get order by price range', () => {
-        const order1 = new Order({priority: "normal", price: 100});
-        const order2 = new Order({priority: "high", price: 200});
-        const order3 = new Order({priority: "rush", price: 300});
-
-        const orders = [order1, order2, order3];
-        const ordersByPriceRange = getOrdersByPriceRange(orders, [150, 250]);
+        const orders1 = orders();
+        const ordersByPriceRange = getOrdersByPriceRange(orders1, [150, 250]);
 
         expect(ordersByPriceRange.length).toEqual(1)
     });
