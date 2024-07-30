@@ -38,14 +38,18 @@ class Order {
     }
 }
 
+function getHighPriorityOrdersCount(orders: Order[]) {
+    return orders.filter(order => order.priority.higherThan(new Priority("normal"))).length;
+}
+
 describe('Replace primitive with object', function () {
     it('should filter by priority', () => {
-        const order1 = new Order({ priority: "normal" });
-        const order2 = new Order({ priority: "high" });
-        const order3 = new Order({ priority: "rush" });
+        const order1 = new Order({priority: "normal"});
+        const order2 = new Order({priority: "high"});
+        const order3 = new Order({priority: "rush"});
         const orders = [order1, order2, order3];
         // const highPriorityCount = orders.filter(order => order.priorityString === "high" || order.priorityString === "rush").length;
-        const highPriorityCount = orders.filter(order => order.priority.higherThan(new Priority("normal"))).length;
+        const highPriorityCount = getHighPriorityOrdersCount(orders);
 
         expect(highPriorityCount).toEqual(2)
     });
