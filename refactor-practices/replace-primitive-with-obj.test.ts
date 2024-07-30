@@ -41,8 +41,8 @@ class Price {
         return this._price <= price.toNumber();
     }
 
-    isBetween(price: Price, price2: Price) {
-        return this.higherOrEqual(price) && this.lowerOrEqual(price2);
+    isBetween(priceRange: [Price, Price]) {
+        return this.higherOrEqual(priceRange[0]) && this.lowerOrEqual(priceRange[1]);
     }
 }
 
@@ -69,8 +69,8 @@ function getHighPriorityOrdersCount(orders: Order[]) {
     return orders.filter(order => order.priority.higherThan(new Priority("normal"))).length;
 }
 
-function getOrdersByPriceRange(orders: Order[], priceRange: number[]) {
-    return orders.filter(order => order.price.isBetween(new Price(priceRange[0]), new Price(priceRange[1])));
+function getOrdersByPriceRange(orders: Order[], priceRange: [Price, Price]) {
+    return orders.filter(order => order.price.isBetween(priceRange));
 }
 
 function orders() {
@@ -92,7 +92,7 @@ describe('Replace primitive with object', function () {
 
     it('should get order by price range', () => {
         const orders1 = orders();
-        const ordersByPriceRange = getOrdersByPriceRange(orders1, [150, 250]);
+        const ordersByPriceRange = getOrdersByPriceRange(orders1, [new Price(150), new Price(250)]);
 
         expect(ordersByPriceRange.length).toEqual(1)
     });
