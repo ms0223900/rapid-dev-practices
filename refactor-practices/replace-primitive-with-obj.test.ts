@@ -84,15 +84,13 @@ function orders() {
 
 describe('Replace primitive with object', function () {
     it('should filter by priority', () => {
-        const orders1 = orders();
-        const highPriorityCount = getHighPriorityOrdersCount(orders1);
+        const highPriorityCount = getHighPriorityOrdersCount(orders());
 
         expect(highPriorityCount).toEqual(2)
     });
 
     it('should get order by price range', () => {
-        const orders1 = orders();
-        const ordersByPriceRange = getOrdersByPriceRange(orders1, [new Price(150), new Price(250)]);
+        const ordersByPriceRange = getOrdersByPriceRange(orders(), [new Price(150), new Price(250)]);
 
         expect(ordersByPriceRange.length).toEqual(1)
     });
