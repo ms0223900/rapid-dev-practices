@@ -40,6 +40,10 @@ class Price {
     lowerOrEqual(price: Price) {
         return this._price <= price.toNumber();
     }
+
+    isBetween(price: Price, price2: Price) {
+        return this.higherOrEqual(price) && this.lowerOrEqual(price2);
+    }
 }
 
 class Order {
@@ -67,6 +71,7 @@ function getHighPriorityOrdersCount(orders: Order[]) {
 
 function getOrdersByPriceRange(orders: Order[], priceRange: number[]) {
     return orders.filter(order => order.price.higherOrEqual(new Price(priceRange[0])) && order.price.lowerOrEqual(new Price(priceRange[1])));
+    return orders.filter(order => order.price.isBetween(new Price(priceRange[0]), new Price(priceRange[1])));
 }
 
 function orders() {
