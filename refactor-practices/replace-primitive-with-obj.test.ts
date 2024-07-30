@@ -22,16 +22,28 @@ class Priority {
     }
 }
 
-class Order {
-    constructor(data: { price: number; priority: string }) {
-        this._priority = new Priority(data.priority)
-        this._price = data.price
-    }
-
+class Price {
     private _price: number;
 
-    get price() {
+    constructor(price: number) {
+        this._price = price
+    }
+
+    toNumber() {
         return this._price;
+    }
+}
+
+class Order {
+    private _price: Price;
+
+    constructor(data: { price: number; priority: string }) {
+        this._priority = new Priority(data.priority)
+        this._price = new Price(data.price)
+    }
+
+    get priceVal() {
+        return this._price.toNumber();
     }
 
     private _priority: Priority;
@@ -50,7 +62,7 @@ function getHighPriorityOrdersCount(orders: Order[]) {
 }
 
 function getOrdersByPriceRange(orders: Order[], priceRange: number[]) {
-    return orders.filter(order => order.price >= priceRange[0] && order.price <= priceRange[1]);
+    return orders.filter(order => order.priceVal >= priceRange[0] && order.priceVal <= priceRange[1]);
 }
 
 function orders() {
