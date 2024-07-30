@@ -54,22 +54,10 @@ class Order {
         return this._price;
     }
 
-    get priceVal() {
-        return this._price.toNumber();
-    }
-
     private _priority: Priority;
 
     get priority() {
         return this._priority;
-    }
-
-    get priorityString() {
-        return this._priority.toString();
-    }
-
-    lowerOrEqual(price: Price) {
-        return false;
     }
 }
 
