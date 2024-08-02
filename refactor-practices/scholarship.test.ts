@@ -3,6 +3,9 @@ function getAvg(scores: number[]) {
 }
 
 function getScholarship(scores: number[]) {
+    if (getAvg(scores) >= 95) {
+        return 2000;
+    }
     if (getAvg(scores) >= 90) {
         return 1500;
     }
@@ -24,6 +27,10 @@ describe('Scholarship', function () {
 
     it('should get $1500 if courses scores average more than 90.(3 courses)', () => {
         expect(getScholarship([80, 90, 100])).toEqual(1500)
+    });
+
+    it('should get $2000 if courses scores average more than 95.', () => {
+        expect(getScholarship([95, 96])).toEqual(2000)
     });
 
 
