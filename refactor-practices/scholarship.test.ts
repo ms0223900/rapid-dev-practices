@@ -8,7 +8,7 @@ interface AvgScoreScholarship {
 }
 
 class ScholarshipCalculator {
-    private _student: { studentType: string };
+    private _student: Student
 
     constructor(student: Student) {
         this._student = student
@@ -16,12 +16,7 @@ class ScholarshipCalculator {
 
     calculate(scores: number[]) {
         if (this._student.studentType === "disabled") {
-            const avgScoreScholarshipList: AvgScoreScholarship[] = [
-                {
-                    avg: 70,
-                    scholarship: 1000,
-                },
-            ];
+            const avgScoreScholarshipList = this._student.getScholarshipConfig();
             for (let i = 0; i < avgScoreScholarshipList.length; i++) {
                 const avgScholar = avgScoreScholarshipList[i];
                 if (getAvg(scores) >= avgScholar.avg) {
@@ -68,6 +63,17 @@ class Student {
         return this._studentType;
     }
 
+    getScholarshipConfig(): AvgScoreScholarship[] {
+        if (this._studentType === "disabled") {
+            const avgScoreScholarshipList: AvgScoreScholarship[] = [
+                {
+                    avg: 70,
+                    scholarship: 1000,
+                },
+            ];
+            return avgScoreScholarshipList;
+        }
+    }
 }
 
 describe('Normal students scholarship', function () {
