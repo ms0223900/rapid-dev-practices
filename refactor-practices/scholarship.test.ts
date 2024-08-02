@@ -27,27 +27,22 @@ class ScholarshipCalculator {
 }
 
 class Student {
+    private _studentType: string;
+
     constructor(studentType: string) {
         this._studentType = studentType
     }
 
-    private _studentType: string;
-
-    get studentType(): string {
-        return this._studentType;
-    }
-
     getScholarshipConfig(): AvgScoreScholarship[] {
         if (this._studentType === "disabled") {
-            const avgScoreScholarshipList: AvgScoreScholarship[] = [
+            return [
                 {
                     avg: 70,
                     scholarship: 1000,
                 },
             ];
-            return avgScoreScholarshipList;
         }
-        const avgScoreScholarshipList: AvgScoreScholarship[] = [
+        return [
             {
                 avg: 100,
                 scholarship: 5000,
@@ -65,7 +60,6 @@ class Student {
                 scholarship: 1000,
             },
         ];
-        return avgScoreScholarshipList;
     }
 }
 
