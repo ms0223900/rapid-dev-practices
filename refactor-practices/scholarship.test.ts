@@ -5,16 +5,18 @@ function getAvg(scores: number[]) {
 function getScholarship(scores: number[]) {
     const avgScoreScholarshipList = [
         {
+            avg: 95,
+            scholarship: 2000,
+        },
+        {
+            avg: 90,
+            scholarship: 1500,
+        },
+        {
             avg: 80,
             scholarship: 1000,
         },
     ];
-    if (getAvg(scores) >= 95) {
-        return 2000;
-    }
-    if (getAvg(scores) >= 90) {
-        return 1500;
-    }
     for (let i = 0; i < avgScoreScholarshipList.length; i++) {
         const avgScholar = avgScoreScholarshipList[i];
         if (getAvg(scores) >= avgScholar.avg) {
