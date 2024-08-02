@@ -56,7 +56,6 @@ class ScholarshipCalculator {
 
     calculate(scores: number[]) {
         const avgScoreScholarshipList = this._scholarConfig.getConfig(this._student);
-        // const avgScoreScholarshipList = this._student.getScholarshipConfig();
         for (let i = 0; i < avgScoreScholarshipList.length; i++) {
             const avgScholar = avgScoreScholarshipList[i];
             if (getAvg(scores) >= avgScholar.avg) {
