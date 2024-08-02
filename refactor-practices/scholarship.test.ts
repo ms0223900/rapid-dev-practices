@@ -8,9 +8,9 @@ interface AvgScoreScholarship {
 }
 
 class ScholarshipCalculator {
-    private _student: StudentImpl
+    private _student: Student
 
-    constructor(student: StudentImpl) {
+    constructor(student: Student) {
         this._student = student
     }
 
@@ -31,6 +31,43 @@ interface Student {
 }
 
 class StudentImpl implements Student {
+    private _studentType: string;
+
+    constructor(studentType: string) {
+        this._studentType = studentType
+    }
+
+    getScholarshipConfig(): AvgScoreScholarship[] {
+        if (this._studentType === "disabled") {
+            return [
+                {
+                    avg: 70,
+                    scholarship: 1000,
+                },
+            ];
+        }
+        return [
+            {
+                avg: 100,
+                scholarship: 5000,
+            },
+            {
+                avg: 97,
+                scholarship: 2000,
+            },
+            {
+                avg: 90,
+                scholarship: 1500,
+            },
+            {
+                avg: 80,
+                scholarship: 1000,
+            },
+        ];
+    }
+}
+
+class StudentImpl2 implements Student {
     private _studentType: string;
 
     constructor(studentType: string) {
