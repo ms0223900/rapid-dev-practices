@@ -3,6 +3,20 @@ function getAvg(scores: number[]) {
 }
 
 function getScholarship(scores: number[], studentType: string = "normal") {
+    if (studentType === "disabled") {
+        const avgScoreScholarshipList = [
+            {
+                avg: 70,
+                scholarship: 1000,
+            },
+        ];
+        for (let i = 0; i < avgScoreScholarshipList.length; i++) {
+            const avgScholar = avgScoreScholarshipList[i];
+            if (getAvg(scores) >= avgScholar.avg) {
+                return avgScholar.scholarship;
+            }
+        }
+    }
     const avgScoreScholarshipList = [
         {
             avg: 100,
@@ -63,5 +77,10 @@ describe('Disabled students scholarship', function () {
     it('should not get scholarship if less than 70.', () => {
         expect(getScholarship([69, 70], "disabled")).toEqual(0)
     });
+
+    it('should get scholarship $1000 if bigger or equal than 70.', () => {
+        expect(getScholarship([70, 70], "disabled")).toEqual(1000)
+    });
+
 
 });
