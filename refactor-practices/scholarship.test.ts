@@ -2,6 +2,11 @@ function getAvg(scores: number[]) {
     return scores.reduce((prev, next) => prev + next, 0) / scores.length;
 }
 
+interface AvgScoreScholarship {
+    avg: number
+    scholarship: number
+}
+
 class ScholarshipCalculator {
     private _student: { studentType: string };
 
@@ -11,7 +16,7 @@ class ScholarshipCalculator {
 
     calculate(scores: number[]) {
         if (this._student.studentType === "disabled") {
-            const avgScoreScholarshipList = [
+            const avgScoreScholarshipList: AvgScoreScholarship[] = [
                 {
                     avg: 70,
                     scholarship: 1000,
@@ -24,7 +29,7 @@ class ScholarshipCalculator {
                 }
             }
         }
-        const avgScoreScholarshipList = [
+        const avgScoreScholarshipList: AvgScoreScholarship[] = [
             {
                 avg: 100,
                 scholarship: 5000,
