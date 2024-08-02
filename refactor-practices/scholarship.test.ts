@@ -26,7 +26,11 @@ class ScholarshipCalculator {
     }
 }
 
-class StudentImpl {
+interface Student {
+    getScholarshipConfig: () => AvgScoreScholarship[]
+}
+
+class StudentImpl implements Student {
     private _studentType: string;
 
     constructor(studentType: string) {
