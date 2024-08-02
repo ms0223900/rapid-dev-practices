@@ -22,5 +22,9 @@ describe('Scholarship', function () {
         expect(getScholarship([80, 100])).toEqual(1500)
     });
 
+    it('should get $1500 if courses scores average more than 90.(3 courses)', () => {
+        expect(getScholarship([80, 90, 100])).toEqual(1500)
+    });
+
 
 });
