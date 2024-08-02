@@ -2,13 +2,45 @@ function getAvg(scores: number[]) {
     return scores.reduce((prev, next) => prev + next, 0) / scores.length;
 }
 
-function getScholarship(scores: number[], studentType: string = "normal") {
-    // TODO, 準備重構 :)
-    // 是時候把 student 和 scholarship 對應表拆出來
-    if (studentType === "disabled") {
+class ScholarshipCalculator {
+    private _student: { studentType: string };
+
+    constructor(studentType: string) {
+        this._student = {
+            studentType: studentType
+        }
+    }
+
+    calculate(scores: number[]) {
+        if (this._student.studentType === "disabled") {
+            const avgScoreScholarshipList = [
+                {
+                    avg: 70,
+                    scholarship: 1000,
+                },
+            ];
+            for (let i = 0; i < avgScoreScholarshipList.length; i++) {
+                const avgScholar = avgScoreScholarshipList[i];
+                if (getAvg(scores) >= avgScholar.avg) {
+                    return avgScholar.scholarship;
+                }
+            }
+        }
         const avgScoreScholarshipList = [
             {
-                avg: 70,
+                avg: 100,
+                scholarship: 5000,
+            },
+            {
+                avg: 97,
+                scholarship: 2000,
+            },
+            {
+                avg: 90,
+                scholarship: 1500,
+            },
+            {
+                avg: 80,
                 scholarship: 1000,
             },
         ];
@@ -18,32 +50,13 @@ function getScholarship(scores: number[], studentType: string = "normal") {
                 return avgScholar.scholarship;
             }
         }
+        return 0
     }
-    const avgScoreScholarshipList = [
-        {
-            avg: 100,
-            scholarship: 5000,
-        },
-        {
-            avg: 97,
-            scholarship: 2000,
-        },
-        {
-            avg: 90,
-            scholarship: 1500,
-        },
-        {
-            avg: 80,
-            scholarship: 1000,
-        },
-    ];
-    for (let i = 0; i < avgScoreScholarshipList.length; i++) {
-        const avgScholar = avgScoreScholarshipList[i];
-        if (getAvg(scores) >= avgScholar.avg) {
-            return avgScholar.scholarship;
-        }
-    }
-    return 0
+}
+
+function getScholarship(scores: number[], studentType: string = "normal") {
+    const scholarshipCalculator = new ScholarshipCalculator(studentType);
+    return scholarshipCalculator.calculate(scores);
 }
 
 describe('Normal students scholarship', function () {
