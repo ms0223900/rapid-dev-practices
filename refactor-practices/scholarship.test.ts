@@ -7,15 +7,24 @@ interface AvgScoreScholarship {
     scholarship: number
 }
 
+class ScholarConfig {
+    getConfig(_student: Student) {
+        return _student.getScholarshipConfig();
+    }
+}
+
 class ScholarshipCalculator {
     private _student: Student
+    private _scholarConfig: ScholarConfig;
 
-    constructor(student: Student) {
+    constructor(student: Student, scholarConfig: ScholarConfig) {
+        this._scholarConfig = scholarConfig
         this._student = student
     }
 
     calculate(scores: number[]) {
-        const avgScoreScholarshipList = this._student.getScholarshipConfig();
+        const avgScoreScholarshipList = this._scholarConfig.getConfig(this._student);
+        // const avgScoreScholarshipList = this._student.getScholarshipConfig();
         for (let i = 0; i < avgScoreScholarshipList.length; i++) {
             const avgScholar = avgScoreScholarshipList[i];
             if (getAvg(scores) >= avgScholar.avg) {
@@ -30,7 +39,7 @@ interface Student {
     getScholarshipConfig: () => AvgScoreScholarship[]
 }
 
-class StudentImpl implements Student {
+class NormalStudent implements Student {
     getScholarshipConfig(): AvgScoreScholarship[] {
         return [
             {
@@ -66,7 +75,7 @@ class DisabledStudent implements Student {
 }
 
 describe('Normal students scholarship', function () {
-    const scholarshipCalculator = new ScholarshipCalculator(new StudentImpl());
+    const scholarshipCalculator = new ScholarshipCalculator(new NormalStudent(), new ScholarConfig());
 
     it('should not get scholarship if less than 80.', () => {
         expect(scholarshipCalculator.calculate([79, 80])).toEqual(0)
@@ -97,7 +106,7 @@ describe('Normal students scholarship', function () {
     });
 });
 describe('Disabled students scholarship', function () {
-    const scholarshipCalculator = new ScholarshipCalculator(new DisabledStudent());
+    const scholarshipCalculator = new ScholarshipCalculator(new DisabledStudent(), new ScholarConfig());
 
     it('should not get scholarship if less than 70.', () => {
         expect(scholarshipCalculator.calculate([69, 70])).toEqual(0)
