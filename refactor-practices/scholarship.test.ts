@@ -8,7 +8,7 @@ interface AvgScoreScholarship {
 }
 
 class ScholarConfig {
-    private normaStudentScholarConfig = [
+    private normaStudentScholarConfig: AvgScoreScholarship[] = [
         {
             avg: 100,
             scholarship: 5000,
@@ -27,7 +27,7 @@ class ScholarConfig {
         },
     ];
 
-    private disabledStudentScholarConfig = [
+    private disabledStudentScholarConfig: AvgScoreScholarship[] = [
         {
             avg: 70,
             scholarship: 1000,
