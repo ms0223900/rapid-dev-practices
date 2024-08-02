@@ -30,7 +30,7 @@ function getScholarship(scores: number[]) {
     return 0
 }
 
-describe('Scholarship', function () {
+describe('Normal students scholarship', function () {
     it('should not get scholarship if less than 80.', () => {
         expect(getScholarship([79, 80])).toEqual(0)
     });
