@@ -38,14 +38,6 @@ class StudentImpl implements Student {
     }
 
     getScholarshipConfig(): AvgScoreScholarship[] {
-        if (this._studentType === "disabled") {
-            return [
-                {
-                    avg: 70,
-                    scholarship: 1000,
-                },
-            ];
-        }
         return [
             {
                 avg: 100,
