@@ -3,6 +3,8 @@ function getAvg(scores: number[]) {
 }
 
 function getScholarship(scores: number[], studentType: string = "normal") {
+    // TODO, 準備重構 :)
+    // 是時候把 student 和 scholarship 對應表拆出來
     if (studentType === "disabled") {
         const avgScoreScholarshipList = [
             {
