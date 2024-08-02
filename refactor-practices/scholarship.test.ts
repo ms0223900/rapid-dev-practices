@@ -73,6 +73,25 @@ class Student {
             ];
             return avgScoreScholarshipList;
         }
+        const avgScoreScholarshipList: AvgScoreScholarship[] = [
+            {
+                avg: 100,
+                scholarship: 5000,
+            },
+            {
+                avg: 97,
+                scholarship: 2000,
+            },
+            {
+                avg: 90,
+                scholarship: 1500,
+            },
+            {
+                avg: 80,
+                scholarship: 1000,
+            },
+        ];
+        return avgScoreScholarshipList;
     }
 }
 
