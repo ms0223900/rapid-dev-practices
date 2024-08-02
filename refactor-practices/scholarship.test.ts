@@ -5,10 +5,8 @@ function getAvg(scores: number[]) {
 class ScholarshipCalculator {
     private _student: { studentType: string };
 
-    constructor(studentType: string) {
-        this._student = {
-            studentType: studentType
-        }
+    constructor(student: Student) {
+        this._student = student
     }
 
     calculate(scores: number[]) {
@@ -68,7 +66,7 @@ class Student {
 }
 
 function getScholarship(scores: number[], studentType: string = "normal") {
-    const scholarshipCalculator = new ScholarshipCalculator(new Student(studentType).studentType);
+    const scholarshipCalculator = new ScholarshipCalculator(new Student(studentType));
     return scholarshipCalculator.calculate(scores);
 }
 
