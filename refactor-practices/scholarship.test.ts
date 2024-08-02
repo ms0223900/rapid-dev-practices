@@ -8,34 +8,38 @@ interface AvgScoreScholarship {
 }
 
 class ScholarConfig {
+    private normaStudentScholarConfig = [
+        {
+            avg: 100,
+            scholarship: 5000,
+        },
+        {
+            avg: 97,
+            scholarship: 2000,
+        },
+        {
+            avg: 90,
+            scholarship: 1500,
+        },
+        {
+            avg: 80,
+            scholarship: 1000,
+        },
+    ];
+
+    private disabledStudentScholarConfig = [
+        {
+            avg: 70,
+            scholarship: 1000,
+        },
+    ];
+
     getConfig(_student: Student) {
         if (_student instanceof NormalStudent) {
-            return [
-                {
-                    avg: 100,
-                    scholarship: 5000,
-                },
-                {
-                    avg: 97,
-                    scholarship: 2000,
-                },
-                {
-                    avg: 90,
-                    scholarship: 1500,
-                },
-                {
-                    avg: 80,
-                    scholarship: 1000,
-                },
-            ];
+            return this.normaStudentScholarConfig;
         }
         if (_student instanceof DisabledStudent) {
-            return [
-                {
-                    avg: 70,
-                    scholarship: 1000,
-                },
-            ];
+            return this.disabledStudentScholarConfig;
         }
         return [];
     }
