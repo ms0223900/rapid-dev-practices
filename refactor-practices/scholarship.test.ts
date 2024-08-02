@@ -9,7 +9,35 @@ interface AvgScoreScholarship {
 
 class ScholarConfig {
     getConfig(_student: Student) {
-        return _student.getScholarshipConfig();
+        if (_student instanceof NormalStudent) {
+            return [
+                {
+                    avg: 100,
+                    scholarship: 5000,
+                },
+                {
+                    avg: 97,
+                    scholarship: 2000,
+                },
+                {
+                    avg: 90,
+                    scholarship: 1500,
+                },
+                {
+                    avg: 80,
+                    scholarship: 1000,
+                },
+            ];
+        }
+        if (_student instanceof DisabledStudent) {
+            return [
+                {
+                    avg: 70,
+                    scholarship: 1000,
+                },
+            ];
+        }
+        return [];
     }
 }
 
@@ -36,42 +64,12 @@ class ScholarshipCalculator {
 }
 
 interface Student {
-    getScholarshipConfig: () => AvgScoreScholarship[]
 }
 
 class NormalStudent implements Student {
-    getScholarshipConfig(): AvgScoreScholarship[] {
-        return [
-            {
-                avg: 100,
-                scholarship: 5000,
-            },
-            {
-                avg: 97,
-                scholarship: 2000,
-            },
-            {
-                avg: 90,
-                scholarship: 1500,
-            },
-            {
-                avg: 80,
-                scholarship: 1000,
-            },
-        ];
-    }
 }
 
 class DisabledStudent implements Student {
-    getScholarshipConfig(): AvgScoreScholarship[] {
-        return [
-            {
-                avg: 70,
-                scholarship: 1000,
-            },
-        ];
-
-    }
 }
 
 describe('Normal students scholarship', function () {
