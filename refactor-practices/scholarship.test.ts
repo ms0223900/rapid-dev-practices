@@ -2,7 +2,7 @@ function getAvg(scores: number[]) {
     return scores.reduce((prev, next) => prev + next, 0) / scores.length;
 }
 
-function getScholarship(scores: number[]) {
+function getScholarship(scores: number[], studentType: string = "normal") {
     const avgScoreScholarshipList = [
         {
             avg: 100,
@@ -32,31 +32,36 @@ function getScholarship(scores: number[]) {
 
 describe('Normal students scholarship', function () {
     it('should not get scholarship if less than 80.', () => {
-        expect(getScholarship([79, 80])).toEqual(0)
+        expect(getScholarship([79, 80], "normal")).toEqual(0)
     });
 
     it('should get $1000 if courses scores average more than 80.', () => {
-        expect(getScholarship([80, 80])).toEqual(1000)
+        expect(getScholarship([80, 80], "normal")).toEqual(1000)
     });
 
     it('should get $1000 if courses scores average more than 80.(avg is 81)', () => {
-        expect(getScholarship([80, 82])).toEqual(1000)
+        expect(getScholarship([80, 82], "normal")).toEqual(1000)
     });
 
     it('should get $1500 if courses scores average more than 90.', () => {
-        expect(getScholarship([80, 100])).toEqual(1500)
+        expect(getScholarship([80, 100], "normal")).toEqual(1500)
     });
 
     it('should get $1500 if courses scores average more than 90.(3 courses)', () => {
-        expect(getScholarship([80, 90, 100])).toEqual(1500)
+        expect(getScholarship([80, 90, 100], "normal")).toEqual(1500)
     });
 
     it('should get $2000 if courses scores average more than 97.', () => {
-        expect(getScholarship([97, 98])).toEqual(2000)
+        expect(getScholarship([97, 98], "normal")).toEqual(2000)
     });
 
     it('should get $5000 if courses scores average 100.', () => {
-        expect(getScholarship([100, 100, 100])).toEqual(5000)
+        expect(getScholarship([100, 100, 100], "normal")).toEqual(5000)
+    });
+});
+describe('Disabled students scholarship', function () {
+    it('should not get scholarship if less than 70.', () => {
+        expect(getScholarship([69, 70], "disabled")).toEqual(0)
     });
 
 });
