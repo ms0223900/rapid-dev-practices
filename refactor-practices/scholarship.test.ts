@@ -67,7 +67,7 @@ class StudentImpl implements Student {
     }
 }
 
-class StudentImpl2 implements Student {
+class DisabledStudent implements Student {
     private _studentType: string;
 
     constructor(studentType: string) {
@@ -75,32 +75,13 @@ class StudentImpl2 implements Student {
     }
 
     getScholarshipConfig(): AvgScoreScholarship[] {
-        if (this._studentType === "disabled") {
-            return [
-                {
-                    avg: 70,
-                    scholarship: 1000,
-                },
-            ];
-        }
         return [
             {
-                avg: 100,
-                scholarship: 5000,
-            },
-            {
-                avg: 97,
-                scholarship: 2000,
-            },
-            {
-                avg: 90,
-                scholarship: 1500,
-            },
-            {
-                avg: 80,
+                avg: 70,
                 scholarship: 1000,
             },
         ];
+
     }
 }
 
@@ -136,7 +117,7 @@ describe('Normal students scholarship', function () {
     });
 });
 describe('Disabled students scholarship', function () {
-    const scholarshipCalculator = new ScholarshipCalculator(new StudentImpl("disabled"));
+    const scholarshipCalculator = new ScholarshipCalculator(new DisabledStudent(""));
 
     it('should not get scholarship if less than 70.', () => {
         expect(scholarshipCalculator.calculate([69, 70])).toEqual(0)
