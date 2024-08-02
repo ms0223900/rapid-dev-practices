@@ -15,33 +15,7 @@ class ScholarshipCalculator {
     }
 
     calculate(scores: number[]) {
-        if (this._student.studentType === "disabled") {
-            const avgScoreScholarshipList = this._student.getScholarshipConfig();
-            for (let i = 0; i < avgScoreScholarshipList.length; i++) {
-                const avgScholar = avgScoreScholarshipList[i];
-                if (getAvg(scores) >= avgScholar.avg) {
-                    return avgScholar.scholarship;
-                }
-            }
-        }
-        const avgScoreScholarshipList: AvgScoreScholarship[] = [
-            {
-                avg: 100,
-                scholarship: 5000,
-            },
-            {
-                avg: 97,
-                scholarship: 2000,
-            },
-            {
-                avg: 90,
-                scholarship: 1500,
-            },
-            {
-                avg: 80,
-                scholarship: 1000,
-            },
-        ];
+        const avgScoreScholarshipList = this._student.getScholarshipConfig();
         for (let i = 0; i < avgScoreScholarshipList.length; i++) {
             const avgScholar = avgScoreScholarshipList[i];
             if (getAvg(scores) >= avgScholar.avg) {
