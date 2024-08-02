@@ -5,6 +5,10 @@ function getAvg(scores: number[]) {
 function getScholarship(scores: number[]) {
     const avgScoreScholarshipList = [
         {
+            avg: 100,
+            scholarship: 5000,
+        },
+        {
             avg: 97,
             scholarship: 2000,
         },
@@ -51,5 +55,8 @@ describe('Scholarship', function () {
         expect(getScholarship([97, 98])).toEqual(2000)
     });
 
+    it('should get $5000 if courses scores average 100.', () => {
+        expect(getScholarship([100, 100, 100])).toEqual(5000)
+    });
 
 });
