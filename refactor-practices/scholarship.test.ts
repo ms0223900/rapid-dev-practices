@@ -8,9 +8,9 @@ interface AvgScoreScholarship {
 }
 
 class ScholarshipCalculator {
-    private _student: Student
+    private _student: StudentImpl
 
-    constructor(student: Student) {
+    constructor(student: StudentImpl) {
         this._student = student
     }
 
@@ -26,7 +26,7 @@ class ScholarshipCalculator {
     }
 }
 
-class Student {
+class StudentImpl {
     private _studentType: string;
 
     constructor(studentType: string) {
@@ -64,7 +64,7 @@ class Student {
 }
 
 describe('Normal students scholarship', function () {
-    const scholarshipCalculator = new ScholarshipCalculator(new Student("normal"));
+    const scholarshipCalculator = new ScholarshipCalculator(new StudentImpl("normal"));
 
     it('should not get scholarship if less than 80.', () => {
         expect(scholarshipCalculator.calculate([79, 80])).toEqual(0)
@@ -95,7 +95,7 @@ describe('Normal students scholarship', function () {
     });
 });
 describe('Disabled students scholarship', function () {
-    const scholarshipCalculator = new ScholarshipCalculator(new Student("disabled"));
+    const scholarshipCalculator = new ScholarshipCalculator(new StudentImpl("disabled"));
 
     it('should not get scholarship if less than 70.', () => {
         expect(scholarshipCalculator.calculate([69, 70])).toEqual(0)
