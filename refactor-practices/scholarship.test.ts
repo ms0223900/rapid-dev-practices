@@ -54,8 +54,21 @@ class ScholarshipCalculator {
     }
 }
 
+class Student {
+    constructor(studentType: string) {
+        this._studentType = studentType
+    }
+
+    private _studentType: string;
+
+    get studentType(): string {
+        return this._studentType;
+    }
+
+}
+
 function getScholarship(scores: number[], studentType: string = "normal") {
-    const scholarshipCalculator = new ScholarshipCalculator(studentType);
+    const scholarshipCalculator = new ScholarshipCalculator(new Student(studentType).studentType);
     return scholarshipCalculator.calculate(scores);
 }
 
