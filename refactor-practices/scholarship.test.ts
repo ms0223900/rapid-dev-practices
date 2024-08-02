@@ -65,47 +65,46 @@ class Student {
 
 }
 
-function getScholarship(scores: number[], studentType: string = "normal") {
-    const scholarshipCalculator = new ScholarshipCalculator(new Student(studentType));
-    return scholarshipCalculator.calculate(scores);
-}
-
 describe('Normal students scholarship', function () {
+    const scholarshipCalculator = new ScholarshipCalculator(new Student("normal"));
+
     it('should not get scholarship if less than 80.', () => {
-        expect(getScholarship([79, 80], "normal")).toEqual(0)
+        expect(scholarshipCalculator.calculate([79, 80])).toEqual(0)
     });
 
     it('should get $1000 if courses scores average more than 80.', () => {
-        expect(getScholarship([80, 80], "normal")).toEqual(1000)
+        expect(scholarshipCalculator.calculate([80, 80])).toEqual(1000)
     });
 
     it('should get $1000 if courses scores average more than 80.(avg is 81)', () => {
-        expect(getScholarship([80, 82], "normal")).toEqual(1000)
+        expect(scholarshipCalculator.calculate([80, 82])).toEqual(1000)
     });
 
     it('should get $1500 if courses scores average more than 90.', () => {
-        expect(getScholarship([80, 100], "normal")).toEqual(1500)
+        expect(scholarshipCalculator.calculate([80, 100])).toEqual(1500)
     });
 
     it('should get $1500 if courses scores average more than 90.(3 courses)', () => {
-        expect(getScholarship([80, 90, 100], "normal")).toEqual(1500)
+        expect(scholarshipCalculator.calculate([80, 90, 100])).toEqual(1500)
     });
 
     it('should get $2000 if courses scores average more than 97.', () => {
-        expect(getScholarship([97, 98], "normal")).toEqual(2000)
+        expect(scholarshipCalculator.calculate([97, 98])).toEqual(2000)
     });
 
     it('should get $5000 if courses scores average 100.', () => {
-        expect(getScholarship([100, 100, 100], "normal")).toEqual(5000)
+        expect(scholarshipCalculator.calculate([100, 100, 100])).toEqual(5000)
     });
 });
 describe('Disabled students scholarship', function () {
+    const scholarshipCalculator = new ScholarshipCalculator(new Student("disabled"));
+
     it('should not get scholarship if less than 70.', () => {
-        expect(getScholarship([69, 70], "disabled")).toEqual(0)
+        expect(scholarshipCalculator.calculate([69, 70])).toEqual(0)
     });
 
     it('should get scholarship $1000 if bigger or equal than 70.', () => {
-        expect(getScholarship([70, 70], "disabled")).toEqual(1000)
+        expect(scholarshipCalculator.calculate([70, 70])).toEqual(1000)
     });
 
 
