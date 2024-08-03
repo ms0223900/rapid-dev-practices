@@ -69,6 +69,10 @@ class Course {
     getScore() {
         return this._score;
     }
+
+    getSubject() {
+        return this._subject;
+    }
 }
 
 class ScholarshipCalculator {
@@ -91,6 +95,12 @@ class ScholarshipCalculator {
             let scores = courses.map(course => course.getScore());
             if (this.checkShouldGetScholarship(scores, avgScholar)) {
                 return avgScholar.scholarship;
+            }
+        }
+        if (this._student instanceof DisabledStudent) {
+            const literatureCourse = courses.find(course => course.getSubject() === "Literature");
+            if (literatureCourse?.getScore() >= 90) {
+                return 500;
             }
         }
         return 0
@@ -152,5 +162,10 @@ describe('Disabled students scholarship', function () {
         expect(scholarshipCalculator.calculate([Course.makeLiterature(70), Course.makeNature(70)])).toEqual(1000)
     });
 
-// TODO, 如果有個規則是：數學班學生的國文分數超過 90 分，即給獎學金做鼓勵 ($500)
+    it('should get scholarship $500 if course Literature more than 90.', () => {
+        expect(scholarshipCalculator.calculate([Course.makeLiterature(90), Course.makeNature(10)])).toEqual(500)
+    });
+
+
+// TODO, 如果有個規則是：國文(Literature)分數超過 90 分，即給獎學金做鼓勵 ($500)
 });
