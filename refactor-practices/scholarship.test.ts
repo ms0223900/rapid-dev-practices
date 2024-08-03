@@ -82,10 +82,10 @@ class ScholarshipCalculator {
 
     calculate(courses: Course[]) {
         const avgScoreScholarshipList = this._scholarConfig.getConfig(this._student);
-        return this.getScholar(avgScoreScholarshipList, courses);
+        return this.getScholarByCoursesAvgScore(avgScoreScholarshipList, courses);
     }
 
-    private getScholar(avgScoreScholarshipList: AvgScoreScholarship[], courses: Course[]) {
+    private getScholarByCoursesAvgScore(avgScoreScholarshipList: AvgScoreScholarship[], courses: Course[]) {
         for (let i = 0; i < avgScoreScholarshipList.length; i++) {
             const avgScholar = avgScoreScholarshipList[i];
             let scores = courses.map(course => course.getScore());
