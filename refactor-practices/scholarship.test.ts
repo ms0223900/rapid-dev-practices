@@ -69,42 +69,6 @@ class DisabledStudentScholarCalculator implements ScholarCalculator {
 }
 
 class ScholarConfig {
-    private normaStudentScholarConfig: AvgScoreScholarship[] = [
-        {
-            avg: 100,
-            scholarship: 5000,
-        },
-        {
-            avg: 97,
-            scholarship: 2000,
-        },
-        {
-            avg: 90,
-            scholarship: 1500,
-        },
-        {
-            avg: 80,
-            scholarship: 1000,
-        },
-    ];
-
-    private disabledStudentScholarConfig: AvgScoreScholarship[] = [
-        {
-            avg: 70,
-            scholarship: 1000,
-        },
-    ];
-
-    getConfig(_student: Student) {
-        if (_student instanceof NormalStudent) {
-            return this.normaStudentScholarConfig;
-        }
-        if (_student instanceof DisabledStudent) {
-            return this.disabledStudentScholarConfig;
-        }
-        return [];
-    }
-
     getCalculator(_student: Student): ScholarCalculator {
         if (_student instanceof DisabledStudent) {
             return new DisabledStudentScholarCalculator();
