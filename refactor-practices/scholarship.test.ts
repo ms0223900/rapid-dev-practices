@@ -75,7 +75,7 @@ class Course {
     }
 }
 
-class ScholarshipCalculator {
+class ScholarshipCalcService {
     private _student: Student
     private _scholarConfig: ScholarConfig;
 
@@ -121,7 +121,7 @@ class DisabledStudent implements Student {
 }
 
 describe('Normal students scholarship', function () {
-    const scholarshipCalculator = new ScholarshipCalculator(new NormalStudent(), new ScholarConfig());
+    const scholarshipCalculator = new ScholarshipCalcService(new NormalStudent(), new ScholarConfig());
 
     it('should not get scholarship if less than 80.', () => {
         expect(scholarshipCalculator.calculate([new Course("Literature", 79), new Course("Nature", 80)])).toEqual(0)
@@ -152,7 +152,7 @@ describe('Normal students scholarship', function () {
     });
 });
 describe('Disabled students scholarship', function () {
-    const scholarshipCalculator = new ScholarshipCalculator(new DisabledStudent(), new ScholarConfig());
+    const scholarshipCalculator = new ScholarshipCalcService(new DisabledStudent(), new ScholarConfig());
 
     it('should not get scholarship if less than 70.', () => {
         expect(scholarshipCalculator.calculate([Course.makeLiterature(69), Course.makeNature(70)])).toEqual(0)
