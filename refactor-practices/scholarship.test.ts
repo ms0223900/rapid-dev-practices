@@ -20,6 +20,35 @@ interface AvgScoreScholarship {
     scholarship: number
 }
 
+interface ScholarCalculator {
+    calculate(courses: Course[]): number
+}
+
+class NormalStudentScholarCalculator implements ScholarCalculator {
+    private normaStudentScholarConfig: AvgScoreScholarship[] = [
+        {
+            avg: 100,
+            scholarship: 5000,
+        },
+        {
+            avg: 97,
+            scholarship: 2000,
+        },
+        {
+            avg: 90,
+            scholarship: 1500,
+        },
+        {
+            avg: 80,
+            scholarship: 1000,
+        },
+    ];
+
+    calculate(courses: Course[]): number {
+        return ScholarHelper.getByAvgScores(this.normaStudentScholarConfig, courses)
+    }
+}
+
 class ScholarConfig {
     private normaStudentScholarConfig: AvgScoreScholarship[] = [
         {
@@ -57,15 +86,8 @@ class ScholarConfig {
         return [];
     }
 
-    getCalculator(_student: Student) {
-        if (_student instanceof NormalStudent) {
-            const calculator = {
-                calculate: (courses: Course[]) => {
-                    return ScholarHelper.getByAvgScores(this.normaStudentScholarConfig, courses)
-                }
-            };
-            return calculator;
-        }
+    getCalculator(_student: Student): ScholarCalculator {
+        return new NormalStudentScholarCalculator();
     }
 }
 
