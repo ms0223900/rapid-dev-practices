@@ -1,74 +1,7 @@
-import {ScholarHelper} from "./helpers";
-import {AvgScoreScholarship, ScholarCalculator, Student} from "./types";
 import {Course} from "./course";
-
-class NormalStudentScholarCalculator implements ScholarCalculator {
-    private normaStudentScholarConfig: AvgScoreScholarship[] = [
-        {
-            avg: 100,
-            scholarship: 5000,
-        },
-        {
-            avg: 97,
-            scholarship: 2000,
-        },
-        {
-            avg: 90,
-            scholarship: 1500,
-        },
-        {
-            avg: 80,
-            scholarship: 1000,
-        },
-    ];
-
-    calculate(courses: Course[]): number {
-        return ScholarHelper.getByAvgScores(this.normaStudentScholarConfig, courses)
-    }
-}
-
-class DisabledStudentScholarCalculator implements ScholarCalculator {
-    private disabledStudentScholarConfig: AvgScoreScholarship[] = [
-        {
-            avg: 70,
-            scholarship: 1000,
-        },
-    ];
-
-    calculate(courses: Course[]): number {
-        const literatureCourse = courses.find(course => course.getSubject() === "Literature");
-        if (literatureCourse?.getScore() >= 90) return 500;
-
-        return ScholarHelper.getByAvgScores(this.disabledStudentScholarConfig, courses);
-    }
-}
-
-class ScholarCalculatorFactory {
-    static getCalculator(_student: Student): ScholarCalculator {
-        if (_student instanceof DisabledStudent) {
-            return new DisabledStudentScholarCalculator();
-        }
-        return new NormalStudentScholarCalculator();
-    }
-}
-
-class ScholarshipCalcService {
-    private _student: Student
-
-    constructor(student: Student) {
-        this._student = student
-    }
-
-    calculate(courses: Course[]) {
-        return ScholarCalculatorFactory.getCalculator(this._student).calculate(courses);
-    }
-}
-
-class NormalStudent implements Student {
-}
-
-class DisabledStudent implements Student {
-}
+import {NormalStudent} from "./NormalStudent";
+import {DisabledStudent} from "./DisabledStudent";
+import {ScholarshipCalcService} from "./ScholarshipCalcService";
 
 describe('Normal students scholarship', function () {
     const scholarshipCalculator = new ScholarshipCalcService(new NormalStudent());
