@@ -49,6 +49,22 @@ class NormalStudentScholarCalculator implements ScholarCalculator {
     }
 }
 
+class DisabledStudentScholarCalculator implements ScholarCalculator {
+    private disabledStudentScholarConfig: AvgScoreScholarship[] = [
+        {
+            avg: 70,
+            scholarship: 1000,
+        },
+    ];
+
+    calculate(courses: Course[]): number {
+        const literatureCourse = courses.find(course => course.getSubject() === "Literature");
+        if (literatureCourse?.getScore() >= 90) return 500;
+
+        return ScholarHelper.getByAvgScores(this.disabledStudentScholarConfig, courses);
+    }
+}
+
 class ScholarConfig {
     private normaStudentScholarConfig: AvgScoreScholarship[] = [
         {
@@ -87,6 +103,9 @@ class ScholarConfig {
     }
 
     getCalculator(_student: Student): ScholarCalculator {
+        if (_student instanceof DisabledStudent) {
+            return new DisabledStudentScholarCalculator();
+        }
         return new NormalStudentScholarCalculator();
     }
 }
@@ -132,11 +151,7 @@ class ScholarshipCalcService {
 
     calculate(courses: Course[]) {
         const calculator = this._scholarConfig.getCalculator(this._student);
-        if (this._student instanceof NormalStudent) {
-            return calculator.calculate(courses);
-        }
-        const avgScoreScholarshipList = this._scholarConfig.getConfig(this._student);
-        return this.getScholarByCoursesAvgScore(avgScoreScholarshipList, courses);
+        return calculator.calculate(courses);
     }
 
     private getScholarByCoursesAvgScore(avgScoreScholarshipList: AvgScoreScholarship[], courses: Course[]) {
