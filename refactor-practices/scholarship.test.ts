@@ -150,8 +150,7 @@ class ScholarshipCalcService {
     }
 
     calculate(courses: Course[]) {
-        const calculator = this._scholarConfig.getCalculator(this._student);
-        return calculator.calculate(courses);
+        return this._scholarConfig.getCalculator(this._student).calculate(courses);
     }
 
     private getScholarByCoursesAvgScore(avgScoreScholarshipList: AvgScoreScholarship[], courses: Course[]) {
