@@ -2,6 +2,19 @@ function getAvg(scores: number[]) {
     return scores.reduce((prev, next) => prev + next, 0) / scores.length;
 }
 
+const ScholarHelper = {
+    getByAvgScores(avgScoreScholarshipList: AvgScoreScholarship[], courses: Course[]) {
+        for (let i = 0; i < avgScoreScholarshipList.length; i++) {
+            const avgScholar = avgScoreScholarshipList[i];
+            let scores = courses.map(course => course.getScore());
+            if (getAvg(scores) >= avgScholar.avg) {
+                return avgScholar.scholarship;
+            }
+        }
+        return 0;
+    }
+};
+
 interface AvgScoreScholarship {
     avg: number
     scholarship: number
@@ -42,6 +55,17 @@ class ScholarConfig {
             return this.disabledStudentScholarConfig;
         }
         return [];
+    }
+
+    getCalculator(_student: Student) {
+        if (_student instanceof NormalStudent) {
+            const calculator = {
+                calculate: (courses: Course[]) => {
+                    return ScholarHelper.getByAvgScores(this.normaStudentScholarConfig, courses)
+                }
+            };
+            return calculator;
+        }
     }
 }
 
@@ -85,6 +109,10 @@ class ScholarshipCalcService {
     }
 
     calculate(courses: Course[]) {
+        const calculator = this._scholarConfig.getCalculator(this._student);
+        if (this._student instanceof NormalStudent) {
+            return calculator.calculate(courses);
+        }
         const avgScoreScholarshipList = this._scholarConfig.getConfig(this._student);
         return this.getScholarByCoursesAvgScore(avgScoreScholarshipList, courses);
     }
