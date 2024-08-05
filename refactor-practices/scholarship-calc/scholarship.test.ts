@@ -50,5 +50,4 @@ describe('Disabled students scholarship', function () {
     });
 
 
-// TODO, 如果有個規則是：國文(Literature)分數超過 90 分，即給獎學金做鼓勵 ($500)
 });
