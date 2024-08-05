@@ -3,11 +3,14 @@ function getAvg(scores: number[]) {
 }
 
 const ScholarHelper = {
+    checkAvgGteThanScholarAvg: function (scores: number[], avgScholar: AvgScoreScholarship) {
+        return getAvg(scores) >= avgScholar.avg;
+    },
     getByAvgScores(avgScoreScholarshipList: AvgScoreScholarship[], courses: Course[]) {
         for (let i = 0; i < avgScoreScholarshipList.length; i++) {
             const avgScholar = avgScoreScholarshipList[i];
-            let scores = courses.map(course => course.getScore());
-            if (getAvg(scores) >= avgScholar.avg) {
+            const scores = courses.map(course => course.getScore());
+            if (this.checkAvgGteThanScholarAvg(scores, avgScholar)) {
                 return avgScholar.scholarship;
             }
         }
@@ -151,27 +154,6 @@ class ScholarshipCalcService {
 
     calculate(courses: Course[]) {
         return this._scholarConfig.getCalculator(this._student).calculate(courses);
-    }
-
-    private getScholarByCoursesAvgScore(avgScoreScholarshipList: AvgScoreScholarship[], courses: Course[]) {
-        for (let i = 0; i < avgScoreScholarshipList.length; i++) {
-            const avgScholar = avgScoreScholarshipList[i];
-            let scores = courses.map(course => course.getScore());
-            if (this.checkShouldGetScholarship(scores, avgScholar)) {
-                return avgScholar.scholarship;
-            }
-        }
-        if (this._student instanceof DisabledStudent) {
-            const literatureCourse = courses.find(course => course.getSubject() === "Literature");
-            if (literatureCourse?.getScore() >= 90) {
-                return 500;
-            }
-        }
-        return 0
-    }
-
-    private checkShouldGetScholarship(scores: number[], avgScholar: AvgScoreScholarship) {
-        return getAvg(scores) >= avgScholar.avg;
     }
 }
 
