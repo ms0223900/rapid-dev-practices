@@ -1,31 +1,6 @@
-function getAvg(scores: number[]) {
-    return scores.reduce((prev, next) => prev + next, 0) / scores.length;
-}
-
-const ScholarHelper = {
-    checkAvgGteThanScholarAvg: function (scores: number[], avgScholar: AvgScoreScholarship) {
-        return getAvg(scores) >= avgScholar.avg;
-    },
-    getByAvgScores(avgScoreScholarshipList: AvgScoreScholarship[], courses: Course[]) {
-        for (let i = 0; i < avgScoreScholarshipList.length; i++) {
-            const avgScholar = avgScoreScholarshipList[i];
-            const scores = courses.map(course => course.getScore());
-            if (this.checkAvgGteThanScholarAvg(scores, avgScholar)) {
-                return avgScholar.scholarship;
-            }
-        }
-        return 0;
-    }
-};
-
-interface AvgScoreScholarship {
-    avg: number
-    scholarship: number
-}
-
-interface ScholarCalculator {
-    calculate(courses: Course[]): number
-}
+import {ScholarHelper} from "./helpers";
+import {AvgScoreScholarship, ScholarCalculator, Student} from "./types";
+import {Course} from "./course";
 
 class NormalStudentScholarCalculator implements ScholarCalculator {
     private normaStudentScholarConfig: AvgScoreScholarship[] = [
@@ -77,36 +52,6 @@ class ScholarConfig {
     }
 }
 
-class Course {
-    private _subject: string;
-    private _score: number;
-
-    constructor(subject: string, score: number) {
-        this._subject = subject
-        this._score = score
-    }
-
-    static makeLiterature(score: number) {
-        return new Course("Literature", score);
-    }
-
-    static makeNature(score: number) {
-        return new Course("Nature", score);
-    }
-
-    static makeMath(score: number) {
-        return new Course("Math", score);
-    }
-
-    getScore() {
-        return this._score;
-    }
-
-    getSubject() {
-        return this._subject;
-    }
-}
-
 class ScholarshipCalcService {
     private _student: Student
     private _scholarConfig: ScholarConfig;
@@ -119,9 +64,6 @@ class ScholarshipCalcService {
     calculate(courses: Course[]) {
         return this._scholarConfig.getCalculator(this._student).calculate(courses);
     }
-}
-
-interface Student {
 }
 
 class NormalStudent implements Student {
