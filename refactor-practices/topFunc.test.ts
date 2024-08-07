@@ -1,4 +1,4 @@
-function top_calculateDistance(points = []) {
+function calculateDistance(points = []) {
     let res = 0;
     for (let i = 1; i < points.length; i++) {
         res += getDistance(points[i - 1], points[i])
@@ -30,17 +30,13 @@ interface Point {
 
 function trackSum(points: Point[] = []) {
     const time = calculateTime();
-    const distance = calculateDistance();
+    const distance = calculateDistance(points);
     const pace = time / 60 / distance;
     return ({
         time,
         distance,
         pace
     });
-
-    function calculateDistance() {
-        return top_calculateDistance(points);
-    }
 
     function calculateTime() {
         return 0;
