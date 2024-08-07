@@ -48,7 +48,7 @@ function calculateDistance(points = []) {
     return res;
 }
 
-function radians(deg: any) {
+function radians(deg: number) {
     return deg * Math.PI / 180;
 }
 
