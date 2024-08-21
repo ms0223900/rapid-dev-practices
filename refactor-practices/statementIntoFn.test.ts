@@ -50,4 +50,24 @@ describe('render test', function () {
 <p>date: Mon Jan 01 2024</p>
 </div>`);
     });
+
+    it('renderPerson', () => {
+        expect(renderPerson(undefined, {
+            name: 'test',
+            photo: {
+                location: 'test',
+                date: new Date("2024-01-01"),
+                title: 'test'
+            }
+        })).toBe(`<p>test</p>
+<div>
+<p>title: test</p>
+<p>location: test</p>
+<p>date: Mon Jan 01 2024</p>
+</div>
+<p>title: test</p>
+<p>location: test</p>
+<p>date: Mon Jan 01 2024</p>`);
+    });
+
 });
