@@ -9,38 +9,29 @@ interface Person {
     photo: Photo;
 }
 
-function emitPhotoData(aPhoto: Photo) {
-    const result = [];
-    result.push(`<p>location: ${aPhoto.location}</p>`);
-    result.push(`<p>date: ${aPhoto.date.toDateString()}</p>`);
-    return result.join("\n");
-}
-
 function renderPhoto(photo: Photo) {
     return photoDiv(photo);
 }
 
-function zznew(photo: Photo) {
+function emitPhotoData(photo: Photo) {
     const result = [];
     result.push(`<p>title: ${photo.title}</p>`);
     result.push(`<p>location: ${photo.location}</p>`);
     result.push(`<p>date: ${photo.date.toDateString()}</p>`);
     return result.join("\n");
-
 }
 
 function renderPerson(person: Person, outStream: any) {
     const result = [];
     result.push(`<p>${person.name}</p>`);
     result.push(renderPhoto(person.photo));
-    result.push(zznew(person.photo));
+    result.push(emitPhotoData(person.photo));
     return result.join("\n");
 }
 
 function photoDiv(p: Photo) {
     return [
         "<div>",
-        `<p>title: ${p.title}</p>`,
         emitPhotoData(p),
         "</div>",
     ].join("\n");
