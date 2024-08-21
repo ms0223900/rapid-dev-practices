@@ -20,12 +20,20 @@ function renderPhoto(photo: Photo) {
     return photoDiv(photo);
 }
 
+function zznew(photo: Photo) {
+    const result = [];
+    result.push(`<p>title: ${photo.title}</p>`);
+    result.push(`<p>location: ${photo.location}</p>`);
+    result.push(`<p>date: ${photo.date.toDateString()}</p>`);
+    return result.join("\n");
+
+}
+
 function renderPerson(person: Person, outStream: any) {
     const result = [];
     result.push(`<p>${person.name}</p>`);
     result.push(renderPhoto(person.photo));
-    result.push(`<p>title: ${person.photo.title}</p>`);
-    result.push(emitPhotoData(person.photo));
+    result.push(zznew(person.photo));
     return result.join("\n");
 }
 
