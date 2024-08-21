@@ -20,7 +20,7 @@ function renderPhoto(photo: Photo) {
     return photoDiv(photo);
 }
 
-function renderPerson(outStream: any, person: Person) {
+function renderPerson(person: Person, outStream: any) {
     const result = [];
     result.push(`<p>${person.name}</p>`);
     result.push(renderPhoto(person.photo));
@@ -52,14 +52,14 @@ describe('render test', function () {
     });
 
     it('renderPerson', () => {
-        expect(renderPerson(undefined, {
+        expect(renderPerson({
             name: 'test',
             photo: {
                 location: 'test',
                 date: new Date("2024-01-01"),
                 title: 'test'
             }
-        })).toBe(`<p>test</p>
+        }, undefined)).toBe(`<p>test</p>
 <div>
 <p>title: test</p>
 <p>location: test</p>
