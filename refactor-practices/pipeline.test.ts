@@ -7,12 +7,18 @@ function acquireData(csvInput: string) {
         .map(row => row.split(","))
         .filter(records => records[1].trim() === "India")
 
-    const result = [];
-    for (const records of loopRowRecords) {
-        result.push({ city: records[0].trim(), phone: records[2].trim() });
-    }
+    const result = loopRowRecords
+        .map(records => ({
+            city: records[0].trim(),
+            phone: records[2].trim()
+        }));
     return result;
-    return [];
+    // const result = [];
+    // for (const records of loopRowRecords) {
+    //     result.push({ city: records[0].trim(), phone: records[2].trim() });
+    // }
+    // return result;
+    // return [];
 }
 
 describe('pipeline', function () {
