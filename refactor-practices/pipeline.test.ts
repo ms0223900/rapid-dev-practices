@@ -2,7 +2,7 @@ function acquireData(csvInput: string) {
     const lines = csvInput
         .split("\n")
 
-    const loopRowRecords = lines.slice(1)
+    return lines.slice(1)
         .filter(row => !!row.trim())
         .map(row => row.split(","))
         .filter(records => records[1].trim() === "India")
@@ -10,7 +10,6 @@ function acquireData(csvInput: string) {
             city: records[0].trim(),
             phone: records[2].trim()
         }));
-    return loopRowRecords;
 }
 
 describe('pipeline', function () {
