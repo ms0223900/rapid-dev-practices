@@ -2,14 +2,14 @@ function acquireData(csvInput: string) {
     const lines = csvInput
         .split("\n")
 
-    const records = lines.slice(1)
+    const loopRowRecords = lines.slice(1)
         .filter(row => !!row.trim())
         .map(row => row.split(","));
 
     const result = [];
-    for (const record of records) {
-        if (record[1].trim() === "India") {
-            result.push({ city: record[0].trim(), phone: record[2].trim() });
+    for (const records of loopRowRecords) {
+        if (records[1].trim() === "India") {
+            result.push({ city: records[0].trim(), phone: records[2].trim() });
         }
     }
     return result;
