@@ -6,13 +6,11 @@ function acquireData(csvInput: string) {
         .filter(row => !!row.trim())
         .map(row => row.split(","))
         .filter(records => records[1].trim() === "India")
-
-    const result = loopRowRecords
         .map(records => ({
             city: records[0].trim(),
             phone: records[2].trim()
         }));
-    return result;
+    return loopRowRecords;
 }
 
 describe('pipeline', function () {
