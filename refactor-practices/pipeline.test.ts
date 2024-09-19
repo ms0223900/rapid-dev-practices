@@ -1,12 +1,10 @@
 function acquireData(csvInput: string) {
-    const lines = csvInput.split("\n");
-    let firstLine = true;
+    const lines = csvInput
+        .split("\n")
+        .filter((col, i) => i !== 0)
+
     const result = [];
     for (const line of lines) {
-        if (firstLine) {
-            firstLine = false;
-            continue;
-        }
         if (line.trim() === "") continue;
         const record = line.split(",");
         if (record[1].trim() === "India") {
