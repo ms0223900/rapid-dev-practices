@@ -33,9 +33,10 @@ class CustomerOrder {
     private _orderNumber: number;
     private _customer: Customer2;
 
-    constructor(data: OrderData) {
+    constructor(data: OrderData, customerRepository: CustomerRepository) {
         this._orderNumber = data.orderNumber;
-        this._customer = registerCustomer(data.customerData);
+        customerRepository.setCustomer(data.customerData);
+        this._customer = customerRepository.getCustomer(data.customerData.customerId);
     }
 
     get orderNumber(): number {
@@ -55,15 +56,32 @@ class CustomerOrder {
     }
 }
 
+interface CustomerRepository {
+    getCustomer(customerId: number): Customer2;
+    setCustomer(customerData: CustomerData2): void;
+}
+
+class CustomerRepositoryImpl implements CustomerRepository {
+    private _customers: Map<number, Customer2> = new Map();
+
+    getCustomer(customerId: number): Customer2 {
+        return this._customers.get(customerId);
+    }
+    setCustomer(customerData: CustomerData2): void {
+        this._customers.set(customerData.customerId, new Customer2(customerData));
+    }
+}
+
 describe('change-value-to-ref', () => {
     it('should change value to ref', () => {
+        const customerRepository = new CustomerRepositoryImpl();
         const order = new CustomerOrder({
             orderNumber: 1,
             customerData: {
                 customerId: 1,
                 name: 'John Doe',
             },
-        });
+        }, customerRepository);
 
         expect(order.customer.name).toBe('John Doe');
         expect(order.customer.customerId).toBe(1);
