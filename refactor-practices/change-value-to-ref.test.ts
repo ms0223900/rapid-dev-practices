@@ -35,7 +35,9 @@ class CustomerOrder {
 
     constructor(data: OrderData, customerRepository: CustomerRepository) {
         this._orderNumber = data.orderNumber;
-        customerRepository.setCustomer(data.customerData);
+        if (!customerRepository.getCustomer(data.customerData.customerId)) {
+            customerRepository.setCustomer(data.customerData);
+        }
         this._customer = customerRepository.getCustomer(data.customerData.customerId);
     }
 
@@ -86,21 +88,27 @@ describe('change-value-to-ref', () => {
         expect(order.customer.name).toBe('John Doe');
         expect(order.customer.customerId).toBe(1);
     });
+
+    it('should only one customer with same customerId', () => {
+        const customerRepository = new CustomerRepositoryImpl();
+
+        const order = new CustomerOrder({
+            orderNumber: 1,
+            customerData: {
+                customerId: 1,
+                name: 'John Doe',
+            },
+        }, customerRepository);
+
+        const order2 = new CustomerOrder({
+            orderNumber: 2,
+            customerData: {
+                customerId: 1,
+                name: 'John Doe 2',
+            },
+        }, customerRepository);
+
+        expect(order2.customer.name).toBe('John Doe');
+        expect(order2.customer.customerId).toBe(1);
+    });
 });
-
-const repository = {
-    customers: new Map<number, Customer2>()
-}
-
-function registerCustomer(customerData: CustomerData2): Customer2 {
-    if (repository.customers.has(customerData.customerId)) {
-        return repository.customers.get(customerData.customerId);
-    }
-
-    const customer = new Customer2(customerData);
-
-    repository.customers.set(customerData.customerId, customer);
-
-    return customer;
-}
-
