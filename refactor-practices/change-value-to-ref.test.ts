@@ -35,9 +35,7 @@ class CustomerOrder {
 
     constructor(data: OrderData, customerRepository: CustomerRepository) {
         this._orderNumber = data.orderNumber;
-        if (!customerRepository.getCustomer(data.customerData.customerId)) {
-            customerRepository.setCustomer(data.customerData);
-        }
+        customerRepository.create(data.customerData);
         this._customer = customerRepository.getCustomer(data.customerData.customerId);
     }
 
@@ -59,8 +57,8 @@ class CustomerOrder {
 }
 
 interface CustomerRepository {
+    create(customerData: CustomerData2): unknown;
     getCustomer(customerId: number): Customer2;
-    setCustomer(customerData: CustomerData2): void;
 }
 
 class CustomerRepositoryImpl implements CustomerRepository {
@@ -69,8 +67,11 @@ class CustomerRepositoryImpl implements CustomerRepository {
     getCustomer(customerId: number): Customer2 {
         return this._customers.get(customerId);
     }
-    setCustomer(customerData: CustomerData2): void {
-        this._customers.set(customerData.customerId, new Customer2(customerData));
+
+    create(customerData: CustomerData2): void {
+        if (!this._customers.has(customerData.customerId)) {
+            this._customers.set(customerData.customerId, new Customer2(customerData));
+        }
     }
 }
 
