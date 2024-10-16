@@ -1,31 +1,23 @@
 interface CustomerData2 {
-    customerNumber: number;
+    customerId: number;
     name: string;
 }
 
 class Customer2 {
-    private _customerNumber: number;
+    private _customerId: number;
     private _name: string;
 
     constructor(data: CustomerData2) {
-        this._customerNumber = data.customerNumber;
+        this._customerId = data.customerId;
         this._name = data.name;
     }
 
-    get customerNumber(): number {
-        return this._customerNumber;
-    }
-
-    set customerNumber(value: number) {
-        this._customerNumber = value;
+    get customerId(): number {
+        return this._customerId;
     }
 
     get name(): string {
         return this._name;
-    }
-
-    set name(value: string) {
-        this._name = value;
     }
 }
 
@@ -68,12 +60,12 @@ describe('change-value-to-ref', () => {
         const order = new CustomerOrder({
             orderNumber: 1,
             customerData: {
-                customerNumber: 1,
+                customerId: 1,
                 name: 'John Doe',
             },
         });
 
         expect(order.customer.name).toBe('John Doe');
-        expect(order.customer.customerNumber).toBe(1);
+        expect(order.customer.customerId).toBe(1);
     });
 });
