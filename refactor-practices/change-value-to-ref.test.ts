@@ -35,7 +35,7 @@ class CustomerOrder {
 
     constructor(data: OrderData) {
         this._orderNumber = data.orderNumber;
-        this._customer = new Customer2(data.customerData);
+        this._customer = registerCustomer(data.customerData);
     }
 
     get orderNumber(): number {
@@ -69,3 +69,20 @@ describe('change-value-to-ref', () => {
         expect(order.customer.customerId).toBe(1);
     });
 });
+
+const repository = {
+    customers: new Map<number, Customer2>()
+}
+
+function registerCustomer(customerData: CustomerData2): Customer2 {
+    if (repository.customers.has(customerData.customerId)) {
+        return repository.customers.get(customerData.customerId);
+    }
+
+    const customer = new Customer2(customerData);
+
+    repository.customers.set(customerData.customerId, customer);
+
+    return customer;
+}
+
