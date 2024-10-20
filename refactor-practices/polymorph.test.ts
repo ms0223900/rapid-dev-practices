@@ -11,7 +11,7 @@ function plumages(birds: IBird[]) {
 }
 
 function speeds(birds: IBird[]) {
-    return new Map(birds.map(b => [b.name, airSpeedVelocity(b)]));
+    return new Map(birds.map(b => [b.name, Bird.create(b).speed]));
 }
 
 class Bird implements IBird {
@@ -45,16 +45,7 @@ class Bird implements IBird {
     }
 
     get speed() {
-        switch (this.type) {
-            case 'EuropeanSwallow':
-                return new EuropeanSwallow(this).speed;
-            case 'AfricanSwallow':
-                return new AfricanSwallow(this).speed;
-            case 'NorwegianBlueParrot':
-                return new NorwegianBlueParrot(this).speed;
-            default:
-                return 0;
-        }
+        return 0;
     }
 }
 
@@ -98,14 +89,6 @@ class NorwegianBlueParrot extends Bird {
     get speed() {
         return (this.isNailed) ? 0 : 10 + this.voltage / 10;
     }
-}
-
-function plumage(bird: IBird) {
-    return (new Bird(bird)).plumage;
-}
-
-function airSpeedVelocity(bird: IBird) {
-    return (new Bird(bird)).speed;
 }
 
 describe('plumages', () => {
