@@ -7,7 +7,7 @@ interface IBird {
 }
 
 function plumages(birds: IBird[]) {
-    return new Map(birds.map(b => [b.name, plumage(b)]));
+    return new Map(birds.map(b => [b.name, Bird.create(b).plumage]));
 }
 
 function speeds(birds: IBird[]) {
@@ -15,6 +15,19 @@ function speeds(birds: IBird[]) {
 }
 
 class Bird implements IBird {
+    static create(bird: IBird) {
+        switch (bird.type) {
+            case 'AfricanSwallow':
+                return new AfricanSwallow(bird);
+            case 'EuropeanSwallow':
+                return new EuropeanSwallow(bird);
+            case 'NorwegianBlueParrot':
+                return new NorwegianBlueParrot(bird);
+            default:
+                return new Bird(bird);
+        }
+    }
+
     name: string;
     type: string;
     numberOfCoconuts?: number;
@@ -28,16 +41,7 @@ class Bird implements IBird {
     }
 
     get plumage() {
-        switch (this.type) {
-            case 'EuropeanSwallow':
-                return new EuropeanSwallow(this).plumage;
-            case 'AfricanSwallow':
-                return new AfricanSwallow(this).plumage;
-            case 'NorwegianBlueParrot':
-                return new NorwegianBlueParrot(this).plumage;
-            default:
-                return "unknown";
-        }
+        return "unknown";
     }
 
     get speed() {
