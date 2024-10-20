@@ -39,3 +39,41 @@ function airSpeedVelocity(bird: Bird) {
             return 0;
     }
 }
+
+describe('plumages', () => {
+    it('should return the correct plumage for each bird', () => {
+        const birds = [
+            { name: 'EuropeanSwallow', type: 'EuropeanSwallow' },
+            { name: 'AfricanSwallow', type: 'AfricanSwallow', numberOfCoconuts: 3 },
+            { name: 'AfricanSwallow2', type: 'AfricanSwallow', numberOfCoconuts: 2 },
+            { name: 'NorwegianBlueParrot', type: 'NorwegianBlueParrot', voltage: 101, isNailed: false },
+            { name: 'NorwegianBlueParrot2', type: 'NorwegianBlueParrot', voltage: 99, isNailed: false }
+        ];
+        const result = plumages(birds);
+        expect(result).toEqual(new Map([
+            ['EuropeanSwallow', 'average'],
+            ['AfricanSwallow', 'tired'],
+            ['AfricanSwallow2', 'average'],
+            ['NorwegianBlueParrot', 'scorched'],
+            ['NorwegianBlueParrot2', 'beautiful']
+        ]));
+    });
+
+    it('should return the correct speeds for each bird', () => {
+        const birds = [
+            { name: 'EuropeanSwallow', type: 'EuropeanSwallow' },
+            { name: 'AfricanSwallow', type: 'AfricanSwallow', numberOfCoconuts: 3 },
+            { name: 'AfricanSwallow2', type: 'AfricanSwallow', numberOfCoconuts: 2 },
+            { name: 'NorwegianBlueParrot', type: 'NorwegianBlueParrot', voltage: 101, isNailed: false },
+            { name: 'NorwegianBlueParrot2', type: 'NorwegianBlueParrot', voltage: 99, isNailed: false }
+        ];
+        const result = speeds(birds);
+        expect(result).toEqual(new Map([
+            ['EuropeanSwallow', 35],
+            ['AfricanSwallow', 34],
+            ['AfricanSwallow2', 36],
+            ['NorwegianBlueParrot', 20.1],
+            ['NorwegianBlueParrot2', 19.9]
+        ]));
+    });
+});
