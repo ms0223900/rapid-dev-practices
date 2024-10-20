@@ -14,30 +14,52 @@ function speeds(birds: IBird[]) {
     return new Map(birds.map(b => [b.name, airSpeedVelocity(b)]));
 }
 
-function plumage(bird: IBird) {
-    switch (bird.type) {
-        case 'EuropeanSwallow':
-            return "average";
-        case 'AfricanSwallow':
-            return (bird.numberOfCoconuts > 2) ? "tired" : "average";
-        case 'NorwegianBlueParrot':
-            return (bird.voltage > 100) ? "scorched" : "beautiful";
-        default:
-            return "unknown";
+class Bird implements IBird {
+    name: string;
+    type: string;
+    numberOfCoconuts?: number;
+    voltage?: number;
+    isNailed?: boolean;
+
+    constructor(bird: IBird) {
+        this.name = bird.name;
+        this.type = bird.type;
+        Object.assign(this, bird);
+    }
+
+    get plumage() {
+        switch (this.type) {
+            case 'EuropeanSwallow':
+                return "average";
+            case 'AfricanSwallow':
+                return (this.numberOfCoconuts > 2) ? "tired" : "average";
+            case 'NorwegianBlueParrot':
+                return (this.voltage > 100) ? "scorched" : "beautiful";
+            default:
+                return "unknown";
+        }
+    }
+
+    get speed() {
+        switch (this.type) {
+            case 'EuropeanSwallow':
+                return 35;
+            case 'AfricanSwallow':
+                return 40 - 2 * this.numberOfCoconuts;
+            case 'NorwegianBlueParrot':
+                return (this.isNailed) ? 0 : 10 + this.voltage / 10;
+            default:
+                return 0;
+        }
     }
 }
 
+function plumage(bird: IBird) {
+    return (new Bird(bird)).plumage;
+}
+
 function airSpeedVelocity(bird: IBird) {
-    switch (bird.type) {
-        case 'EuropeanSwallow':
-            return 35;
-        case 'AfricanSwallow':
-            return 40 - 2 * bird.numberOfCoconuts;
-        case 'NorwegianBlueParrot':
-            return (bird.isNailed) ? 0 : 10 + bird.voltage / 10;
-        default:
-            return 0;
-    }
+    return (new Bird(bird)).speed;
 }
 
 describe('plumages', () => {
