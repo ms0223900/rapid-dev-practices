@@ -14,7 +14,7 @@ class Rating {
     get value() {
         const vpf = this.voyageProfitFactor;
         const vr = this.voyageRisk;
-        const chr = this.captainHistoryRisk;
+        const chr = this.getCaptainHistoryRisk();
         if (vpf * 3 > (vr + chr * 2)) return "A";
         else return "B";
     }
@@ -44,11 +44,10 @@ class Rating {
         return Math.max(result, 0);
     }
 
-    get captainHistoryRisk() {
+    getCaptainHistoryRisk() {
         let result = 1;
         if (this.history.length < 5) result += 4;
         result += this.history.filter(v => v.profit < 0).length;
-        if (this.voyage.zone === "china" && hasChina(this.history)) result -= 2;
         return Math.max(result, 0);
     }
 }
@@ -56,6 +55,10 @@ class Rating {
 class ExperiencedChinaRating extends Rating {
     constructor(voyage: Voyage, history: VoyageHistory[]) {
         super(voyage, history);
+    }
+
+    getCaptainHistoryRisk() {
+        return Math.max(super.getCaptainHistoryRisk() - 2, 0);
     }
 }
 
