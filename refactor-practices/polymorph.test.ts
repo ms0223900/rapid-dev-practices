@@ -15,19 +15,6 @@ function speeds(birds: IBird[]) {
 }
 
 class Bird implements IBird {
-    static create(bird: IBird) {
-        switch (bird.type) {
-            case 'AfricanSwallow':
-                return new AfricanSwallow(bird);
-            case 'EuropeanSwallow':
-                return new EuropeanSwallow(bird);
-            case 'NorwegianBlueParrot':
-                return new NorwegianBlueParrot(bird);
-            default:
-                return new Bird(bird);
-        }
-    }
-
     name: string;
     type: string;
     numberOfCoconuts?: number;
@@ -46,6 +33,19 @@ class Bird implements IBird {
 
     get speed() {
         return 0;
+    }
+
+    static create(bird: IBird) {
+        switch (bird.type) {
+            case 'AfricanSwallow':
+                return new AfricanSwallow(bird);
+            case 'EuropeanSwallow':
+                return new EuropeanSwallow(bird);
+            case 'NorwegianBlueParrot':
+                return new NorwegianBlueParrot(bird);
+            default:
+                return new Bird(bird);
+        }
     }
 }
 
@@ -94,6 +94,7 @@ class NorwegianBlueParrot extends Bird {
 describe('plumages', () => {
     it('should return the correct plumage for each bird', () => {
         const birds = [
+            { name: 'UnknownBird', type: 'unknown' },
             { name: 'EuropeanSwallow', type: 'EuropeanSwallow' },
             { name: 'AfricanSwallow', type: 'AfricanSwallow', numberOfCoconuts: 3 },
             { name: 'AfricanSwallow2', type: 'AfricanSwallow', numberOfCoconuts: 2 },
@@ -102,6 +103,7 @@ describe('plumages', () => {
         ];
         const result = plumages(birds);
         expect(result).toEqual(new Map([
+            ['UnknownBird', 'unknown'],
             ['EuropeanSwallow', 'average'],
             ['AfricanSwallow', 'tired'],
             ['AfricanSwallow2', 'average'],
@@ -112,6 +114,7 @@ describe('plumages', () => {
 
     it('should return the correct speeds for each bird', () => {
         const birds = [
+            { name: 'UnknownBird', type: 'unknown' },
             { name: 'EuropeanSwallow', type: 'EuropeanSwallow' },
             { name: 'AfricanSwallow', type: 'AfricanSwallow', numberOfCoconuts: 3 },
             { name: 'AfricanSwallow2', type: 'AfricanSwallow', numberOfCoconuts: 2 },
@@ -120,6 +123,7 @@ describe('plumages', () => {
         ];
         const result = speeds(birds);
         expect(result).toEqual(new Map([
+            ['UnknownBird', 0],
             ['EuropeanSwallow', 35],
             ['AfricanSwallow', 34],
             ['AfricanSwallow2', 36],
