@@ -53,8 +53,19 @@ class Rating {
     }
 }
 
+class ExperiencedChinaRating extends Rating {
+    constructor(voyage: Voyage, history: VoyageHistory[]) {
+        super(voyage, history);
+    }
+}
+
+function createRating(voyage: Voyage, history: VoyageHistory[]) {
+    if (voyage.zone === "china" && hasChina(history)) return new ExperiencedChinaRating(voyage, history);
+    else return new Rating(voyage, history);
+}
+
 function rating(voyage: Voyage, history: VoyageHistory[]) {
-    return new Rating(voyage, history).value;
+    return createRating(voyage, history).value;
 }
 
 function hasChina(history: VoyageHistory[]) {
