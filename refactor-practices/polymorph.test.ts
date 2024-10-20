@@ -1,4 +1,4 @@
-interface Bird {
+interface IBird {
     name: string;
     type: string;
     numberOfCoconuts?: number;
@@ -6,15 +6,15 @@ interface Bird {
     isNailed?: boolean;
 }
 
-function plumages(birds: Bird[]) {
+function plumages(birds: IBird[]) {
     return new Map(birds.map(b => [b.name, plumage(b)]));
 }
 
-function speeds(birds: Bird[]) {
+function speeds(birds: IBird[]) {
     return new Map(birds.map(b => [b.name, airSpeedVelocity(b)]));
 }
 
-function plumage(bird: Bird) {
+function plumage(bird: IBird) {
     switch (bird.type) {
         case 'EuropeanSwallow':
             return "average";
@@ -27,7 +27,7 @@ function plumage(bird: Bird) {
     }
 }
 
-function airSpeedVelocity(bird: Bird) {
+function airSpeedVelocity(bird: IBird) {
     switch (bird.type) {
         case 'EuropeanSwallow':
             return 35;
