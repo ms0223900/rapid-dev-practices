@@ -30,11 +30,11 @@ class Bird implements IBird {
     get plumage() {
         switch (this.type) {
             case 'EuropeanSwallow':
-                return "average";
+                return new EuropeanSwallow(this).plumage;
             case 'AfricanSwallow':
-                return (this.numberOfCoconuts > 2) ? "tired" : "average";
+                return new AfricanSwallow(this).plumage;
             case 'NorwegianBlueParrot':
-                return (this.voltage > 100) ? "scorched" : "beautiful";
+                return new NorwegianBlueParrot(this).plumage;
             default:
                 return "unknown";
         }
@@ -43,14 +43,56 @@ class Bird implements IBird {
     get speed() {
         switch (this.type) {
             case 'EuropeanSwallow':
-                return 35;
+                return new EuropeanSwallow(this).speed;
             case 'AfricanSwallow':
-                return 40 - 2 * this.numberOfCoconuts;
+                return new AfricanSwallow(this).speed;
             case 'NorwegianBlueParrot':
-                return (this.isNailed) ? 0 : 10 + this.voltage / 10;
+                return new NorwegianBlueParrot(this).speed;
             default:
                 return 0;
         }
+    }
+}
+
+class AfricanSwallow extends Bird {
+    constructor(bird: IBird) {
+        super(bird);
+    }
+
+    get plumage() {
+        return (this.numberOfCoconuts > 2) ? "tired" : "average";
+    }
+
+    get speed() {
+        return 40 - 2 * this.numberOfCoconuts;
+    }
+}
+
+class EuropeanSwallow extends Bird {
+    constructor(bird: IBird) {
+        super(bird);
+    }
+
+    get plumage() {
+        return "average";
+    }
+
+    get speed() {
+        return 35;
+    }
+}
+
+class NorwegianBlueParrot extends Bird {
+    constructor(bird: IBird) {
+        super(bird);
+    }
+
+    get plumage() {
+        return (this.voltage > 100) ? "scorched" : "beautiful";
+    }
+
+    get speed() {
+        return (this.isNailed) ? 0 : 10 + this.voltage / 10;
     }
 }
 
