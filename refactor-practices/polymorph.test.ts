@@ -1,4 +1,4 @@
-interface IBird {
+interface Bird {
     name: string;
     type: string;
     numberOfCoconuts?: number;
@@ -6,22 +6,22 @@ interface IBird {
     isNailed?: boolean;
 }
 
-function plumages(birds: IBird[]) {
-    return new Map(birds.map(b => [b.name, Bird.create(b).plumage]));
+function plumages(birds: Bird[]) {
+    return new Map(birds.map(b => [b.name, BirdImpl.create(b).plumage]));
 }
 
-function speeds(birds: IBird[]) {
-    return new Map(birds.map(b => [b.name, Bird.create(b).speed]));
+function speeds(birds: Bird[]) {
+    return new Map(birds.map(b => [b.name, BirdImpl.create(b).speed]));
 }
 
-class Bird implements IBird {
+class BirdImpl implements Bird {
     name: string;
     type: string;
     numberOfCoconuts?: number;
     voltage?: number;
     isNailed?: boolean;
 
-    constructor(bird: IBird) {
+    constructor(bird: Bird) {
         this.name = bird.name;
         this.type = bird.type;
         Object.assign(this, bird);
@@ -35,7 +35,7 @@ class Bird implements IBird {
         return 0;
     }
 
-    static create(bird: IBird) {
+    static create(bird: Bird) {
         switch (bird.type) {
             case 'AfricanSwallow':
                 return new AfricanSwallow(bird);
@@ -44,13 +44,13 @@ class Bird implements IBird {
             case 'NorwegianBlueParrot':
                 return new NorwegianBlueParrot(bird);
             default:
-                return new Bird(bird);
+                return new BirdImpl(bird);
         }
     }
 }
 
-class AfricanSwallow extends Bird {
-    constructor(bird: IBird) {
+class AfricanSwallow extends BirdImpl {
+    constructor(bird: Bird) {
         super(bird);
     }
 
@@ -63,8 +63,8 @@ class AfricanSwallow extends Bird {
     }
 }
 
-class EuropeanSwallow extends Bird {
-    constructor(bird: IBird) {
+class EuropeanSwallow extends BirdImpl {
+    constructor(bird: Bird) {
         super(bird);
     }
 
@@ -77,8 +77,8 @@ class EuropeanSwallow extends Bird {
     }
 }
 
-class NorwegianBlueParrot extends Bird {
-    constructor(bird: IBird) {
+class NorwegianBlueParrot extends BirdImpl {
+    constructor(bird: Bird) {
         super(bird);
     }
 
