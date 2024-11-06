@@ -1,3 +1,15 @@
+interface BillingPlan {
+    name: string;
+    plan: string;
+}
+
+const billingPlan = {
+    basic: {
+        name: "basic",
+        plan: "basic"
+    }
+}
+
 class SpecialCaseCustomer {
     private _name: string;
 
@@ -15,6 +27,13 @@ class SpecialCaseCustomer {
 
     get isUnknown() {
         return false;
+    }
+
+    getBillingPlan(): BillingPlan {
+        return {
+            name: "mock",
+            plan: "mock"
+        };
     }
 }
 
@@ -53,17 +72,30 @@ function isUnknown(arg: SpecialCaseCustomer | UnknownCustomer) {
     return arg.isUnknown;
 }
 
+function getPlan(customer: SpecialCaseCustomer | UnknownCustomer): BillingPlan {
+    return isUnknown(customer) ? billingPlan.basic : (customer as SpecialCaseCustomer).getBillingPlan();
+}
+
 describe('special case', () => {
     it('should return true if the customer is "unknown"', () => {
         const site = new Site(new SpecialCaseCustomer("unknown"));
-        expect(site.customer.customerName).toBe("occupant");
-        expect(isUnknown(site.customer)).toBe(true);
+        const customer = site.customer;
+
+        expect(getPlan(customer)).toBe(billingPlan.basic);
+        expect(customer.customerName).toBe("occupant");
+        expect(isUnknown(customer)).toBe(true);
     });
 
     it('should return false if the customer is not "unknown"', () => {
         const site = new Site(new SpecialCaseCustomer("abc"));
-        expect(site.customer.customerName).toBe("abc");
-        expect(isUnknown(site.customer)).toBe(false);
+        const customer = site.customer;
+
+        expect(getPlan(customer)).toEqual({
+            name: "mock",
+            plan: "mock"
+        });
+        expect(customer.customerName).toBe("abc");
+        expect(isUnknown(customer)).toBe(false);
     });
 
     it('should throw an error if the customer is not a SpecialCaseCustomer or UnknownCustomer', () => {
