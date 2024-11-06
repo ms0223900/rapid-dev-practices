@@ -10,6 +10,16 @@ const billingPlan = {
     }
 }
 
+interface PaymentHistory {
+    getWeeksDelinquent(): number;
+}
+
+class CustomerPaymentHistory implements PaymentHistory {
+    getWeeksDelinquent(): number {
+        return 100
+    }
+}
+
 class SpecialCaseCustomer {
     private _name: string;
 
@@ -34,6 +44,10 @@ class SpecialCaseCustomer {
             name: "mock",
             plan: "mock"
         };
+    }
+
+    get paymentHistory() {
+        return new CustomerPaymentHistory();
     }
 }
 
@@ -80,12 +94,17 @@ function getPlan(customer: SpecialCaseCustomer | UnknownCustomer): BillingPlan {
     return customer.getBillingPlan();
 }
 
+function getWeeksDelinquent(customer: SpecialCaseCustomer | UnknownCustomer): number {
+    return isUnknown(customer) ? 0 : (customer as SpecialCaseCustomer).paymentHistory.getWeeksDelinquent();
+}
+
 describe('special case', () => {
     it('should return true if the customer is "unknown"', () => {
         const site = new Site(new SpecialCaseCustomer("unknown"));
         const customer = site.customer;
 
-        expect(getPlan(customer)).toBe(billingPlan.basic);
+        expect(getWeeksDelinquent(customer)).toBe(0);
+        expect(getPlan(customer)).toEqual(billingPlan.basic);
         expect(customer.customerName).toBe("occupant");
         expect(isUnknown(customer)).toBe(true);
     });
@@ -94,6 +113,7 @@ describe('special case', () => {
         const site = new Site(new SpecialCaseCustomer("abc"));
         const customer = site.customer;
 
+        expect(getWeeksDelinquent(customer)).toBe(100);
         expect(getPlan(customer)).toEqual({
             name: "mock",
             plan: "mock"
