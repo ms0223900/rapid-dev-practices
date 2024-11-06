@@ -8,11 +8,19 @@ class SpecialCaseCustomer {
     get name() {
         return this._name;
     }
+
+    isUnknown() {
+        return false;
+    }
 }
 
 class UnknownCustomer {
     get name() {
         return "unknown";
+    }
+
+    isUnknown() {
+        return true;
     }
 }
 
@@ -34,7 +42,7 @@ class Site {
 function isUnknown(arg: SpecialCaseCustomer | UnknownCustomer) {
     if (!((arg instanceof SpecialCaseCustomer) || (arg instanceof UnknownCustomer)))
         throw new Error(`investigate bad value: <${arg}>`);
-    return ((arg as SpecialCaseCustomer).name === "unknown");
+    return arg.isUnknown();
 }
 
 describe('special case', () => {
