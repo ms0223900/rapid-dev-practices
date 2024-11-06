@@ -94,12 +94,6 @@ class Site {
     }
 }
 
-function isUnknown(arg: SpecialCaseCustomer | UnknownCustomer) {
-    if (!((arg instanceof SpecialCaseCustomer) || (arg instanceof UnknownCustomer)))
-        throw new Error(`investigate bad value: <${arg}>`);
-    return arg.isUnknown;
-}
-
 function getPlan(customer: SpecialCaseCustomer | UnknownCustomer): BillingPlan {
     return customer.getBillingPlan();
 }
@@ -116,7 +110,6 @@ describe('special case', () => {
         expect(getWeeksDelinquent(customer)).toBe(0);
         expect(getPlan(customer)).toEqual(billingPlan.basic);
         expect(customer.customerName).toBe("occupant");
-        expect(isUnknown(customer)).toBe(true);
     });
 
     it('should return false if the customer is not "unknown"', () => {
@@ -129,10 +122,5 @@ describe('special case', () => {
             plan: "mock"
         });
         expect(customer.customerName).toBe("abc");
-        expect(isUnknown(customer)).toBe(false);
-    });
-
-    it('should throw an error if the customer is not a SpecialCaseCustomer or UnknownCustomer', () => {
-        expect(() => isUnknown("abc" as any)).toThrow();
     });
 });
