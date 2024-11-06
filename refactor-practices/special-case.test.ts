@@ -20,6 +20,12 @@ class CustomerPaymentHistory implements PaymentHistory {
     }
 }
 
+class NullCustomerPaymentHistory implements PaymentHistory {
+    getWeeksDelinquent(): number {
+        return 0;
+    }
+}
+
 class SpecialCaseCustomer {
     private _name: string;
 
@@ -67,6 +73,10 @@ class UnknownCustomer {
     getBillingPlan(): BillingPlan {
         return billingPlan.basic;
     }
+
+    get paymentHistory(): PaymentHistory {
+        return new NullCustomerPaymentHistory();
+    }
 }
 
 class Site {
@@ -95,7 +105,7 @@ function getPlan(customer: SpecialCaseCustomer | UnknownCustomer): BillingPlan {
 }
 
 function getWeeksDelinquent(customer: SpecialCaseCustomer | UnknownCustomer): number {
-    return isUnknown(customer) ? 0 : (customer as SpecialCaseCustomer).paymentHistory.getWeeksDelinquent();
+    return customer.paymentHistory.getWeeksDelinquent();
 }
 
 describe('special case', () => {
