@@ -9,6 +9,10 @@ class SpecialCaseCustomer {
         return this._name;
     }
 
+    get customerName() {
+        return this.name;
+    }
+
     get isUnknown() {
         return false;
     }
@@ -17,6 +21,10 @@ class SpecialCaseCustomer {
 class UnknownCustomer {
     get name() {
         return "unknown";
+    }
+
+    get customerName() {
+        return "occupant";
     }
 
     get isUnknown() {
@@ -48,11 +56,13 @@ function isUnknown(arg: SpecialCaseCustomer | UnknownCustomer) {
 describe('special case', () => {
     it('should return true if the customer is "unknown"', () => {
         const site = new Site(new SpecialCaseCustomer("unknown"));
+        expect(site.customer.customerName).toBe("occupant");
         expect(isUnknown(site.customer)).toBe(true);
     });
 
     it('should return false if the customer is not "unknown"', () => {
-        const site = new Site(new SpecialCaseCustomer("known"));
+        const site = new Site(new SpecialCaseCustomer("abc"));
+        expect(site.customer.customerName).toBe("abc");
         expect(isUnknown(site.customer)).toBe(false);
     });
 
