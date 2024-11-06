@@ -49,6 +49,10 @@ class UnknownCustomer {
     get isUnknown() {
         return true;
     }
+
+    getBillingPlan(): BillingPlan {
+        return billingPlan.basic;
+    }
 }
 
 class Site {
@@ -73,7 +77,7 @@ function isUnknown(arg: SpecialCaseCustomer | UnknownCustomer) {
 }
 
 function getPlan(customer: SpecialCaseCustomer | UnknownCustomer): BillingPlan {
-    return isUnknown(customer) ? billingPlan.basic : (customer as SpecialCaseCustomer).getBillingPlan();
+    return customer.getBillingPlan();
 }
 
 describe('special case', () => {
