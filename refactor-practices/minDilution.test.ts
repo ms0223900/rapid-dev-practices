@@ -12,11 +12,13 @@ function minTotalVolumeDilution(input: number, target: number): number {
 
     function getDilutionTimes(size: number): number {
         const maxTimes = 32;
-        for (let j = 0; j <= maxTimes; j++) {
+        let j = 0;
+        while (j <= maxTimes) {
             const dilutedConcentration = Math.pow(1 / size, j) * input;
             if (dilutedConcentration <= target) {
                 return j;
             }
+            j++;
         }
         return maxTimes;
     }
