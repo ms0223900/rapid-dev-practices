@@ -40,6 +40,7 @@ function minTotalVolumeDilution(input: number, target: number): number {
             sizeRight = mid;
         }
     }
+    console.log(res);
 
     return res[0] * res[1];
 }
@@ -51,5 +52,9 @@ describe('minDilution', () => {
 
     it('should return the dilution factor', () => {
         expect(minTotalVolumeDilution(10, 0.0001)).toEqual(32);
+    });
+
+    it('should return the dilution factor', () => {
+        expect(minTotalVolumeDilution(10, 0.00000001)).toEqual(32);
     });
 });
