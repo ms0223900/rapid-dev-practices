@@ -1,4 +1,4 @@
-interface NormalCustomer {
+interface CustomerInEnrichCase {
     name: string;
     billingPlan: string;
     paymentHistory: {
@@ -9,7 +9,7 @@ interface NormalCustomer {
 interface SiteInEnrichCase {
     name: string;
     location: string;
-    customer: string | NormalCustomer;
+    customer: string | CustomerInEnrichCase;
 }
 
 const site1: SiteInEnrichCase = {
@@ -30,7 +30,7 @@ const site2 = {
     customer: "unknown"
 }
 
-function isUnknown(customer: string | NormalCustomer): customer is string {
+function isUnknown(customer: string | CustomerInEnrichCase): customer is string {
     return typeof customer === "string" && customer === "unknown";
 }
 
