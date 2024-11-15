@@ -30,12 +30,16 @@ const site2 = {
     customer: "unknown"
 }
 
+function isUnknown(customer: string | NormalCustomer): customer is string {
+    return typeof customer === "string" && customer === "unknown";
+}
+
 function getCustomerName(site: SiteInEnrichCase) {
     const customer = site.customer;
-    if (customer === "unknown") {
+    if (isUnknown(customer)) {
         return "occupant";
     }
-    return (customer as NormalCustomer).name;
+    return customer.name;
 }
 
 describe("getCustomerName", () => {
