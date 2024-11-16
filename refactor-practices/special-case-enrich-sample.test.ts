@@ -16,6 +16,7 @@ interface SiteInEnrichCase {
 interface EnrichedSite extends SiteInEnrichCase {
     customer: CustomerInEnrichCase;
 }
+
 function isUnknown(customer: EnrichedSite["customer"] | string): customer is string {
     if (typeof customer === "string") {
         return customer === "unknown";
@@ -38,24 +39,17 @@ function getCustomerName(site: EnrichedSite) {
 }
 
 function getPlanForCustomer(site: EnrichedSite) {
-    const customer = site.customer;
-    if (isUnknown(customer)) {
-        return registry.billingPlans.basic;
-    }
-    return customer.billingPlan;
+    return site.customer.billingPlan;
 }
 
 
 function getWeeksDelinquentForCustomer(site: EnrichedSite) {
-    const customer = site.customer;
-    if (isUnknown(customer)) {
-        return 0;
-    }
-    return customer.paymentHistory.weeksDelinquentInLastYear;
+    return site.customer.paymentHistory.weeksDelinquentInLastYear;
 }
 
 function enrichSite(site: SiteInEnrichCase): EnrichedSite {
-    const res = global.structuredClone(site);
+    const res = global.structuredClone(site) as EnrichedSite;
+
     const unknownCustomer: CustomerInEnrichCase = {
         isUnknown: true,
         name: "occupant",
@@ -64,12 +58,14 @@ function enrichSite(site: SiteInEnrichCase): EnrichedSite {
             weeksDelinquentInLastYear: 0
         }
     };
+
     if (isUnknown(res.customer)) {
         res.customer = unknownCustomer;
-        return res as EnrichedSite;
+        return res;
     }
+
     res.customer.isUnknown = false;
-    return res as EnrichedSite;
+    return res;
 }
 
 
