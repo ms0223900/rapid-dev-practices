@@ -31,11 +31,7 @@ const registry = {
 }
 
 function getCustomerName(site: EnrichedSite) {
-    const customer = site.customer;
-    if (isUnknown(customer)) {
-        return "occupant";
-    }
-    return customer.name;
+    return site.customer.name;
 }
 
 function getPlanForCustomer(site: EnrichedSite) {
