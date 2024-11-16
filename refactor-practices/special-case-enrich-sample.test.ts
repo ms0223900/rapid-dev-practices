@@ -30,18 +30,11 @@ const registry = {
     }
 }
 
-function getCustomerName(site: EnrichedSite) {
-    return site.customer.name;
-}
+const getCustomerName = (site: EnrichedSite) => site.customer.name;
 
-function getPlanForCustomer(site: EnrichedSite) {
-    return site.customer.billingPlan;
-}
+const getPlanForCustomer = (site: EnrichedSite) => site.customer.billingPlan;
 
-
-function getWeeksDelinquentForCustomer(site: EnrichedSite) {
-    return site.customer.paymentHistory.weeksDelinquentInLastYear;
-}
+const getWeeksDelinquentForCustomer = (site: EnrichedSite) => site.customer.paymentHistory.weeksDelinquentInLastYear;
 
 function enrichSite(site: SiteInEnrichCase): EnrichedSite {
     const res = global.structuredClone(site) as EnrichedSite;
@@ -66,7 +59,6 @@ function enrichSite(site: SiteInEnrichCase): EnrichedSite {
 
 
 describe("getCustomerName", () => {
-
     const site1: SiteInEnrichCase = {
         name: "Acme Boston",
         location: "Malden MA",
