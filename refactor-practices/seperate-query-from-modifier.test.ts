@@ -3,14 +3,15 @@ class AlarmSystem {
         console.log("setOffAlarms");
     }
 
+    static findMiscreant(people: string[]) {
+        return people.find((person) => person === "Don" || person === "John");
+    }
+
     static alertForMiscreant(people: string[]) {
-        for (const p of people) {
-            if (p === "Don" || p === "John") {
-                this.setOffAlarms();
-                return;
-            }
+        const miscreant = this.findMiscreant(people);
+        if (miscreant) {
+            this.setOffAlarms();
         }
-        return;
     }
 }
 
