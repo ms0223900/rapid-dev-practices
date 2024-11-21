@@ -39,16 +39,16 @@ const getWeeksDelinquentForCustomer = (site: EnrichedSite) => site.customer.paym
 function enrichSite(site: SiteInEnrichCase): EnrichedSite {
     const res = global.structuredClone(site) as EnrichedSite;
 
-    const unknownCustomer: CustomerInEnrichCase = {
-        isUnknown: true,
-        name: "occupant",
-        billingPlan: registry.billingPlans.basic,
-        paymentHistory: {
-            weeksDelinquentInLastYear: 0
-        }
-    };
-
     if (isUnknown(res.customer)) {
+        const unknownCustomer: CustomerInEnrichCase = {
+            isUnknown: true,
+            name: "occupant",
+            billingPlan: registry.billingPlans.basic,
+            paymentHistory: {
+                weeksDelinquentInLastYear: 0
+            }
+        };
+
         res.customer = unknownCustomer;
         return res;
     }
