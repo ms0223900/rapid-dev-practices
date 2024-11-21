@@ -1,11 +1,11 @@
 class AlarmSystem {
-    static miscreants = ["Don", "John"];
+    private static miscreants = ["Don", "John"];
 
     static setOffAlarms() {
         console.log("setOffAlarms");
     }
 
-    static findMiscreant(people: string[]) {
+    private static findMiscreant(people: string[]) {
         return people.find((person) => this.miscreants.includes(person));
     }
 
