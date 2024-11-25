@@ -1,9 +1,13 @@
+const TOP_BAND_USAGE_RATE = 0.07;
+const MIDDLE_BAND_USAGE_RATE = 0.05;
+const BOTTOM_BAND_USAGE_RATE = 0.03;
+
 function baseCharge(usage: number) {
     if (usage < 0) return usd(0);
     const amount =
-        withinBand(usage, 0, 100) * 0.03
-        + withinBand(usage, 100, 200) * 0.05
-        + withinBand(usage, 200, Infinity) * 0.07;
+        withinBand(usage, 0, 100) * BOTTOM_BAND_USAGE_RATE
+        + withinBand(usage, 100, 200) * MIDDLE_BAND_USAGE_RATE
+        + withinBand(usage, 200, Infinity) * TOP_BAND_USAGE_RATE;
     return usd(amount);
 }
 
